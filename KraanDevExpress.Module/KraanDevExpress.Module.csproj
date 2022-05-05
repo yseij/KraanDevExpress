@@ -89,9 +89,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\KlantWebservice.cs" />
     <Compile Include="BusinessObjects\Klant.cs" />
     <Compile Include="BusinessObjects\Url.cs" />
     <Compile Include="BusinessObjects\Webservice.cs" />
+    <Compile Include="Controllers\KlantWebserviceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\KlantWebserviceController.Designer.cs">
+      <DependentUpon>KlantWebserviceController.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -102,6 +109,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\KlantWebserviceController.resx">
+      <DependentUpon>KlantWebserviceController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>

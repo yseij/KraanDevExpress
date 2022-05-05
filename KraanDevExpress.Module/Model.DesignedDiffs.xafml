@@ -4,7 +4,7 @@
     <Items>
       <Item Id="Default">
         <Items>
-          <Item Id="KlantWebservice_ListView" Visible="False" />
+          <Item Id="KlantWebservice_ListView" Visible="True" />
         </Items>
       </Item>
     </Items>

@@ -58,11 +58,11 @@ namespace KraanDevExpress.Module.BusinessObjects
         }
 
         [Association]
-        public XPCollection<Webservice> Webservice
+        public XPCollection<KlantWebservice> klantWebservices
         {
             get
             {
-                return GetCollection<Webservice>(nameof(Webservice));
+                return GetCollection<KlantWebservice>(nameof(klantWebservices));
             }
         }
     }

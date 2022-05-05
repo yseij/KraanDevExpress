@@ -20,11 +20,11 @@ namespace KraanDevExpress.Module.BusinessObjects
     //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
     //[Persistent("DatabaseTableName")]
     // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
-    public class Webservice : BaseObject
+    public class KlantWebservice : BaseObject
     { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
         // Use CodeRush to create XPO classes and properties with a few keystrokes.
         // https://docs.devexpress.com/CodeRushForRoslyn/118557
-        public Webservice(Session session)
+        public KlantWebservice(Session session)
             : base(session)
         {
         }
@@ -33,32 +33,34 @@ namespace KraanDevExpress.Module.BusinessObjects
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
-        private string _name;
-        [RuleRequiredField]
-        public string Name
+
+        [Association]
+        public Klant Klant
         {
-            get { return _name; }
-            set { SetPropertyValue(nameof(Name), ref _name, value); }
+            get { return fKlant; }
+            set { SetPropertyValue(nameof(Klant), ref fKlant, value); }
+        }
+        Klant fKlant;
+
+        public Webservice Webservice
+        {
+            get { return fWebservice; }
+            set { SetPropertyValue(nameof(Webservice), ref fWebservice, value); }
+        }
+        Webservice fWebservice;
+
+        private bool _basisUrl1;
+        public bool BasisUrl1
+        {
+            get { return _basisUrl1; }
+            set { SetPropertyValue(nameof(BasisUrl1), ref _basisUrl1, value); }
         }
 
-        private bool _soap;
-        [RuleRequiredField]
-        public bool Soap
+        private bool _basisUrl2;
+        public bool BasisUrl2
         {
-            get { return _soap; }
-            set { SetPropertyValue(nameof(Soap), ref _soap, value); }
-        }
-
-        private string _securityId;
-        public string SecurityId
-        {
-            get { return _securityId; }
-            set { SetPropertyValue(nameof(_securityId), ref _securityId, value); }
-        }
-
-        public static IEnumerable<Webservice> GetKWebservices(Session session)
-        {
-            return session.Query<Webservice>();
+            get { return _basisUrl2; }
+            set { SetPropertyValue(nameof(BasisUrl2), ref _basisUrl2, value); }
         }
     }
 }
