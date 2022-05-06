@@ -6,8 +6,7 @@ namespace KraanDevExpress.Module.BusinessObjects
     class TestRoute
     {
         public void TestOneRoute(dynamic result,
-                                ResultTestEenUrl resultTestEenUrl,
-                                string selectedText)
+                                ResultTestEenUrl resultTestEenUrl)
         {
             foreach (JProperty item in result)
             {
@@ -47,7 +46,6 @@ namespace KraanDevExpress.Module.BusinessObjects
 
         public void TestOneRouteSoap(dynamic result,
                                      ResultTestEenUrlSoap resultTestEenUrlSoap,
-                                     string selectedText,
                                      ResultTestKlant resultTestKlant )
         {
             foreach (JProperty item in result)

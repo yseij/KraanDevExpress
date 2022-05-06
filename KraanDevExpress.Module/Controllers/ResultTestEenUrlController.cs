@@ -12,7 +12,7 @@ namespace KraanDevExpress.Module.Controllers
         public ResultTestEenUrlController()
         {
             InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
+            _dbConnectie = new DbConnectie();
         }
         protected override void OnActivated()
         {
@@ -49,6 +49,7 @@ namespace KraanDevExpress.Module.Controllers
                     Response = currentObject.Response,
                     Soort = currentObject.Soort,
                     ResultTestKlant = currentObject.ResultTestKlant,
+                    WebserviceWerkt = currentObject.WebserviceWerkt,
                     Url = uow.GetObjectByKey<Url>(currentObject.Url.Oid)
                 };
                 uow.CommitChanges();
@@ -73,6 +74,7 @@ namespace KraanDevExpress.Module.Controllers
                     Response = currentObject.Response,
                     Soort = currentObject.Soort,
                     ResultTestKlant = currentObject.ResultTestKlant,
+                    WebserviceWerkt = currentObject.WebserviceWerkt,
                     Url = uow.GetObjectByKey<Url>(currentObject.Url.Oid)
                 };
                 uow.CommitChanges();
@@ -102,6 +104,7 @@ namespace KraanDevExpress.Module.Controllers
                     Response = currentObject.Response,
                     Soort = currentObject.Soort,
                     ResultTestKlant = currentObject.ResultTestKlant,
+                    WebserviceWerkt = currentObject.WebserviceWerkt,
                     Url = uow.GetObjectByKey<Url>(currentObject.Url.Oid)
                 };
                 uow.CommitChanges();
