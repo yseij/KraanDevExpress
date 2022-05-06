@@ -1,7 +1,7 @@
 ﻿
 namespace KraanDevExpress.Module.Controllers
 {
-    partial class ResultTestEenUrlController
+    partial class KlantControllercs
     {
         /// <summary>
         /// Required designer variable.
@@ -29,13 +29,27 @@ namespace KraanDevExpress.Module.Controllers
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.TestKlantBtn = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // ResultTestEenUrlController
+            // TestKlantBtn
             // 
-            this.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.ResultTestEenUrl);
+            this.TestKlantBtn.Caption = "TestKlantBtn";
+            this.TestKlantBtn.Category = "View";
+            this.TestKlantBtn.ConfirmationMessage = null;
+            this.TestKlantBtn.Id = "TestKlantBtn";
+            this.TestKlantBtn.ToolTip = null;
+            this.TestKlantBtn.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.TestKlantBtn_Execute);
+            // 
+            // KlantControllercs
+            // 
+            this.Actions.Add(this.TestKlantBtn);
+            this.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.Klant);
 
         }
 
         #endregion
+
+        private DevExpress.ExpressApp.Actions.SimpleAction TestKlantBtn;
     }
 }

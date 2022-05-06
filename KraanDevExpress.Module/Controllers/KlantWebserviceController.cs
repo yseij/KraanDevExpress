@@ -271,7 +271,7 @@ namespace KraanDevExpress.Module.Controllers
             ResultTestEenUrlMessageService resultTestEenUrlMessageService = new ResultTestEenUrlMessageService(_session);
             resultTestEenUrlMessageService.Soort = "url test";
             resultTestEenUrlMessageService.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-            resultTestEenUrlMessageService.Url = _session.GetObjectByKey<Url>(url.Oid);
+            resultTestEenUrlMessageService.Url = url;
 
             return resultTestEenUrlMessageService;
         }

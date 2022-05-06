@@ -109,6 +109,13 @@ namespace KraanDevExpress.Module.BusinessObjects
                     case "Kraan 2 databaseversie":
                         resultTestEenUrlMessageService.Kraan2DatabaseVersie = item.Value.ToString().Split(':')[0];
                         break;
+                    case "certVerValDatum":
+                        if (item.Value.ToString() != "")
+                        {
+                            resultTestEenUrlMessageService.Sll = true;
+                            resultTestEenUrlMessageService.SllCertificaatVervalDatum = item.Value.ToString();
+                        }
+                        break;
                     case "ex":
                         resultTestEenUrlMessageService.Response = resultTestEenUrlMessageService.Response + item.Name + " = " + item.Value + Environment.NewLine;
                         SetAantalFouten(resultTestKlant);

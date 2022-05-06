@@ -141,6 +141,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\KlantControllercs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\KlantControllercs.Designer.cs">
+      <DependentUpon>KlantControllercs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\KlantWebserviceController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,8 +169,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\KlantControllercs.resx">
+      <DependentUpon>KlantControllercs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\KlantWebserviceController.resx">
       <DependentUpon>KlantWebserviceController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ResultTestEenUrlController.resx">
+      <DependentUpon>ResultTestEenUrlController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Properties\licenses.licx" />
