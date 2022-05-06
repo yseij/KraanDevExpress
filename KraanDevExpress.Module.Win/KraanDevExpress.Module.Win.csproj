@@ -92,6 +92,7 @@
     <Reference Include="DevExpress.XtraPrinting.v21.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -153,6 +154,7 @@
     <None Include="Images\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

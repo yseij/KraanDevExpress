@@ -2,9 +2,24 @@
 <Application Title="KraanDevExpress">
   <NavigationItems>
     <Items>
-      <Item Id="Default">
+      <Item Id="Bewerken" Caption="Bewerken" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Klant_ListView" ViewId="Klant_ListView" ObjectKey="" IsNewNode="True" />
+          <Item Id="Url_ListView" ViewId="Url_ListView" ObjectKey="" IsNewNode="True" />
+          <Item Id="Webservice_ListView" ViewId="Webservice_ListView" ObjectKey="" IsNewNode="True" />
+        </Items>
+      </Item>
+      <Item Id="Default" Caption="Test results">
         <Items>
+          <Item Id="Klant_ListView" Removed="True" />
           <Item Id="KlantWebservice_ListView" Visible="True" />
+          <Item Id="Name_ListView" Visible="False" />
+          <Item Id="ResultTestEenUrl_ListView" Visible="False" />
+          <Item Id="ResultTestEenUrlMessageService_ListView" Visible="False" />
+          <Item Id="ResultTestEenUrlSoap_ListView" Visible="False" />
+          <Item Id="Sales31Credentials_ListView" Visible="False" />
+          <Item Id="Url_ListView" Removed="True" />
+          <Item Id="Webservice_ListView" Removed="True" />
         </Items>
       </Item>
     </Items>

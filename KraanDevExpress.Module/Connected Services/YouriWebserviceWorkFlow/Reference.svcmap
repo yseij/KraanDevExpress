@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="172f2304-b4ad-468f-82d6-2c3ba9eea26b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\School\Stage\TestApp\WindowsFormsAppTest\WindowsFormsAppTest\Connected Services\YouriWebserviceWorkFlow\WorkflowService.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WorkflowService.xsd" MetadataType="Schema" ID="70a74c2d-eca9-484b-856b-2e9ee90228d2" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd1" />
+    <MetadataFile FileName="WorkflowService1.xsd" MetadataType="Schema" ID="fa58a117-2a2d-4ebf-85a3-4fd3278b792b" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd0" />
+    <MetadataFile FileName="WorkflowService2.xsd" MetadataType="Schema" ID="d11e6798-364e-4c35-9462-bbce1266338a" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd3" />
+    <MetadataFile FileName="WorkflowService3.xsd" MetadataType="Schema" ID="76fec668-abdd-4182-9098-ba949ae5e695" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd2" />
+    <MetadataFile FileName="WorkflowService4.xsd" MetadataType="Schema" ID="eff306de-02af-495f-ab29-e425fb6518cb" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd5" />
+    <MetadataFile FileName="WorkflowService5.xsd" MetadataType="Schema" ID="f8cd4279-129e-45b7-978d-e62b48d01fff" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd4" />
+    <MetadataFile FileName="WorkflowService6.xsd" MetadataType="Schema" ID="67310278-b44a-4c8f-bcff-b56065c5680f" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/WorkflowService.svc?xsd=xsd6" />
+    <MetadataFile FileName="WorkflowService.wsdl" MetadataType="Wsdl" ID="29918caf-96fd-48e8-b2d7-320da2a21def" SourceId="1" SourceUrl="file:///D:/School/Stage/TestApp/WindowsFormsAppTest/WindowsFormsAppTest/Connected Services/YouriWebserviceWorkFlow/WorkflowService.wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

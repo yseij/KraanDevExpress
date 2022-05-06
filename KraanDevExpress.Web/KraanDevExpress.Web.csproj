@@ -110,6 +110,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -217,6 +218,7 @@
   <ItemGroup>
     <Content Include="Model.Desktop.xafml" />
     <Content Include="Model.Tablet.xafml" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -33,19 +33,40 @@ namespace KraanDevExpress.Module.BusinessObjects
             base.AfterConstruction();
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
-        //private string _PersistentProperty;
-        //[XafDisplayName("My display name"), ToolTip("My hint message")]
-        //[ModelDefault("EditMask", "(000)-00"), Index(0), VisibleInListView(false)]
-        //[Persistent("DatabaseColumnName"), RuleRequiredField(DefaultContexts.Save)]
-        //public string PersistentProperty {
-        //    get { return _PersistentProperty; }
-        //    set { SetPropertyValue(nameof(PersistentProperty), ref _PersistentProperty, value); }
-        //}
+        private string _name;
 
-        //[Action(Caption = "My UI Action", ConfirmationMessage = "Are you sure?", ImageName = "Attention", AutoCommit = true)]
-        //public void ActionMethod() {
-        //    // Trigger a custom business logic for the current record in the UI (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112619.aspx).
-        //    this.PersistentProperty = "Paid";
-        //}
+        [RuleRequiredField]
+        public string Name
+        {
+            get { return _name; }
+            set { SetPropertyValue(nameof(Name), ref _name, value); }
+        }
+
+        [Association]
+        public XPCollection<ResultTestEenUrl> ResultTestEenUrls
+        {
+            get
+            {
+                return GetCollection<ResultTestEenUrl>(nameof(ResultTestEenUrls));
+            }
+        }
+
+        [Association]
+        public XPCollection<ResultTestEenUrlMessageService> ResultTestEenUrlMessageServices
+        {
+            get
+            {
+                return GetCollection<ResultTestEenUrlMessageService>(nameof(ResultTestEenUrlMessageServices));
+            }
+        }
+
+        [Association]
+        public XPCollection<ResultTestEenUrlSoap> ResultTestEenUrlSoaps
+        {
+            get
+            {
+                return GetCollection<ResultTestEenUrlSoap>(nameof(ResultTestEenUrlSoaps));
+            }
+        }
     }
 }

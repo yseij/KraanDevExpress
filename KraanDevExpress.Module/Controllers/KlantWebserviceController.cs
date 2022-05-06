@@ -1,30 +1,39 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Xpo;
+using KraanDevExpress.Module.BusinessObjects;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KraanDevExpress.Module.Controllers
 {
     // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class KlantWebserviceController : ViewController
     {
+        private string _gebruikersNaam;
+        private string _wachtwoord;
+        private Session _session;
+        private IObjectSpace _objecspace;
+
+        DetailView _targetView = null;
+
+        WebRequest _webRequest;
+        TestRoute _testRoute;
+        DbConnectie _dbConnectie;
+
+        ResultTestEenUrlController _resultTestEenUrlController;
         // Use CodeRush to create Controllers and Actions with a few keystrokes.
         // https://docs.devexpress.com/CodeRushForRoslyn/403133/
         public KlantWebserviceController()
         {
             InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
+            _webRequest = new WebRequest();
+            _testRoute = new TestRoute();
+            _dbConnectie = new DbConnectie();
+            _resultTestEenUrlController = new ResultTestEenUrlController();
         }
         protected override void OnActivated()
         {
@@ -40,6 +49,222 @@ namespace KraanDevExpress.Module.Controllers
         {
             // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
+        }
+
+        private void TestUrlBtn_Execute(object sender, SimpleActionExecuteEventArgs e)
+        {
+            IObjectSpace objectSpace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+
+            Name name = objectSpace.CreateObject<Name>();
+
+            DetailView targetView = Application.CreateDetailView(objectSpace, name);
+            targetView.ViewEditMode = ViewEditMode.Edit;
+
+            ShowViewParameters svp = new ShowViewParameters(targetView);
+
+            DialogController dc = Application.CreateController<DialogController>();
+
+            if (e.SelectedObjects.Count > 1)
+            {
+                name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                dc.Accepting += dc_Accepting_MeerdereUrls;
+            }
+            else
+            {
+                Url url = e.CurrentObject as Url;
+                if (url != null)
+                {
+                    name.Naam = url.Name + " --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    dc.Accepting += dc_Accepting;
+                }
+            }
+            svp.Controllers.Add(dc);
+            svp.Context = TemplateContext.PopupWindow;
+            svp.TargetWindow = TargetWindow.NewModalWindow;
+
+            Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
+        }
+
+        void dc_Accepting(object sender, DialogControllerAcceptingEventArgs e)
+        {
+            _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objecspace).Session;
+
+            Name name = e.AcceptActionArgs.CurrentObject as Name;
+            Url url = View.CurrentObject as Url;
+            dynamic result = null;
+
+            DialogController dc = Application.CreateController<DialogController>();
+
+            ResultTestUrls resultTestUrls = new ResultTestUrls(_session);
+
+            CheckUrl(url, result, dc, resultTestUrls, false);
+            CreateView(_targetView, dc);
+        }
+
+        void dc_Accepting_MeerdereUrls(object sender, DialogControllerAcceptingEventArgs e)
+        {
+            _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objecspace).Session;
+
+            Name name = e.AcceptActionArgs.CurrentObject as Name;
+
+            dynamic result = null;
+            DialogController dc = Application.CreateController<DialogController>();
+            ResultTestUrls resultTestUrls = new ResultTestUrls(_session);
+            resultTestUrls.Name = name.Naam;
+
+            foreach (Url url in View.SelectedObjects)
+            {
+                CheckUrl(url, result, dc, resultTestUrls, true);
+                _objecspace.CommitChanges();
+            }
+            DetailView targetView = Application.CreateDetailView(_objecspace, resultTestUrls, false);
+            CreateView(targetView, dc);
+        }
+
+        private void CreateView(DetailView targetView, DialogController dc)
+        {
+            targetView.ViewEditMode = ViewEditMode.Edit;
+
+            ShowViewParameters svp = new ShowViewParameters(targetView);
+
+            svp.Controllers.Add(dc);
+            svp.Context = TemplateContext.PopupWindow;
+            svp.TargetWindow = TargetWindow.NewModalWindow;
+
+            Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
+        }
+
+        private void CheckUrl(Url url,
+                              dynamic result,
+                              DialogController dc,
+                              ResultTestUrls resultTestUrls,
+                              bool isMeerdereUrls)
+        {
+            //if (url.Webservice.Soap)
+            //{
+                if (url.Name == "MessageServiceSoap31.svc")
+                {
+                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(url);
+                    GetSales31Credentials();
+                    result = JObject.Parse(_webRequest.Get31SalesData(url.Name , _gebruikersNaam, _wachtwoord));
+                    if (result != null)
+                    {
+                        _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, null);
+                    }
+                    if (!isMeerdereUrls)
+                    {
+                        dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlMessageOpslaan;
+                        _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrlMessageService, false);
+                    }
+                    else
+                    {
+                        resultTestUrls.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
+                    }
+                }
+                else if (url.Name == "MessageServiceSoap.svc")
+                {
+                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(url);
+                    result = JObject.Parse(_webRequest.Get24SalesData(url.Name));
+                    if (result != null)
+                    {
+                        _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, null);
+                    }
+                    if (!isMeerdereUrls)
+                    {
+                        dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlMessageOpslaan;
+                        _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrlMessageService, false);
+                    }
+                    else
+                    {
+                        resultTestUrls.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
+                    }
+                }
+                else
+                {
+                    ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
+                    resultTestEenUrlSoap.Soort = "Url test";
+                    resultTestEenUrlSoap.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    resultTestEenUrlSoap.Url = _session.GetObjectByKey<Url>(url.Oid);
+
+                    int plaatsSlech = url.Name.LastIndexOf("/");
+                    string service = url.Name.Substring(plaatsSlech + 1, url.Name.Length - plaatsSlech - 1);
+                    result = JObject.Parse(_webRequest.GetWebRequestSoap(url.Name, service));
+
+                    _testRoute.TestOneRouteSoap(result,
+                                                resultTestEenUrlSoap,
+                                                url.Name,
+                                                null);
+                    if (!isMeerdereUrls)
+                    {
+                        dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlSoapOpslaan;
+                        _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrlSoap, false);
+                    }
+                    else
+                    {
+                        resultTestUrls.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
+                    }
+                }
+            //}
+            //else
+            //{
+                ResultTestEenUrl resultTestEenUrl = new ResultTestEenUrl(_session);
+                resultTestEenUrl.Soort = "Url test";
+                resultTestEenUrl.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                resultTestEenUrl.Url = _session.GetObjectByKey<Url>(url.Oid);
+
+
+                result = JObject.Parse(_webRequest.GetWebRequestRest(url.Oid, url.Name, false));
+
+                _testRoute.TestOneRoute(result,
+                                        resultTestEenUrl,
+                                        url.Name);
+                if (!isMeerdereUrls)
+                {
+                    dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlRestOpslaan;
+                    _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrl, false);
+                }
+                else
+                {
+                    resultTestUrls.ResultTestEenUrls.Add(resultTestEenUrl);
+                }
+            //}
+        }
+
+        private void dc_Login(object sender, DialogControllerAcceptingEventArgs e)
+        {
+            Sales31Credentials sales31Credentials = e.AcceptActionArgs.CurrentObject as Sales31Credentials;
+            _gebruikersNaam = sales31Credentials.GebruikersNaam;
+            _wachtwoord = sales31Credentials.Wachtwoord;
+        }
+
+        private ResultTestEenUrlMessageService GetMessageService(Url url)
+        {
+            ResultTestEenUrlMessageService resultTestEenUrlMessageService = new ResultTestEenUrlMessageService(_session);
+            resultTestEenUrlMessageService.Soort = "url test";
+            resultTestEenUrlMessageService.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+            resultTestEenUrlMessageService.Url = _session.GetObjectByKey<Url>(url.Oid);
+
+            return resultTestEenUrlMessageService;
+        }
+
+        private void GetSales31Credentials()
+        {
+            Sales31Credentials sales31Credentials = new Sales31Credentials();
+            DetailView targetViewSales31Credentials = Application.CreateDetailView(_objecspace, sales31Credentials, false);
+            targetViewSales31Credentials.ViewEditMode = ViewEditMode.Edit;
+
+            ShowViewParameters svpSales31Credentials = new ShowViewParameters(targetViewSales31Credentials);
+
+            DialogController dcSales31Credentials = Application.CreateController<DialogController>();
+
+            dcSales31Credentials.Accepting += dc_Login;
+            svpSales31Credentials.Controllers.Add(dcSales31Credentials);
+            svpSales31Credentials.Context = TemplateContext.PopupWindow;
+            svpSales31Credentials.TargetWindow = TargetWindow.NewModalWindow;
+
+            Application.ShowViewStrategy.ShowView(svpSales31Credentials, new ShowViewSource(null, null));
         }
     }
 }

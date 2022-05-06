@@ -30,24 +30,26 @@ namespace KraanDevExpress.Module.Controllers
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.simpleAction1 = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
+            this.TestUrlBtn = new DevExpress.ExpressApp.Actions.SimpleAction(this.components);
             // 
-            // simpleAction1
+            // TestUrlBtn
             // 
-            this.simpleAction1.Caption = "Webservice";
-            this.simpleAction1.Category = "View";
-            this.simpleAction1.ConfirmationMessage = null;
-            this.simpleAction1.Id = "Webservice";
-            this.simpleAction1.ToolTip = null;
+            this.TestUrlBtn.Caption = "Test url";
+            this.TestUrlBtn.Category = "View";
+            this.TestUrlBtn.ConfirmationMessage = null;
+            this.TestUrlBtn.Id = "Test";
+            this.TestUrlBtn.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.KlantWebservice);
+            this.TestUrlBtn.ToolTip = null;
+            this.TestUrlBtn.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.TestUrlBtn_Execute);
             // 
             // KlantWebserviceController
             // 
-            this.Actions.Add(this.simpleAction1);
+            this.Actions.Add(this.TestUrlBtn);
 
         }
 
         #endregion
 
-        private DevExpress.ExpressApp.Actions.SimpleAction simpleAction1;
+        private DevExpress.ExpressApp.Actions.SimpleAction TestUrlBtn;
     }
 }

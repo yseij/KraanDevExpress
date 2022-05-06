@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="cbc02865-9592-43f4-8ddd-3977a49b24d7" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\School\Stage\TestApp\WindowsFormsAppTest\WindowsFormsAppTest\Connected Services\YouriWebserviceCrm\CrmService.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CrmService.wsdl" MetadataType="Wsdl" ID="698f4e9f-6489-4722-ba3f-839a11bae915" SourceId="1" SourceUrl="file:///D:/School/Stage/TestApp/WindowsFormsAppTest/WindowsFormsAppTest/Connected Services/YouriWebserviceCrm/CrmService.wsdl" />
+    <MetadataFile FileName="CrmService.xsd" MetadataType="Schema" ID="adb584e4-1f2d-4b96-8fec-bcd9f5f2e590" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/CrmService.svc?xsd=xsd5" />
+    <MetadataFile FileName="CrmService1.xsd" MetadataType="Schema" ID="06a06bb3-7a11-4ce5-8f5f-1e8dcbb6590c" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/CrmService.svc?xsd=xsd4" />
+    <MetadataFile FileName="CrmService2.xsd" MetadataType="Schema" ID="ca0b51e0-b909-4e6f-b80c-d4fbd34b3e37" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/CrmService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CrmService3.xsd" MetadataType="Schema" ID="f0455601-1e07-4d2f-9952-52a14125bd68" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/CrmService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CrmService4.xsd" MetadataType="Schema" ID="a835fda1-6564-4c1d-9923-e0d0fb0285ad" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/CrmService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CrmService5.xsd" MetadataType="Schema" ID="207ce756-8d7d-4527-8ad8-de5d4feeb868" SourceId="1" SourceUrl="https://wsdev.kraan.com/Rasenprod/CrmService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

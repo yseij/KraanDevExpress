@@ -139,6 +139,7 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -184,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExpressApp.ico" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
     <None Include="Images\ReadMe.txt" />
     <None Include="App.config" />

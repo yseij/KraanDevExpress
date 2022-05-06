@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3c322cdf-69d4-4644-9198-76144abee5fd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\School\Stage\TestApp\WindowsFormsAppTest\WindowsFormsAppTest\Connected Services\Sales31\Messageservice_messageservice31.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MessageServiceTypes_MessageService31.xsd" MetadataType="Schema" ID="edc9c31f-1215-43a2-a2a4-8f162f2012af" SourceId="1" SourceUrl="file:///D:/School/Stage/TestApp/WindowsFormsAppTest/WindowsFormsAppTest/Connected Services/Sales31/MessageServiceTypes_MessageService31.xsd" />
+    <MetadataFile FileName="Messageservice_messageservice31.wsdl" MetadataType="Wsdl" ID="1382878e-3d46-4354-8b1d-6d0b1ba0e291" SourceId="1" SourceUrl="file:///D:/School/Stage/TestApp/WindowsFormsAppTest/WindowsFormsAppTest/Connected Services/Sales31/Messageservice_messageservice31.wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

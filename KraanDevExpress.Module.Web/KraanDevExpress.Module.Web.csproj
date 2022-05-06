@@ -71,6 +71,7 @@
     <Reference Include="DevExpress.Xpo.v21.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="mscorlib">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
