@@ -25,6 +25,7 @@ namespace KraanDevExpress.Module.Controllers
         DbConnectie _dbConnectie;
 
         ResultTestEenUrlController _resultTestEenUrlController;
+        ResultTestKlantController _resultTestKlantController;
         public KlantController()
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace KraanDevExpress.Module.Controllers
             _testRoute = new TestRoute();
             _dbConnectie = new DbConnectie();
             _resultTestEenUrlController = new ResultTestEenUrlController();
+            _resultTestKlantController = new ResultTestKlantController();
         }
         protected override void OnActivated()
         {
@@ -94,27 +96,28 @@ namespace KraanDevExpress.Module.Controllers
             resultTestKlant.Name = name.Naam;
             DialogController dc = Application.CreateController<DialogController>();
 
-            Url url = new Url(_session);
             foreach (KlantWebservice klantWebservice in klant.klantWebservices)
             {
+                string urlName = string.Empty;
                 if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                 {
-                    url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(url, klantWebservice, result, dc, resultTestKlant);
-                    url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
                 }
                 else if (klantWebservice.BasisUrl1)
                 {
-                    url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
                 }
                 else
                 {
-                    url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                 }
-                TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
             }
             _objecspace.CommitChanges();
+
             DetailView targetView = Application.CreateDetailView(_objecspace, resultTestKlant, false);
             CreateView(targetView, dc);
         }
@@ -133,28 +136,29 @@ namespace KraanDevExpress.Module.Controllers
 
             foreach (Klant klant in View.SelectedObjects)
             {
-                Url url = new Url(_session);
+                string urlName = string.Empty;
                 foreach (KlantWebservice klantWebservice in klant.klantWebservices)
                 {
                     if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                     {
-                        url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                        TestUrl(url, klantWebservice, result, dc, resultTestKlant);
-                        url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                        TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                        urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                        TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                        urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                        TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
                     }
                     else if (klantWebservice.BasisUrl1)
                     {
-                        url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                        urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
                     }
                     else
                     {
-                        url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                        urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                     }
-                    TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
                 }
             }
             _objecspace.CommitChanges();
+
             DetailView targetView = Application.CreateDetailView(_objecspace, resultTestKlant, false);
             CreateView(targetView, dc);
         }
@@ -172,32 +176,32 @@ namespace KraanDevExpress.Module.Controllers
             Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
         }
 
-        private void TestUrl(Url url,
+        private void TestUrl(string urlName,
                               KlantWebservice klantWebservice,
                               dynamic result,
                               DialogController dc,
                               ResultTestKlant resultTestKlant)
         {
-            string checkUrl = _webRequest.CheckUrl(url.Name);
+            string checkUrl = _webRequest.CheckUrl(urlName);
             if (klantWebservice.Webservice.Soap)
             {
-                if (url.Name.Contains("MessageServiceSoap31.svc"))
+                if (urlName.Contains("MessageServiceSoap31.svc"))
                 {
-                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(url, klantWebservice);
+                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName, klantWebservice);
                     resultTestEenUrlMessageService.WebserviceWerkt = checkUrl;
                     GetSales31Credentials();
-                    result = JObject.Parse(_webRequest.Get31SalesData(url.Name, _gebruikersNaam, _wachtwoord));
+                    result = JObject.Parse(_webRequest.Get31SalesData(urlName, _gebruikersNaam, _wachtwoord));
                     if (result != null)
                     {
                         _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, resultTestKlant);
                     }
                     resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
                 }
-                else if (url.Name.Contains("MessageServiceSoap.svc"))
+                else if (urlName.Contains("MessageServiceSoap.svc"))
                 {
-                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(url, klantWebservice);
+                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName, klantWebservice);
                     resultTestEenUrlMessageService.WebserviceWerkt = checkUrl;
-                    result = JObject.Parse(_webRequest.Get24SalesData(url.Name));
+                    result = JObject.Parse(_webRequest.Get24SalesData(urlName));
                     if (result != null)
                     {
                         _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, resultTestKlant);
@@ -208,13 +212,13 @@ namespace KraanDevExpress.Module.Controllers
                 {
                     ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
                     resultTestEenUrlSoap.Soort = "Klant test - " + klantWebservice.Klant.Name;
-                    resultTestEenUrlSoap.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    resultTestEenUrlSoap.Url = url;
+                    resultTestEenUrlSoap.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    //resultTestEenUrlSoap.Url = url;
                     resultTestEenUrlSoap.WebserviceWerkt = checkUrl;
 
-                    int plaatsSlech = url.Name.LastIndexOf("/");
-                    string service = url.Name.Substring(plaatsSlech + 1, url.Name.Length - plaatsSlech - 1);
-                    result = JObject.Parse(_webRequest.GetWebRequestSoap(url.Name, service));
+                    int plaatsSlech = urlName.LastIndexOf("/");
+                    string service = urlName.Substring(plaatsSlech + 1, urlName.Length - plaatsSlech - 1);
+                    result = JObject.Parse(_webRequest.GetWebRequestSoap(urlName, service));
 
                     _testRoute.TestOneRouteSoap(result,
                                                 resultTestEenUrlSoap,
@@ -226,12 +230,11 @@ namespace KraanDevExpress.Module.Controllers
             {
                 ResultTestEenUrl resultTestEenUrl = new ResultTestEenUrl(_session);
                 resultTestEenUrl.Soort = "Klant test - " + klantWebservice.Klant.Name;
-                resultTestEenUrl.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                resultTestEenUrl.Url = url;
+                resultTestEenUrl.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                 resultTestEenUrl.WebserviceWerkt = checkUrl;
 
 
-                result = JObject.Parse(_webRequest.GetWebRequestRest(url.Oid, url.Name + "/GetWebserviceVersion", true));
+                result = JObject.Parse(_webRequest.GetWebRequestRest(urlName + "/GetWebserviceVersion", true));
 
                 _testRoute.TestOneRoute(result,
                                         resultTestEenUrl, resultTestKlant);
@@ -239,12 +242,11 @@ namespace KraanDevExpress.Module.Controllers
             }
         }
 
-        private ResultTestEenUrlMessageService GetMessageService(Url url, KlantWebservice klantWebservice)
+        private ResultTestEenUrlMessageService GetMessageService(string urlName, KlantWebservice klantWebservice)
         {
             ResultTestEenUrlMessageService resultTestEenUrlMessageService = new ResultTestEenUrlMessageService(_session);
             resultTestEenUrlMessageService.Soort = "Klant test - " + klantWebservice.Klant.Name;
-            resultTestEenUrlMessageService.Name = url.Name + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-            resultTestEenUrlMessageService.Url = url;
+            resultTestEenUrlMessageService.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
 
             return resultTestEenUrlMessageService;
         }

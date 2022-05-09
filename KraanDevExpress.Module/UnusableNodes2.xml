@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="Url_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="Url_ResultTestEenUrls_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="Url_ResultTestEenUrlSoaps_ListView" AllowUnlink="False" AllowNew="False">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Response" AllowEdit="False" />
+        <ColumnInfo Id="SllCertificaatVervalDatum" AllowEdit="False" />
+        <ColumnInfo Id="Url" AllowEdit="False" />
+        <ColumnInfo Id="Name" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceWerkt" AllowEdit="False" />
+        <ColumnInfo Id="Sll" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceVersie" AllowEdit="False" />
+        <ColumnInfo Id="DevExpressVersie" AllowEdit="False" />
+        <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
+        <ColumnInfo Id="Soort" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <ListView Id="ResultTestKlant_ResultTestEenUrls_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Url" Width="33" Index="-1" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ResultTestEenUrl_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResultTestEenUrl">
+              <LayoutGroup Id="ResultTestEenUrl_col2">
+                <LayoutItem Id="Url" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ResultTestEenUrlMessageService_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResultTestEenUrlMessageService">
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col1">
+                <LayoutItem Id="InterBaseVersie" RelativeSize="20" Index="5" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col2">
+                <LayoutItem Id="Url" RelativeSize="24.137931034482758" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ResultTestEenUrlSoap_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Url" AllowEdit="False" />
+      </Items>
+    </DetailView>
+    <ListView Id="ResultTestEenUrlSoap_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Url" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <ListView Id="ResultTestKlant_ResultTestEenUrlSoaps_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Url" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <ListView Id="ResultTestUrls_ResultTestEenUrlSoaps_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Url" AllowEdit="False" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

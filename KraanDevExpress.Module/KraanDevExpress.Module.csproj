@@ -159,6 +159,12 @@
     <Compile Include="Controllers\ResultTestEenUrlController.Designer.cs">
       <DependentUpon>ResultTestEenUrlController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ResultTestKlantController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ResultTestKlantController.Designer.cs">
+      <DependentUpon>ResultTestKlantController.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -520,6 +526,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="UnusableNodes1.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes2.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>

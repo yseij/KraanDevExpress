@@ -28,7 +28,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         private bool _certIsGoed;
 
         //REST
-        public string GetWebRequestRest(Guid id, string host, bool isWebserviceVersion)
+        public string GetWebRequestRest(string host, bool isWebserviceVersion)
         {
             string url = host;
             Uri uri = new Uri(url);
@@ -69,7 +69,7 @@ namespace KraanDevExpress.Module.BusinessObjects
                                 data = data.Substring(Pos1 + 1, Pos2 - Pos1 - 1);
                                 if (_certIsGoed)
                                 {
-                                    return "{" + data + ", id: '" + id + "', certVerValDatum: '" + cert.GetExpirationDateString().ToString() + "'}";
+                                    return "{" + data + "', certVerValDatum: '" + cert.GetExpirationDateString().ToString() + "'}";
                                 }
                             }
                         }

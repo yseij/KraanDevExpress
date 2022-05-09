@@ -13,7 +13,7 @@
       <Item Id="Default" Caption="Test results">
         <Items>
           <Item Id="Tests" ViewId="MyDashboard" Index="0" IsNewNode="True" />
-          <Item Id="ResultTestUrls_ListView" Index="1" />
+          <Item Id="ResultTestUrls_ListView" Index="1" Visible="False" />
           <Item Id="ResultTestKlant_ListView" Index="2" />
           <Item Id="Name_ListView" Visible="False" Index="3" />
           <Item Id="ResultTestEenUrl_ListView" Visible="False" Index="4" />
@@ -70,7 +70,6 @@
                 <LayoutItem Id="ResultTestKlant" RelativeSize="65" Removed="True" />
                 <LayoutItem Id="ResultTestUrls" RelativeSize="50" Removed="True" />
                 <LayoutItem Id="Soort" RelativeSize="80" Removed="True" />
-                <LayoutItem Id="Url" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
@@ -97,12 +96,11 @@
                 <LayoutItem Id="DatabaseConnectie" RelativeSize="15" Index="2" />
                 <LayoutItem Id="Sll" RelativeSize="15" Index="3" />
                 <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="15" Index="4" />
-                <LayoutItem Id="InterBaseVersie" RelativeSize="20" Index="5" Removed="True" />
                 <LayoutItem Id="MessageVersie" ViewItem="MessageVersie" Index="5" RelativeSize="20" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="Name" RelativeSize="13.793103448275861" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="ResultTestEenUrlMessageService_col2" RelativeSize="50.089445438282645">
-                <LayoutItem Id="InterBaseVersie" ViewItem="InterBaseVersie" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="InterBaseVersie" Index="0" RelativeSize="20" ViewItem="InterBaseVersie" IsNewNode="True" />
                 <LayoutItem Id="MssqlServer" RelativeSize="15" Index="1" />
                 <LayoutItem Id="MssqlCatalog" RelativeSize="15" Index="2" />
                 <LayoutItem Id="Kraan1DatabaseVersie" RelativeSize="15" Index="3" />
@@ -111,7 +109,6 @@
                 <LayoutItem Id="ResultTestKlant" RelativeSize="44.827586206896555" Removed="True" />
                 <LayoutItem Id="ResultTestUrls" RelativeSize="34.482758620689658" Removed="True" />
                 <LayoutItem Id="Soort" RelativeSize="55.172413793103445" Removed="True" />
-                <LayoutItem Id="Url" RelativeSize="24.137931034482758" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
@@ -134,7 +131,6 @@
         <PropertyEditor Id="Sll" AllowEdit="False" />
         <PropertyEditor Id="SllCertificaatVervalDatum" AllowEdit="False" />
         <PropertyEditor Id="Soort" AllowEdit="False" />
-        <PropertyEditor Id="Url" AllowEdit="False" />
         <PropertyEditor Id="WebserviceVersie" AllowEdit="False" />
         <PropertyEditor Id="WebserviceWerkt" AllowEdit="False" />
       </Items>
@@ -184,7 +180,6 @@
         <ColumnInfo Id="Soort" AllowEdit="False" />
         <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
         <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
-        <ColumnInfo Id="Url" AllowEdit="False" />
       </Columns>
     </ListView>
     <ListView Id="ResultTestEenUrlSoap_LookupListView" AllowLink="False" AllowNew="False" AllowUnlink="False">
@@ -226,7 +221,6 @@
       <Columns>
         <ColumnInfo Id="ResultTestUrls" Width="95" Index="-1" />
         <ColumnInfo Id="Soort" Width="46" Index="-1" />
-        <ColumnInfo Id="Url" Width="33" Index="-1" />
         <ColumnInfo Id="Name" Width="60" />
         <ColumnInfo Id="WebserviceWerkt" Width="108" />
         <ColumnInfo Id="WebserviceVersie" Width="108" />
@@ -249,7 +243,6 @@
         <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
         <ColumnInfo Id="Soort" AllowEdit="False" />
         <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
-        <ColumnInfo Id="Url" AllowEdit="False" />
       </Columns>
     </ListView>
     <ListView Id="ResultTestUrls_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
@@ -267,29 +260,10 @@
         <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
         <ColumnInfo Id="Soort" AllowEdit="False" />
         <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
-        <ColumnInfo Id="Url" AllowEdit="False" />
       </Columns>
     </ListView>
     <DetailView Id="Url_DetailView" AllowEdit="False" AllowNew="False" />
     <ListView Id="Url_ListView" AllowNew="False" />
     <ListView Id="Url_LookupListView" AllowLink="False" AllowNew="False" />
-    <ListView Id="Url_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
-    <ListView Id="Url_ResultTestEenUrls_ListView" AllowNew="False" AllowUnlink="False" />
-    <ListView Id="Url_ResultTestEenUrlSoaps_ListView" AllowUnlink="False" AllowNew="False">
-      <Columns>
-        <ColumnInfo Id="Response" AllowEdit="False" />
-        <ColumnInfo Id="SllCertificaatVervalDatum" AllowEdit="False" />
-        <ColumnInfo Id="Url" AllowEdit="False" />
-        <ColumnInfo Id="Name" AllowEdit="False" />
-        <ColumnInfo Id="WebserviceWerkt" AllowEdit="False" />
-        <ColumnInfo Id="Sll" AllowEdit="False" />
-        <ColumnInfo Id="WebserviceVersie" AllowEdit="False" />
-        <ColumnInfo Id="DevExpressVersie" AllowEdit="False" />
-        <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
-        <ColumnInfo Id="Soort" AllowEdit="False" />
-        <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
-        <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
-      </Columns>
-    </ListView>
   </Views>
 </Application>

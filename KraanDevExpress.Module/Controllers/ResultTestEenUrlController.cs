@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using KraanDevExpress.Module.BusinessObjects;
 
@@ -30,83 +31,98 @@ namespace KraanDevExpress.Module.Controllers
             base.OnDeactivated();
         }
 
-        public void ResultTestEenUrlRestOpslaan(object sender, DialogControllerAcceptingEventArgs e)
+        public void ResultTestEenUrlRestDc(object sender, DialogControllerAcceptingEventArgs e)
         {
             ResultTestEenUrl currentObject = e.AcceptActionArgs.CurrentObject as ResultTestEenUrl;
-            IDataLayer dl = _dbConnectie.GetDataLayer();
-
-            using (var uow = new UnitOfWork(dl))
-            {
-                ResultTestEenUrl ResultTestEenUrl = new ResultTestEenUrl(uow)
-                {
-                    Name = currentObject.Name,
-                    WebserviceVersie = currentObject.WebserviceVersie,
-                    KraanDll = currentObject.KraanDll,
-                    KaanIni = currentObject.KaanIni,
-                    KraanDatabase = currentObject.KraanDatabase,
-                    Sll = currentObject.Sll,
-                    SllCertificaatVervalDatum = currentObject.SllCertificaatVervalDatum,
-                    Response = currentObject.Response,
-                    Soort = currentObject.Soort,
-                    ResultTestKlant = currentObject.ResultTestKlant,
-                    WebserviceWerkt = currentObject.WebserviceWerkt,
-                    Url = uow.GetObjectByKey<Url>(currentObject.Url.Oid)
-                };
-                uow.CommitChanges();
-            }
+            ResultTestEenUrlRestOpslaan(null, currentObject);
         }
 
-        public void ResultTestEenUrlSoapOpslaan(object sender, DialogControllerAcceptingEventArgs e)
+        public void ResultTestEenUrlRestOpslaan(Session session, ResultTestEenUrl resultTestEenUrl)
+        {
+            //IDataLayer dl = _dbConnectie.GetDataLayer();
+            //using (var uow = new UnitOfWork(dl))
+            //{
+            ResultTestEenUrl resultTestEenUrl1 = new ResultTestEenUrl(session)
+            {
+                Name = resultTestEenUrl.Name,
+                WebserviceVersie = resultTestEenUrl.WebserviceVersie,
+                KraanDll = resultTestEenUrl.KraanDll,
+                KaanIni = resultTestEenUrl.KaanIni,
+                KraanDatabase = resultTestEenUrl.KraanDatabase,
+                Sll = resultTestEenUrl.Sll,
+                SllCertificaatVervalDatum = resultTestEenUrl.SllCertificaatVervalDatum,
+                Response = resultTestEenUrl.Response,
+                Soort = resultTestEenUrl.Soort,
+                ResultTestKlant = resultTestEenUrl.ResultTestKlant,
+                WebserviceWerkt = resultTestEenUrl.WebserviceWerkt,
+                //Url = resultTestEenUrl.Url
+            };
+
+            resultTestEenUrl1.Save();
+            //}
+        }
+
+        public void ResultTestEenUrlSoapDc(object sender, DialogControllerAcceptingEventArgs e)
         {
             ResultTestEenUrlSoap currentObject = e.AcceptActionArgs.CurrentObject as ResultTestEenUrlSoap;
+            ResultTestEenUrlSoapOpslaan(currentObject);
+        }
+
+        public void ResultTestEenUrlSoapOpslaan(ResultTestEenUrlSoap resultTestEenUrlSoap)
+        {
             IDataLayer dl = _dbConnectie.GetDataLayer();
 
             using (var uow = new UnitOfWork(dl))
             {
-                ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(uow)
+                ResultTestEenUrlSoap resultTestEenUrlSoap1 = new ResultTestEenUrlSoap(uow)
                 {
-                    Name = currentObject.Name,
-                    Sll = currentObject.Sll,
-                    SllCertificaatVervalDatum = currentObject.SllCertificaatVervalDatum,
-                    WebserviceVersie = currentObject.WebserviceVersie,
-                    DevExpressVersie = currentObject.DevExpressVersie,
-                    DatabaseVersie = currentObject.DatabaseVersie,
-                    Response = currentObject.Response,
-                    Soort = currentObject.Soort,
-                    ResultTestKlant = currentObject.ResultTestKlant,
-                    WebserviceWerkt = currentObject.WebserviceWerkt,
-                    Url = uow.GetObjectByKey<Url>(currentObject.Url.Oid)
+                    Name = resultTestEenUrlSoap.Name,
+                    Sll = resultTestEenUrlSoap.Sll,
+                    SllCertificaatVervalDatum = resultTestEenUrlSoap.SllCertificaatVervalDatum,
+                    WebserviceVersie = resultTestEenUrlSoap.WebserviceVersie,
+                    DevExpressVersie = resultTestEenUrlSoap.DevExpressVersie,
+                    DatabaseVersie = resultTestEenUrlSoap.DatabaseVersie,
+                    Response = resultTestEenUrlSoap.Response,
+                    Soort = resultTestEenUrlSoap.Soort,
+                    ResultTestKlant = uow.GetObjectByKey<ResultTestKlant>(resultTestEenUrlSoap.ResultTestKlant.Oid),
+                    WebserviceWerkt = resultTestEenUrlSoap.WebserviceWerkt,
+                    //Url = uow.GetObjectByKey<Url>(resultTestEenUrlSoap.Url.Oid)
                 };
                 uow.CommitChanges();
             }
         }
 
-        public void ResultTestEenUrlMessageOpslaan(object sender, DialogControllerAcceptingEventArgs e)
+        public void ResultTestEenUrlMessageDc(object sender, DialogControllerAcceptingEventArgs e)
         {
             ResultTestEenUrlMessageService currentObject = e.AcceptActionArgs.CurrentObject as ResultTestEenUrlMessageService;
+            ResultTestEenUrlMessageOpslaan(currentObject);
+        }
+
+        public void ResultTestEenUrlMessageOpslaan(ResultTestEenUrlMessageService resultTestEenUrlMessage)
+        {
             IDataLayer dl = _dbConnectie.GetDataLayer();
 
             using (var uow = new UnitOfWork(dl))
             {
                 ResultTestEenUrlMessageService resultTestEenUrlMessageService = new ResultTestEenUrlMessageService(uow)
                 {
-                    Name = currentObject.Name,
-                    KraanDll = currentObject.KraanDll,
-                    KraanIni = currentObject.KraanIni,
-                    DatabaseConnectie = currentObject.DatabaseConnectie,
-                    Sll = currentObject.Sll,
-                    SllCertificaatVervalDatum = currentObject.SllCertificaatVervalDatum,
-                    MessageVersie = currentObject.MessageVersie,
-                    InterBaseVersie = currentObject.InterBaseVersie,
-                    MssqlServer = currentObject.MssqlServer,
-                    MssqlCatalog = currentObject.MssqlCatalog,
-                    Kraan1DatabaseVersie = currentObject.Kraan1DatabaseVersie,
-                    Kraan2DatabaseVersie = currentObject.Kraan2DatabaseVersie,
-                    Response = currentObject.Response,
-                    Soort = currentObject.Soort,
-                    ResultTestKlant = currentObject.ResultTestKlant,
-                    WebserviceWerkt = currentObject.WebserviceWerkt,
-                    Url = uow.GetObjectByKey<Url>(currentObject.Url.Oid)
+                    Name = resultTestEenUrlMessage.Name,
+                    KraanDll = resultTestEenUrlMessage.KraanDll,
+                    KraanIni = resultTestEenUrlMessage.KraanIni,
+                    DatabaseConnectie = resultTestEenUrlMessage.DatabaseConnectie,
+                    Sll = resultTestEenUrlMessage.Sll,
+                    SllCertificaatVervalDatum = resultTestEenUrlMessage.SllCertificaatVervalDatum,
+                    MessageVersie = resultTestEenUrlMessage.MessageVersie,
+                    InterBaseVersie = resultTestEenUrlMessage.InterBaseVersie,
+                    MssqlServer = resultTestEenUrlMessage.MssqlServer,
+                    MssqlCatalog = resultTestEenUrlMessage.MssqlCatalog,
+                    Kraan1DatabaseVersie = resultTestEenUrlMessage.Kraan1DatabaseVersie,
+                    Kraan2DatabaseVersie = resultTestEenUrlMessage.Kraan2DatabaseVersie,
+                    Response = resultTestEenUrlMessage.Response,
+                    Soort = resultTestEenUrlMessage.Soort,
+                    ResultTestKlant = uow.GetObjectByKey<ResultTestKlant>(resultTestEenUrlMessage.ResultTestKlant.Oid),
+                    WebserviceWerkt = resultTestEenUrlMessage.WebserviceWerkt,
+                    //Url = uow.GetObjectByKey<Url>(resultTestEenUrlMessage.Url.Oid)
                 };
                 uow.CommitChanges();
             }

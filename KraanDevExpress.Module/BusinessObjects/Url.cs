@@ -42,31 +42,31 @@ namespace KraanDevExpress.Module.BusinessObjects
             set { SetPropertyValue(nameof(Name), ref _name, value); }
         }
 
-        [Association]
-        public XPCollection<ResultTestEenUrl> ResultTestEenUrls
-        {
-            get
-            {
-                return GetCollection<ResultTestEenUrl>(nameof(ResultTestEenUrls));
-            }
-        }
+        //[Association]
+        //public XPCollection<ResultTestEenUrl> ResultTestEenUrls
+        //{
+        //    get
+        //    {
+        //        return GetCollection<ResultTestEenUrl>(nameof(ResultTestEenUrls));
+        //    }
+        //}
 
-        [Association]
-        public XPCollection<ResultTestEenUrlMessageService> ResultTestEenUrlMessageServices
-        {
-            get
-            {
-                return GetCollection<ResultTestEenUrlMessageService>(nameof(ResultTestEenUrlMessageServices));
-            }
-        }
+        //[Association]
+        //public XPCollection<ResultTestEenUrlMessageService> ResultTestEenUrlMessageServices
+        //{
+        //    get
+        //    {
+        //        return GetCollection<ResultTestEenUrlMessageService>(nameof(ResultTestEenUrlMessageServices));
+        //    }
+        //}
 
-        [Association]
-        public XPCollection<ResultTestEenUrlSoap> ResultTestEenUrlSoaps
-        {
-            get
-            {
-                return GetCollection<ResultTestEenUrlSoap>(nameof(ResultTestEenUrlSoaps));
-            }
-        }
+        //[Association]
+        //public XPCollection<ResultTestEenUrlSoap> ResultTestEenUrlSoaps
+        //{
+        //    get
+        //    {
+        //        return GetCollection<ResultTestEenUrlSoap>(nameof(ResultTestEenUrlSoaps));
+        //    }
+        //}
     }
 }
