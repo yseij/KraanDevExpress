@@ -115,6 +115,11 @@ namespace KraanDevExpress.Module.Controllers
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                 }
                 TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
+                {
+                    urlName = urlName + "/" + url.MethodeName;
+                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                }
             }
             _objecspace.CommitChanges();
 
@@ -155,6 +160,10 @@ namespace KraanDevExpress.Module.Controllers
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                     }
                     TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                    foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
+                    {
+                        TestUrl(url.Name, klantWebservice, result, dc, resultTestKlant);
+                    }
                 }
             }
             _objecspace.CommitChanges();
@@ -233,8 +242,7 @@ namespace KraanDevExpress.Module.Controllers
                 resultTestEenUrl.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                 resultTestEenUrl.WebserviceWerkt = checkUrl;
 
-
-                result = JObject.Parse(_webRequest.GetWebRequestRest(urlName + "/GetWebserviceVersion", true));
+                result = JObject.Parse(_webRequest.GetWebRequestRest(urlName, true));
 
                 _testRoute.TestOneRoute(result,
                                         resultTestEenUrl, resultTestKlant);

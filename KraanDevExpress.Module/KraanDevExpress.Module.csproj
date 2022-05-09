@@ -165,6 +165,12 @@
     <Compile Include="Controllers\ResultTestKlantController.Designer.cs">
       <DependentUpon>ResultTestKlantController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\UrlController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\UrlController.Designer.cs">
+      <DependentUpon>UrlController.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -183,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\ResultTestEenUrlController.resx">
       <DependentUpon>ResultTestEenUrlController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\UrlController.resx">
+      <DependentUpon>UrlController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
     <EmbeddedResource Include="Module.resx">

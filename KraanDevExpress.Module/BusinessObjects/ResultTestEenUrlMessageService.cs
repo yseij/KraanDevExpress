@@ -154,14 +154,6 @@ namespace KraanDevExpress.Module.BusinessObjects
         }
         ResultTestUrls fResultTestUrls;
 
-        //[Association]
-        //public Url Url
-        //{
-        //    get { return fUrl; }
-        //    set { SetPropertyValue(nameof(Url), ref fUrl, value); }
-        //}
-        //Url fUrl;
-
         [NonPersistent]
         [Browsable(false)]
         private bool IsException

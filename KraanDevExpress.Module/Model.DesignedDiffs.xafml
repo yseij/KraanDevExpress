@@ -262,8 +262,8 @@
         <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
       </Columns>
     </ListView>
-    <DetailView Id="Url_DetailView" AllowEdit="False" AllowNew="False" />
-    <ListView Id="Url_ListView" AllowNew="False" />
-    <ListView Id="Url_LookupListView" AllowLink="False" AllowNew="False" />
+    <DetailView Id="Url_DetailView" AllowEdit="True" AllowNew="True" />
+    <ListView Id="Url_ListView" AllowNew="True" AllowEdit="True" />
+    <ListView Id="Url_LookupListView" AllowLink="False" AllowNew="True" AllowEdit="True" />
   </Views>
 </Application>
