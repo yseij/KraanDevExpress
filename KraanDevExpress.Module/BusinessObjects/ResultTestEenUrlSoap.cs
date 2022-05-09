@@ -1,4 +1,6 @@
-﻿using DevExpress.Persistent.Base;
+﻿using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using System;
@@ -9,15 +11,15 @@ using System.Linq;
 namespace KraanDevExpress.Module.BusinessObjects
 {
     [DefaultClassOptions]
-    //[ImageName("BO_Contact")]
-    //[DefaultProperty("DisplayMemberNameForLookupEditorsOfThisType")]
-    //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
-    //[Persistent("DatabaseTableName")]
-    // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
+    [Appearance("ActionVisibility",
+    TargetItems = "Soort; ResultTestWebservice; ResultTestKlant; ResultTestUrls; Url",
+    Context = "DetailView",
+    Visibility = ViewItemVisibility.Hide)]
+
+    [Appearance("PromisedBold1bHeadResult", BackColor = "White", FontColor = "Red", TargetItems = "Name",
+    Criteria = "[IsException]")]
     public class ResultTestEenUrlSoap : BaseObject
-    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        // Use CodeRush to create XPO classes and properties with a few keystrokes.
-        // https://docs.devexpress.com/CodeRushForRoslyn/118557
+    { 
         public ResultTestEenUrlSoap(Session session)
             : base(session)
         {

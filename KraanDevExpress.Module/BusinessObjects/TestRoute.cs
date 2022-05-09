@@ -6,7 +6,8 @@ namespace KraanDevExpress.Module.BusinessObjects
     class TestRoute
     {
         public void TestOneRoute(dynamic result,
-                                ResultTestEenUrl resultTestEenUrl)
+                                ResultTestEenUrl resultTestEenUrl,
+                                ResultTestKlant resultTestKlant)
         {
             foreach (JProperty item in result)
             {
@@ -36,6 +37,10 @@ namespace KraanDevExpress.Module.BusinessObjects
                         break;
                     case "ex":
                         resultTestEenUrl.Response = resultTestEenUrl.Response + item.Value;
+                        if (resultTestKlant != null)
+                        {
+                            SetAantalFouten(resultTestKlant);
+                        }
                         break;
                     default:
                         resultTestEenUrl.Response = resultTestEenUrl.Response + item.Name + " = " + item.Value + Environment.NewLine;
@@ -63,7 +68,17 @@ namespace KraanDevExpress.Module.BusinessObjects
                         break;
                     case "ex":
                         resultTestEenUrlSoap.Response = resultTestEenUrlSoap.Response + item.Name + " = " + item.Value + Environment.NewLine;
-                        SetAantalFouten(resultTestKlant);
+                        if (resultTestKlant != null)
+                        {
+                            SetAantalFouten(resultTestKlant);
+                        }
+                        break;
+                    case "certVerValDatum":
+                        if (item.Value.ToString() != "")
+                        {
+                            resultTestEenUrlSoap.Sll = true;
+                            resultTestEenUrlSoap.SllCertificaatVervalDatum = item.Value.ToString();
+                        }
                         break;
                     case "id":
                         break;
@@ -118,7 +133,10 @@ namespace KraanDevExpress.Module.BusinessObjects
                         break;
                     case "ex":
                         resultTestEenUrlMessageService.Response = resultTestEenUrlMessageService.Response + item.Name + " = " + item.Value + Environment.NewLine;
-                        SetAantalFouten(resultTestKlant);
+                        if (resultTestKlant != null)
+                        {
+                            SetAantalFouten(resultTestKlant);
+                        }
                         break;
                     default:
                         resultTestEenUrlMessageService.Response = resultTestEenUrlMessageService.Response + item.Name + " = " + item.Value + Environment.NewLine;

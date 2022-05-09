@@ -141,11 +141,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\KlantControllercs.cs">
+    <Compile Include="Controllers\KlantController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\KlantControllercs.Designer.cs">
-      <DependentUpon>KlantControllercs.cs</DependentUpon>
+    <Compile Include="Controllers\KlantController.Designer.cs">
+      <DependentUpon>KlantController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\KlantWebserviceController.cs">
       <SubType>Component</SubType>
@@ -169,8 +169,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\KlantControllercs.resx">
-      <DependentUpon>KlantControllercs.cs</DependentUpon>
+    <EmbeddedResource Include="Controllers\KlantController.resx">
+      <DependentUpon>KlantController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\KlantWebserviceController.resx">
       <DependentUpon>KlantWebserviceController.cs</DependentUpon>
@@ -514,6 +514,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="UnusableNodes.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UnusableNodes1.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </None>

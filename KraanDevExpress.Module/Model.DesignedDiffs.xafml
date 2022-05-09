@@ -16,7 +16,7 @@
           <Item Id="ResultTestUrls_ListView" Index="1" />
           <Item Id="ResultTestKlant_ListView" Index="2" />
           <Item Id="Name_ListView" Visible="False" Index="3" />
-          <Item Id="ResultTestEenUrl_ListView" Visible="True" Index="4" />
+          <Item Id="ResultTestEenUrl_ListView" Visible="False" Index="4" />
           <Item Id="ResultTestEenUrlMessageService_ListView" Visible="False" Index="5" />
           <Item Id="ResultTestEenUrlSoap_ListView" Visible="False" Index="6" />
           <Item Id="Klant_ListView" Removed="True" />
@@ -46,16 +46,16 @@
         </LayoutGroup>
       </Layout>
     </DashboardView>
-    <DetailView Id="ResultTestEenUrl_DetailView">
+    <DetailView Id="ResultTestEenUrl_DetailView" AllowEdit="False" AllowDelete="False" AllowNew="False">
       <Items>
         <PropertyEditor Id="KraanDatabase" AllowEdit="False" />
         <PropertyEditor Id="WebserviceWerkt" AllowEdit="False" />
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="16.761041902604756">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="14.844533600802407">
             <LayoutGroup Id="ResultTestEenUrl" RelativeSize="100">
-              <LayoutGroup Id="ResultTestEenUrl_col1" RelativeSize="49.910554561717355">
+              <LayoutGroup Id="ResultTestEenUrl_col1" RelativeSize="49.832495812395308">
                 <LayoutItem Id="WebserviceVersie" ViewItem="WebserviceVersie" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="KraanDll" RelativeSize="21.428571428571427" Index="1" />
                 <LayoutItem Id="KaanIni" RelativeSize="21.428571428571427" Index="2" />
@@ -63,10 +63,10 @@
                 <LayoutItem Id="WebserviceWerkt" Index="3" RelativeSize="17.647058823529413" Removed="True" />
                 <LayoutItem Id="Name" RelativeSize="20" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="ResultTestEenUrl_col2" RelativeSize="50.089445438282645" Caption="ResultTestEenUrl_col2">
+              <LayoutGroup Id="ResultTestEenUrl_col2" RelativeSize="50.167504187604692" Caption="ResultTestEenUrl_col2">
                 <LayoutItem Id="Sll" Index="0" RelativeSize="28.571428571428573" ViewItem="Sll" IsNewNode="True" />
                 <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="21.428571428571427" Index="1" />
-                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="2" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
                 <LayoutItem Id="ResultTestKlant" RelativeSize="65" Removed="True" />
                 <LayoutItem Id="ResultTestUrls" RelativeSize="50" Removed="True" />
                 <LayoutItem Id="Soort" RelativeSize="80" Removed="True" />
@@ -74,13 +74,15 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="83.238958097395241">
+          <LayoutGroup Id="SizeableEditors" RelativeSize="85.155466399197593">
             <LayoutItem Id="Response" RelativeSize="100" ShowCaption="True" CaptionLocation="Top" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="ResultTestEenUrlMessageService_DetailView">
+    <ListView Id="ResultTestEenUrl_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="ResultTestEenUrl_LookupListView" AllowLink="False" AllowNew="False" AllowUnlink="False" />
+    <DetailView Id="ResultTestEenUrlMessageService_DetailView" AllowEdit="False" AllowNew="False">
       <Items>
         <PropertyEditor Id="WebserviceWerkt" AllowEdit="False" />
       </Items>
@@ -119,8 +121,21 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="ResultTestEenUrlSoap_DetailView">
+    <ListView Id="ResultTestEenUrlMessageService_ListView" AllowLink="False" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="ResultTestEenUrlMessageService_LookupListView" AllowNew="False" AllowUnlink="False" />
+    <DetailView Id="ResultTestEenUrlSoap_DetailView" AllowEdit="False" AllowNew="False">
       <Items>
+        <PropertyEditor Id="DatabaseVersie" AllowEdit="False" />
+        <PropertyEditor Id="DevExpressVersie" AllowEdit="False" />
+        <PropertyEditor Id="Name" AllowEdit="False" />
+        <PropertyEditor Id="Response" AllowEdit="False" />
+        <PropertyEditor Id="ResultTestKlant" AllowEdit="False" />
+        <PropertyEditor Id="ResultTestUrls" AllowEdit="False" />
+        <PropertyEditor Id="Sll" AllowEdit="False" />
+        <PropertyEditor Id="SllCertificaatVervalDatum" AllowEdit="False" />
+        <PropertyEditor Id="Soort" AllowEdit="False" />
+        <PropertyEditor Id="Url" AllowEdit="False" />
+        <PropertyEditor Id="WebserviceVersie" AllowEdit="False" />
         <PropertyEditor Id="WebserviceWerkt" AllowEdit="False" />
       </Items>
       <Layout>
@@ -156,8 +171,125 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="ResultTestEenUrlSoap_ListView" AllowLink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Response" AllowEdit="False" />
+        <ColumnInfo Id="SllCertificaatVervalDatum" AllowEdit="False" />
+        <ColumnInfo Id="Name" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceWerkt" AllowEdit="False" />
+        <ColumnInfo Id="Sll" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceVersie" AllowEdit="False" />
+        <ColumnInfo Id="DevExpressVersie" AllowEdit="False" />
+        <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
+        <ColumnInfo Id="Soort" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
+        <ColumnInfo Id="Url" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <ListView Id="ResultTestEenUrlSoap_LookupListView" AllowLink="False" AllowNew="False" AllowUnlink="False">
+      <Columns>
+        <ColumnInfo Id="Name" AllowEdit="False" />
+        <ColumnInfo Id="Response" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <DetailView Id="ResultTestKlant_DetailView">
+      <Items>
+        <PropertyEditor Id="AantalFout" AllowEdit="False" />
+        <PropertyEditor Id="Name" AllowEdit="False" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutItem Id="AantalFout" ViewItem="AantalFout" Index="0" RelativeSize="3.21285140562249" IsNewNode="True" />
+          <TabbedGroup Id="Tabs" RelativeSize="96.787148594377513" Index="1">
+            <LayoutGroup Id="ResultTestEenUrls" RelativeSize="100" Caption="Result Test Een Urls">
+              <LayoutItem Id="ResultTestEenUrls" RelativeSize="100" Index="0" />
+            </LayoutGroup>
+            <LayoutGroup Id="ResultTestEenUrlMessageServices" RelativeSize="100">
+              <LayoutItem Id="ResultTestEenUrlMessageServices" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ResultTestEenUrlSoaps" RelativeSize="100">
+              <LayoutItem Id="ResultTestEenUrlSoaps" RelativeSize="100" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SimpleEditors" RelativeSize="3.8152610441767068" Removed="True">
+            <LayoutGroup Id="ResultTestKlant" Caption="ResultTestKlant" RelativeSize="100" Removed="True">
+              <LayoutItem Id="AantalFout" Removed="True" />
+              <LayoutItem Id="Name" RelativeSize="100" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ResultTestKlant_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="ResultTestKlant_ResultTestEenUrls_ListView" AllowLink="False" AllowNew="False" AllowUnlink="False">
+      <Columns>
+        <ColumnInfo Id="ResultTestUrls" Width="95" Index="-1" />
+        <ColumnInfo Id="Soort" Width="46" Index="-1" />
+        <ColumnInfo Id="Url" Width="33" Index="-1" />
+        <ColumnInfo Id="Name" Width="60" />
+        <ColumnInfo Id="WebserviceWerkt" Width="108" />
+        <ColumnInfo Id="WebserviceVersie" Width="108" />
+        <ColumnInfo Id="KraanDll" Width="62" />
+        <ColumnInfo Id="KaanIni" Width="59" />
+        <ColumnInfo Id="KraanDatabase" Width="97" />
+        <ColumnInfo Id="Sll" Width="30" />
+      </Columns>
+    </ListView>
+    <ListView Id="ResultTestKlant_ResultTestEenUrlSoaps_ListView" AllowUnlink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Response" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
+        <ColumnInfo Id="SllCertificaatVervalDatum" AllowEdit="False" />
+        <ColumnInfo Id="Name" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceWerkt" AllowEdit="False" />
+        <ColumnInfo Id="Sll" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceVersie" AllowEdit="False" />
+        <ColumnInfo Id="DevExpressVersie" AllowEdit="False" />
+        <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
+        <ColumnInfo Id="Soort" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
+        <ColumnInfo Id="Url" AllowEdit="False" />
+      </Columns>
+    </ListView>
+    <ListView Id="ResultTestUrls_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="ResultTestUrls_ResultTestEenUrls_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="ResultTestUrls_ResultTestEenUrlSoaps_ListView" AllowUnlink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Response" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
+        <ColumnInfo Id="SllCertificaatVervalDatum" AllowEdit="False" />
+        <ColumnInfo Id="Name" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceWerkt" AllowEdit="False" />
+        <ColumnInfo Id="Sll" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceVersie" AllowEdit="False" />
+        <ColumnInfo Id="DevExpressVersie" AllowEdit="False" />
+        <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
+        <ColumnInfo Id="Soort" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
+        <ColumnInfo Id="Url" AllowEdit="False" />
+      </Columns>
+    </ListView>
     <DetailView Id="Url_DetailView" AllowEdit="False" AllowNew="False" />
     <ListView Id="Url_ListView" AllowNew="False" />
     <ListView Id="Url_LookupListView" AllowLink="False" AllowNew="False" />
+    <ListView Id="Url_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="Url_ResultTestEenUrls_ListView" AllowNew="False" AllowUnlink="False" />
+    <ListView Id="Url_ResultTestEenUrlSoaps_ListView" AllowUnlink="False" AllowNew="False">
+      <Columns>
+        <ColumnInfo Id="Response" AllowEdit="False" />
+        <ColumnInfo Id="SllCertificaatVervalDatum" AllowEdit="False" />
+        <ColumnInfo Id="Url" AllowEdit="False" />
+        <ColumnInfo Id="Name" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceWerkt" AllowEdit="False" />
+        <ColumnInfo Id="Sll" AllowEdit="False" />
+        <ColumnInfo Id="WebserviceVersie" AllowEdit="False" />
+        <ColumnInfo Id="DevExpressVersie" AllowEdit="False" />
+        <ColumnInfo Id="DatabaseVersie" AllowEdit="False" />
+        <ColumnInfo Id="Soort" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
+        <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

@@ -138,7 +138,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         Url fUrl;
 
         [NonPersistent]
-        [Browsable(true)]
+        [Browsable(false)]
         public bool IsException
         {
             get

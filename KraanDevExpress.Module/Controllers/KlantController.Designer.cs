@@ -1,7 +1,7 @@
 ﻿
 namespace KraanDevExpress.Module.Controllers
 {
-    partial class KlantControllercs
+    partial class KlantController
     {
         /// <summary>
         /// Required designer variable.
@@ -34,7 +34,7 @@ namespace KraanDevExpress.Module.Controllers
             // 
             // TestKlantBtn
             // 
-            this.TestKlantBtn.Caption = "TestKlantBtn";
+            this.TestKlantBtn.Caption = "Test Klant";
             this.TestKlantBtn.Category = "View";
             this.TestKlantBtn.ConfirmationMessage = null;
             this.TestKlantBtn.Id = "TestKlantBtn";

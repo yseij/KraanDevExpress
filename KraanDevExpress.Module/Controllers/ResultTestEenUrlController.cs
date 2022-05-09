@@ -95,6 +95,7 @@ namespace KraanDevExpress.Module.Controllers
                     KraanIni = currentObject.KraanIni,
                     DatabaseConnectie = currentObject.DatabaseConnectie,
                     Sll = currentObject.Sll,
+                    SllCertificaatVervalDatum = currentObject.SllCertificaatVervalDatum,
                     MessageVersie = currentObject.MessageVersie,
                     InterBaseVersie = currentObject.InterBaseVersie,
                     MssqlServer = currentObject.MssqlServer,

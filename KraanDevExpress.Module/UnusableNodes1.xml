@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ResultTestEenUrl_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResultTestEenUrl">
+              <LayoutGroup Id="ResultTestEenUrl_col1">
+                <LayoutItem Id="Sll" Index="4" RelativeSize="23.529411764705884" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ResultTestEenUrl_col2">
+                <LayoutItem Id="IsException" Index="3" RelativeSize="28.571428571428573" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
