@@ -28,6 +28,7 @@
             // 
             this.RequiredModuleTypes.Add(typeof(KraanDevExpress.Module.KraanDevExpressModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
+
         }
 
         #endregion
