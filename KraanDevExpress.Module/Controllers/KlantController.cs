@@ -97,7 +97,14 @@ namespace KraanDevExpress.Module.Controllers
             Url url = new Url(_session);
             foreach (KlantWebservice klantWebservice in klant.klantWebservices)
             {
-                if (klantWebservice.BasisUrl1)
+                if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+                {
+                    url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                    url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                }
+                else if (klantWebservice.BasisUrl1)
                 {
                     url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
                 }
@@ -105,7 +112,7 @@ namespace KraanDevExpress.Module.Controllers
                 {
                     url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                 }
-                TestUrl(url, klantWebservice, result, dc, resultTestKlant, true);
+                TestUrl(url, klantWebservice, result, dc, resultTestKlant);
             }
             _objecspace.CommitChanges();
             DetailView targetView = Application.CreateDetailView(_objecspace, resultTestKlant, false);
@@ -129,7 +136,14 @@ namespace KraanDevExpress.Module.Controllers
                 Url url = new Url(_session);
                 foreach (KlantWebservice klantWebservice in klant.klantWebservices)
                 {
-                    if (klantWebservice.BasisUrl1)
+                    if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+                    {
+                        url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                        TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                        url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                        TestUrl(url, klantWebservice, result, dc, resultTestKlant);
+                    }
+                    else if (klantWebservice.BasisUrl1)
                     {
                         url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
                     }
@@ -137,7 +151,7 @@ namespace KraanDevExpress.Module.Controllers
                     {
                         url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                     }
-                    TestUrl(url, klantWebservice, result, dc, resultTestKlant, true);
+                    TestUrl(url, klantWebservice, result, dc, resultTestKlant);
                 }
             }
             _objecspace.CommitChanges();
@@ -162,8 +176,7 @@ namespace KraanDevExpress.Module.Controllers
                               KlantWebservice klantWebservice,
                               dynamic result,
                               DialogController dc,
-                              ResultTestKlant resultTestKlant,
-                              bool isMeerdereUrls)
+                              ResultTestKlant resultTestKlant)
         {
             string checkUrl = _webRequest.CheckUrl(url.Name);
             if (klantWebservice.Webservice.Soap)
@@ -178,15 +191,7 @@ namespace KraanDevExpress.Module.Controllers
                     {
                         _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, resultTestKlant);
                     }
-                    if (!isMeerdereUrls)
-                    {
-                        dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlMessageOpslaan;
-                        _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrlMessageService, false);
-                    }
-                    else
-                    {
-                        resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
-                    }
+                    resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
                 }
                 else if (url.Name.Contains("MessageServiceSoap.svc"))
                 {
@@ -197,15 +202,7 @@ namespace KraanDevExpress.Module.Controllers
                     {
                         _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, resultTestKlant);
                     }
-                    if (!isMeerdereUrls)
-                    {
-                        dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlMessageOpslaan;
-                        _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrlMessageService, false);
-                    }
-                    else
-                    {
-                        resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
-                    }
+                    resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
                 }
                 else
                 {
@@ -222,15 +219,7 @@ namespace KraanDevExpress.Module.Controllers
                     _testRoute.TestOneRouteSoap(result,
                                                 resultTestEenUrlSoap,
                                                 resultTestKlant);
-                    if (!isMeerdereUrls)
-                    {
-                        dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlSoapOpslaan;
-                        _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrlSoap, false);
-                    }
-                    else
-                    {
-                        resultTestKlant.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
-                    }
+                    resultTestKlant.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
                 }
             }
             else
@@ -246,15 +235,7 @@ namespace KraanDevExpress.Module.Controllers
 
                 _testRoute.TestOneRoute(result,
                                         resultTestEenUrl, resultTestKlant);
-                if (!isMeerdereUrls)
-                {
-                    dc.Accepting += _resultTestEenUrlController.ResultTestEenUrlRestOpslaan;
-                    _targetView = Application.CreateDetailView(_objecspace, resultTestEenUrl, false);
-                }
-                else
-                {
-                    resultTestKlant.ResultTestEenUrls.Add(resultTestEenUrl);
-                }
+                resultTestKlant.ResultTestEenUrls.Add(resultTestEenUrl);
             }
         }
 

@@ -132,13 +132,9 @@ namespace KraanDevExpress.Module.BusinessObjects
         //SOAP
         public string GetWebRequestSoap(string host, string service)
         {
-            string result = "";
+            string result = string.Empty;
 
             //YouriWebserviceAuth.AuthServiceClient clientAuth;
-            YouriWebserviceCrm.CrmServiceClient clientCrm;
-            YouriWebserviceWorkFlow.WorkflowServiceClient clientWorkflow;
-            YouriWebserviceUren.UrenServiceClient clientUren;
-            YouriWebserviceMaterieel.MaterieelServiceClient clientMaterieel;
             //YouriWebserviceWeb.WebServiceClient clientWeb;
 
             switch (service)
@@ -150,28 +146,16 @@ namespace KraanDevExpress.Module.BusinessObjects
                 //    clientAuth.Close();
                 //    break;
                 case "CrmService.svc":
-                    clientCrm = NewCrmService(host);
-                    clientCrm.Open();
-                    result = clientCrm.GetVersion();
-                    clientCrm.Close();
+                    result = GetVersionCrmService(host);
                     break;
                 case "WorkflowService.svc":
-                    clientWorkflow = NewWorkFlowService(host);
-                    clientWorkflow.Open();
-                    result = clientWorkflow.GetVersion();
-                    clientWorkflow.Close();
+                    result = GetVersionWorkFlowService(host);
                     break;
                 case "UrenService.svc":
-                    clientUren = NewUrenService(host);
-                    clientUren.Open();
-                    result = clientUren.GetVersion();
-                    clientUren.Close();
+                    result = GetVersionUrenService(host);
                     break;
                 case "MaterieelService.svc":
-                    clientMaterieel = NewMateriaalService(host);
-                    clientMaterieel.Open();
-                    result = clientMaterieel.GetVersion();
-                    clientMaterieel.Close();
+                    result = GetVersionMaterieelService(host);
                     break;
                 //case "Webservice.svc":
                 //    clientMaterieel = NewWebSerivce(host);
@@ -183,8 +167,90 @@ namespace KraanDevExpress.Module.BusinessObjects
                     return @"{ ex: '" + " deze service bestaat niet " + "'}"; ;
 
             }
-            return GetDataOfWebRequestSoap(result);
+            return result;
         }
+
+        private string GetVersionCrmService(string host)
+        {
+            string result;
+
+            YouriWebserviceCrm.CrmServiceClient clientCrm;
+            clientCrm = NewCrmService(host);
+            clientCrm.Open();
+            try
+            {
+                result = clientCrm.GetVersion();
+                result = GetDataOfWebRequestSoap(result);
+            }
+            catch (Exception ex)
+            {
+                result = @"{ ex: '" + ex.Message.ToString() + "'}";
+            }
+            clientCrm.Close();
+            return result;
+        }
+
+        private string GetVersionWorkFlowService(string host)
+        {
+            string result;
+
+            YouriWebserviceWorkFlow.WorkflowServiceClient clientWorkflow;
+            clientWorkflow = NewWorkFlowService(host);
+            clientWorkflow.Open();
+            try
+            {
+                result = clientWorkflow.GetVersion();
+                result = GetDataOfWebRequestSoap(result);
+            }
+            catch (Exception ex)
+            {
+                result = @"{ ex: '" + ex.Message.ToString() + "'}"; ;
+            }
+            clientWorkflow.Close();
+            return result;
+        }
+
+        private string GetVersionUrenService(string host)
+        {
+            string result;
+
+            YouriWebserviceUren.UrenServiceClient clientUren;
+            clientUren = NewUrenService(host);
+            clientUren.Open();
+            try
+            {
+                result = clientUren.GetVersion();
+                result = GetDataOfWebRequestSoap(result);
+            }
+            catch (Exception ex)
+            {
+                result = @"{ ex: '" + ex.Message.ToString() + "'}"; ;
+            }
+            clientUren.Close();
+            return result;
+        }
+
+
+        private string GetVersionMaterieelService(string host)
+        {
+            string result;
+
+            YouriWebserviceMaterieel.MaterieelServiceClient clientMaterieel;
+            clientMaterieel = NewMateriaalService(host);
+            clientMaterieel.Open();
+            try
+            {
+                result = clientMaterieel.GetVersion();
+                result = GetDataOfWebRequestSoap(result);
+            }
+            catch (Exception ex)
+            {
+                result = @"{ ex: '" + ex.Message.ToString() + "'}"; ;
+            }
+            clientMaterieel.Close();
+            return result;
+        }
+
 
         //private YouriWebserviceAuth.AuthServiceClient NewAuthService(string host)
         //{

@@ -73,7 +73,11 @@ namespace KraanDevExpress.Module.Controllers
                 KlantWebservice klantWebservice = e.CurrentObject as KlantWebservice;
                 if (klantWebservice != null)
                 {
-                    if (klantWebservice.BasisUrl1)
+                    if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+                    {
+                        name.Naam ="de 2 basisurls testen - " + klantWebservice.Webservice.Name + "---" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    }
+                    else if (klantWebservice.BasisUrl1)
                     {
                         name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "---" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                     }
@@ -98,22 +102,32 @@ namespace KraanDevExpress.Module.Controllers
             dynamic result = null;
 
             KlantWebservice klantWebservice = View.CurrentObject as KlantWebservice;
+            DialogController dc = Application.CreateController<DialogController>();
+            ResultTestUrls resultTestUrls = new ResultTestUrls(_session);
+
             Url url = new Url(_session);
-            if (klantWebservice.BasisUrl1)
+            if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
             {
                 url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                TestUrl(url, klantWebservice, result, dc, resultTestUrls, true);
+                url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                TestUrl(url, klantWebservice, result, dc, resultTestUrls, true);
+
+                DetailView targetView = Application.CreateDetailView(_objecspace, resultTestUrls, false);
+                CreateView(targetView, dc);
+            }
+            else if (klantWebservice.BasisUrl1)
+            {
+                url.Name = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                TestUrl(url, klantWebservice, result, dc, resultTestUrls, false);
+                CreateView(_targetView, dc);
             }
             else
             {
                 url.Name = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                TestUrl(url, klantWebservice, result, dc, resultTestUrls, false);
+                CreateView(_targetView, dc);
             }
-
-            DialogController dc = Application.CreateController<DialogController>();
-
-            ResultTestUrls resultTestUrls = new ResultTestUrls(_session);
-
-            TestUrl(url, klantWebservice, result, dc, resultTestUrls, false);
-            CreateView(_targetView, dc);
         }
 
         void dc_Accepting_MeerdereUrls(object sender, DialogControllerAcceptingEventArgs e)
