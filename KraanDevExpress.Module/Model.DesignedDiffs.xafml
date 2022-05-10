@@ -43,6 +43,11 @@
     </ListView>
     <ListView Id="KlantWebservice_ListView">
       <Columns>
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Width="85" Index="-1" />
+        <ColumnInfo Id="Klant" SortIndex="0" SortOrder="Ascending" Index="0" />
+        <ColumnInfo Id="Webservice" Index="1" />
+        <ColumnInfo Id="BasisUrl1" Index="2" />
+        <ColumnInfo Id="BasisUrl2" Index="3" />
         <ColumnInfo Id="Klant.BasisUrl1" PropertyName="Klant.BasisUrl1" Index="4" IsNewNode="True" />
         <ColumnInfo Id="Klant.BasisUrl2" PropertyName="Klant.BasisUrl2" Index="5" IsNewNode="True" />
       </Columns>
@@ -277,6 +282,11 @@
         <ColumnInfo Id="ResultTestKlant" AllowEdit="False" />
       </Columns>
     </ListView>
+    <DetailView Id="Sales31Credentials_DetailView">
+      <Items>
+        <PropertyEditor Id="Wachtwoord" IsPassword="True" />
+      </Items>
+    </DetailView>
     <DetailView Id="Url_DetailView" AllowEdit="True" AllowNew="True">
       <Items>
         <PropertyEditor Id="KlantWebservice.BasisUrl1" PropertyName="KlantWebservice.BasisUrl1" IsNewNode="True" />

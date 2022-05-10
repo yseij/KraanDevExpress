@@ -34,6 +34,12 @@ namespace KraanDevExpress.Module.BusinessObjects
             // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
 
+        [NonPersistent]
+        public string Name
+        {
+            get { return Klant.Name.ToString() + " --- " + Webservice.Name.ToString(); }
+        }
+
         [Association]
         public Klant Klant
         {
