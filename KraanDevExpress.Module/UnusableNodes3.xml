@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="KlantWebservice_ListView">
+      <Columns Id="Columns">
+        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Width="85" Index="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

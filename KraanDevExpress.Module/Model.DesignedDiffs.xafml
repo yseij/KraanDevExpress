@@ -43,7 +43,6 @@
     </ListView>
     <ListView Id="KlantWebservice_ListView">
       <Columns>
-        <ColumnInfo Id="Name" SortIndex="-1" SortOrder="None" Width="85" Index="-1" />
         <ColumnInfo Id="Klant" SortIndex="0" SortOrder="Ascending" Index="0" />
         <ColumnInfo Id="Webservice" Index="1" />
         <ColumnInfo Id="BasisUrl1" Index="2" />
@@ -60,9 +59,9 @@
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Rest" ViewItem="Rest" Index="0" RelativeSize="33.295583238958095" IsNewNode="True" />
-          <LayoutItem Id="Soap" ViewItem="Soap" Index="1" RelativeSize="33.295583238958095" IsNewNode="True" />
-          <LayoutItem Id="MessageService" ViewItem="MessageService" Index="2" RelativeSize="33.4088335220838" IsNewNode="True" />
+          <LayoutItem Id="Rest" ViewItem="Rest" Index="0" RelativeSize="33.179012345679013" ShowCaption="True" CaptionLocation="Top" IsNewNode="True" />
+          <LayoutItem Id="Soap" ViewItem="Soap" Index="1" RelativeSize="33.179012345679013" ShowCaption="True" CaptionLocation="Top" IsNewNode="True" />
+          <LayoutItem Id="MessageService" ViewItem="MessageService" Index="2" RelativeSize="33.641975308641975" ShowCaption="True" CaptionLocation="Top" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DashboardView>
