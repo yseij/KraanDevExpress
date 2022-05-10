@@ -15,13 +15,8 @@ namespace KraanDevExpress.Module.BusinessObjects
 {
     [DomainComponent]
     [DefaultClassOptions]
-    //[ImageName("BO_Unknown")]
-    //[DefaultProperty("SampleProperty")]
-    //[DefaultListViewOptions(MasterDetailMode.ListViewOnly, false, NewItemRowPosition.None)]
-    // Specify more UI options using a declarative approach (https://documentation.devexpress.com/#eXpressAppFramework/CustomDocument112701).
     public class Sales31Credentials : IXafEntityObject/*, IObjectSpaceLink*/, INotifyPropertyChanged
     {
-        //private IObjectSpace objectSpace;
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -32,7 +27,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         }
 
         [DevExpress.ExpressApp.Data.Key]
-        [Browsable(false)]  // Hide the entity identifier from UI.
+        [Browsable(false)]
         public Guid Oid { get; set; }
 
         public string GebruikersNaam { get; set; }

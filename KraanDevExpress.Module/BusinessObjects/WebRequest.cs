@@ -45,12 +45,10 @@ namespace KraanDevExpress.Module.BusinessObjects
                         client.BaseAddress = uri;
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                        HttpResponseMessage response1 = client.GetAsync(uri).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+                        HttpResponseMessage response1 = client.GetAsync(uri).Result;
                         string data = response1.Content.ReadAsStringAsync().Result;
                         if (response1.IsSuccessStatusCode)
                         {
-                            //Parse the response body.
-                            //Make sure to add a reference to System.Net.Http.Formatting.dll
                             if (isWebserviceVersion)
                             {
                                 if (_certIsGoed)
@@ -363,7 +361,7 @@ namespace KraanDevExpress.Module.BusinessObjects
 
                     bool succes = client.PostMessage(null, null, ref message);
 
-                    var data = "{\"" + message.Text[0]
+                    string data = "{\"" + message.Text[0]
                         .Replace("\r\n", "\",\"")
                         .Replace(": ", "\": \"")
                         .Replace(@"\", " ")
@@ -391,8 +389,10 @@ namespace KraanDevExpress.Module.BusinessObjects
                 try
                 {
                     client.Open();
-                    Sales31.MessageType message = new Sales31.MessageType();
-                    message.MsgProperties = new Sales31.MessagePropertiesType();
+                    Sales31.MessageType message = new Sales31.MessageType
+                    {
+                        MsgProperties = new Sales31.MessagePropertiesType()
+                    };
                     message.MsgProperties.MsgType = "CST_KRAAN_VERSION";
 
                     HttpWebRequest request = HttpWebRequest.Create(host) as HttpWebRequest;
@@ -402,7 +402,7 @@ namespace KraanDevExpress.Module.BusinessObjects
                         Sales31.MessageResponseType antwoord = client.PostMessage(null, message);
                         if (antwoord.Message.MsgContent != null)
                         {
-                            var data = "{\""
+                            string data = "{\""
                                 + antwoord.Message.MsgContent.Trim()
                                 .Replace("\r\n", "\", \"")
                                 .Replace(": ", "\": \"")

@@ -6,8 +6,8 @@ namespace KraanDevExpress.Module.BusinessObjects
     class TestRoute
     {
         public void TestOneRoute(dynamic result,
-                                ResultTestEenUrl resultTestEenUrl,
-                                ResultTestKlant resultTestKlant)
+                                 ResultTestEenUrl resultTestEenUrl,
+                                 ResultTestKlant resultTestKlant)
         {
             foreach (JProperty item in result)
             {
@@ -147,7 +147,7 @@ namespace KraanDevExpress.Module.BusinessObjects
 
         private void SetAantalFouten(ResultTestKlant resultTestKlant)
         {
-            resultTestKlant.AantalFout = resultTestKlant.AantalFout + 1;
+            resultTestKlant.AantalFout++;
         }
     }
 }
