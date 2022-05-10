@@ -191,6 +191,9 @@
     <EmbeddedResource Include="Controllers\ResultTestEenUrlController.resx">
       <DependentUpon>ResultTestEenUrlController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\ResultTestKlantController.resx">
+      <DependentUpon>ResultTestKlantController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controllers\UrlController.resx">
       <DependentUpon>UrlController.cs</DependentUpon>
     </EmbeddedResource>

@@ -29,7 +29,11 @@ namespace KraanDevExpress.Module.Controllers
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            // 
+            // ResultTestKlantController
+            // 
+            this.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.ResultTestKlant);
+
         }
 
         #endregion
