@@ -35,6 +35,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         }
 
         [NonPersistent]
+        [Browsable(false)]
         public string Name
         {
             get { return Klant.Name.ToString() + " --- " + Webservice.Name.ToString(); }

@@ -7,6 +7,8 @@ using DevExpress.Xpo;
 using KraanDevExpress.Module.BusinessObjects;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace KraanDevExpress.Module.Controllers
 {
@@ -26,6 +28,7 @@ namespace KraanDevExpress.Module.Controllers
 
         ResultTestEenUrlController _resultTestEenUrlController;
         ResultTestKlantController _resultTestKlantController;
+        DeleteObjectsViewController _deleteObjectsViewController;
         public KlantController()
         {
             InitializeComponent();
@@ -34,6 +37,7 @@ namespace KraanDevExpress.Module.Controllers
             _dbConnectie = new DbConnectie();
             _resultTestEenUrlController = new ResultTestEenUrlController();
             _resultTestKlantController = new ResultTestKlantController();
+            _deleteObjectsViewController = new DeleteObjectsViewController();
         }
         protected override void OnActivated()
         {
@@ -43,12 +47,58 @@ namespace KraanDevExpress.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            // Access and customize the target View control.
+            _deleteObjectsViewController = Frame.GetController<DeleteObjectsViewController>();
+            if (_deleteObjectsViewController != null)
+            {
+                _deleteObjectsViewController.Deleting += dc_deleting;
+            }
         }
         protected override void OnDeactivated()
         {
-            // Unsubscribe from previously subscribed events and release other references and resources.
+            if (_deleteObjectsViewController != null)
+            {
+                _deleteObjectsViewController.Deleting -= dc_deleting;
+            }
             base.OnDeactivated();
+        }
+
+        private void dc_deleting(object sender, DeletingEventArgs e)
+        {
+            _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objecspace).Session;
+
+            foreach (Klant klant in e.Objects)
+            {
+                if (klant.klantWebservices.Count != 0)
+                {
+                    DialogResult dialogResultUrlsByKlant = MessageBox.Show("Wilt u de urls van de klant " + klant.Name + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
+                    if (dialogResultUrlsByKlant == DialogResult.Yes)
+                    {
+                        foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+                        {
+                            IList<Url> urls = Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid);
+                            if (urls.Count != 0)
+                            {
+                                _session.Delete(urls);
+                            }
+                        }
+                        foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+                        {
+                            _session.Delete(_objecspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
+                        }                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Er wordt niks verwijdert");
+                        e.Cancel = true;
+                    }
+                }
+                else
+                {
+                    klant.Delete();
+                }
+            }
+            _objecspace.CommitChanges();
         }
 
         private void TestKlantBtn_Execute(object sender, SimpleActionExecuteEventArgs e)

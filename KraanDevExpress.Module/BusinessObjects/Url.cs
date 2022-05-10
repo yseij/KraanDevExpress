@@ -44,9 +44,9 @@ namespace KraanDevExpress.Module.BusinessObjects
         }
         KlantWebservice fKlantWebservice;
 
-        public static IEnumerable<Url> GetUrlsByKlantWebservice(Session session, Guid klantWebserviceId )
+        public static IList<Url> GetUrlsByKlantWebservice(Session session, Guid klantWebserviceId)
         {
-            return session.Query<Url>().Where(u => u.KlantWebservice.Oid == klantWebserviceId);
+            return session.Query<Url>().Where(u => u.KlantWebservice.Oid == klantWebserviceId).ToList();
         }
     }
 }
