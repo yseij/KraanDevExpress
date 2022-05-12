@@ -20,9 +20,7 @@ namespace KraanDevExpress.Module.BusinessObjects
     [Appearance("PromisedBold1bHeadResult", BackColor = "White", FontColor = "Red", TargetItems = "Name",
     Criteria = "[IsException]")]
     public class ResultTestEenUrl : BaseObject
-    { // Inherit from a different class to provide a custom primary key, concurrency and deletion behavior, etc. (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument113146.aspx).
-        // Use CodeRush to create XPO classes and properties with a few keystrokes.
-        // https://docs.devexpress.com/CodeRushForRoslyn/118557
+    { 
         public ResultTestEenUrl(Session session)
             : base(session)
         {
@@ -30,9 +28,10 @@ namespace KraanDevExpress.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
+
         private string _name;
+        [Size(SizeAttribute.Unlimited)]
         public string Name
         {
             get { return _name; }

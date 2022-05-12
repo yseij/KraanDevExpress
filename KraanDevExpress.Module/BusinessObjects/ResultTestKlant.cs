@@ -25,6 +25,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         {
             base.AfterConstruction();  
         }
+
         private string _name;
         public string Name
         {

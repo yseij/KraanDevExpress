@@ -12,13 +12,14 @@ using System.Windows.Forms;
 
 namespace KraanDevExpress.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class KlantController : ViewController
     {
         private string _gebruikersNaam;
         private string _wachtwoord;
         private Session _session;
         private IObjectSpace _objecspace;
+
+        private dynamic _result = null;
 
         DetailView _targetView = null;
 
@@ -42,8 +43,8 @@ namespace KraanDevExpress.Module.Controllers
         protected override void OnActivated()
         {
             base.OnActivated();
-            // Perform various tasks depending on the target View.
         }
+
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
@@ -53,6 +54,7 @@ namespace KraanDevExpress.Module.Controllers
                 _deleteObjectsViewController.Deleting += dc_deleting;
             }
         }
+
         protected override void OnDeactivated()
         {
             if (_deleteObjectsViewController != null)
@@ -138,7 +140,6 @@ namespace KraanDevExpress.Module.Controllers
         {
             _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
             _session = ((XPObjectSpace)_objecspace).Session;
-            dynamic result = null;
 
             Name name = e.AcceptActionArgs.CurrentObject as Name;
             Klant klant = View.CurrentObject as Klant;
@@ -152,23 +153,24 @@ namespace KraanDevExpress.Module.Controllers
                 if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
                 else if (klantWebservice.BasisUrl1)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
                 else
                 {
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
-                TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
                 foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                 {
                     urlName = urlName + "/" + url.MethodeName;
-                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
             }
             _objecspace.CommitChanges();
@@ -184,7 +186,6 @@ namespace KraanDevExpress.Module.Controllers
 
             Name name = e.AcceptActionArgs.CurrentObject as Name;
 
-            dynamic result = null;
             DialogController dc = Application.CreateController<DialogController>();
             ResultTestKlant resultTestKlant = new ResultTestKlant(_session);
             resultTestKlant.Name = name.Naam;
@@ -197,22 +198,23 @@ namespace KraanDevExpress.Module.Controllers
                     if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                     {
                         urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                        TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                        TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
                     else if (klantWebservice.BasisUrl1)
                     {
                         urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
                     else
                     {
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
-                    TestUrl(urlName, klantWebservice, result, dc, resultTestKlant);
                     foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                     {
-                        TestUrl(url.Name, klantWebservice, result, dc, resultTestKlant);
+                        TestUrl(url.Name, klantWebservice, resultTestKlant);
                     }
                 }
             }
@@ -236,69 +238,86 @@ namespace KraanDevExpress.Module.Controllers
         }
 
         private void TestUrl(string urlName,
-                              KlantWebservice klantWebservice,
-                              dynamic result,
-                              DialogController dc,
-                              ResultTestKlant resultTestKlant)
+                             KlantWebservice klantWebservice,
+                             ResultTestKlant resultTestKlant)
         {
-            string checkUrl = _webRequest.CheckUrl(urlName);
             if (klantWebservice.Webservice.Soap)
             {
                 if (urlName.Contains("MessageServiceSoap31.svc"))
                 {
-                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName, klantWebservice, resultTestKlant);
-                    resultTestEenUrlMessageService.WebserviceWerkt = checkUrl;
                     GetSales31Credentials();
-                    result = JObject.Parse(_webRequest.Get31SalesData(urlName, _gebruikersNaam, _wachtwoord));
-                    if (result != null)
-                    {
-                        _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, resultTestKlant);
-                    }
-                    resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
+                    _result = JObject.Parse(_webRequest.Get31SalesData(urlName, _gebruikersNaam, _wachtwoord));
+                    ResultTestEenUrlMessageService(urlName, klantWebservice, resultTestKlant);
                 }
                 else if (urlName.Contains("MessageServiceSoap.svc"))
                 {
-                    ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName, klantWebservice, resultTestKlant);
-                    resultTestEenUrlMessageService.WebserviceWerkt = checkUrl;
-                    result = JObject.Parse(_webRequest.Get24SalesData(urlName));
-                    if (result != null)
-                    {
-                        _testRoute.TestOneRouteMessageService(result, resultTestEenUrlMessageService, resultTestKlant);
-                    }
-                    resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
+                    _result = JObject.Parse(_webRequest.Get24SalesData(urlName));
+                    ResultTestEenUrlMessageService(urlName, klantWebservice, resultTestKlant);
                 }
                 else
                 {
-                    ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
-                    resultTestEenUrlSoap.Soort = "Klant test - " + klantWebservice.Klant.Name;
-                    resultTestEenUrlSoap.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    resultTestEenUrlSoap.WebserviceWerkt = checkUrl;
-                    resultTestEenUrlSoap.ResultTestKlant = resultTestKlant;
-
-                    int plaatsSlech = urlName.LastIndexOf("/");
-                    string service = urlName.Substring(plaatsSlech + 1, urlName.Length - plaatsSlech - 1);
-                    result = JObject.Parse(_webRequest.GetWebRequestSoap(urlName, service));
-
-                    _testRoute.TestOneRouteSoap(result,
-                                                resultTestEenUrlSoap,
-                                                resultTestKlant);
-                    resultTestKlant.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
+                    ResultTestEenUrlSoap(urlName, klantWebservice, resultTestKlant);
                 }
             }
             else
             {
-                ResultTestEenUrl resultTestEenUrl = new ResultTestEenUrl(_session);
-                resultTestEenUrl.Soort = "Klant test - " + klantWebservice.Klant.Name;
-                resultTestEenUrl.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                resultTestEenUrl.WebserviceWerkt = checkUrl;
-                resultTestEenUrl.ResultTestKlant = resultTestKlant;
-
-                result = JObject.Parse(_webRequest.GetWebRequestRest(urlName, true));
-
-                _testRoute.TestOneRoute(result,
-                                        resultTestEenUrl, resultTestKlant);
-                resultTestKlant.ResultTestEenUrls.Add(resultTestEenUrl);
+                ResultTestEenUrl(urlName, klantWebservice, resultTestKlant);
             }
+        }
+
+        private void ResultTestEenUrlMessageService(string urlName,
+                                                    KlantWebservice klantWebservice,
+                                                    ResultTestKlant resultTestKlant)
+        {
+            string checkUrl = _webRequest.CheckUrl(urlName);
+            ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName, klantWebservice, resultTestKlant);
+            resultTestEenUrlMessageService.WebserviceWerkt = checkUrl;
+            if (_result != null)
+            {
+                _testRoute.TestOneRouteMessageService(_result, resultTestEenUrlMessageService, resultTestKlant);
+            }
+            resultTestKlant.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
+        }
+
+        private void ResultTestEenUrlSoap(string urlName,
+                                          KlantWebservice klantWebservice,
+                                          ResultTestKlant resultTestKlant)
+        {
+            string checkUrl = _webRequest.CheckUrl(urlName);
+            ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
+            resultTestEenUrlSoap.Soort = "Klant test - " + klantWebservice.Klant.Name;
+            resultTestEenUrlSoap.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+            resultTestEenUrlSoap.WebserviceWerkt = checkUrl;
+            resultTestEenUrlSoap.ResultTestKlant = resultTestKlant;
+
+            int plaatsSlech = urlName.LastIndexOf("/");
+            string service = urlName.Substring(plaatsSlech + 1, urlName.Length - plaatsSlech - 1);
+            _result = JObject.Parse(_webRequest.GetWebRequestSoap(urlName, service));
+
+            _testRoute.TestOneRouteSoap(_result,
+                                        resultTestEenUrlSoap,
+                                        resultTestKlant);
+            resultTestKlant.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
+        }
+
+        private void ResultTestEenUrl(string urlName, 
+                                      KlantWebservice klantWebservice, 
+                                      ResultTestKlant resultTestKlant)
+        {
+            string checkUrl = _webRequest.CheckUrl(urlName);
+            ResultTestEenUrl resultTestEenUrl = new ResultTestEenUrl(_session);
+            resultTestEenUrl.Soort = "Klant test - " + klantWebservice.Klant.Name;
+            resultTestEenUrl.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+            resultTestEenUrl.WebserviceWerkt = checkUrl;
+            resultTestEenUrl.ResultTestKlant = resultTestKlant;
+
+            _result = JObject.Parse(_webRequest.GetWebRequestRest(urlName, true));
+
+            _testRoute.TestOneRoute(_result,
+                                    resultTestEenUrl,
+                                    resultTestKlant);
+
+            resultTestKlant.ResultTestEenUrls.Add(resultTestEenUrl);
         }
 
         private ResultTestEenUrlMessageService GetMessageService(string urlName, KlantWebservice klantWebservice, ResultTestKlant resultTestKlant)

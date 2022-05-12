@@ -1,50 +1,281 @@
-﻿using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.Validation;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Xpo;
+using KraanDevExpress.Module.BusinessObjects;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace KraanDevExpress.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class UrlController : ViewController
     {
-        // Use CodeRush to create Controllers and Actions with a few keystrokes.
-        // https://docs.devexpress.com/CodeRushForRoslyn/403133/
+        private string _gebruikersNaam;
+        private string _wachtwoord;
+        private Session _session;
+        private IObjectSpace _objectspace;
+
+        private dynamic _result = null;
+
+        DetailView _targetView = null;
+
+        WebRequest _webRequest;
+        TestRoute _testRoute;
+        DbConnectie _dbConnectie;
         public UrlController()
         {
             InitializeComponent();
-            // Target required Views (via the TargetXXX properties) and create their Actions.
+            _webRequest = new WebRequest();
+            _testRoute = new TestRoute();
+            _dbConnectie = new DbConnectie();
         }
         protected override void OnActivated()
         {
             base.OnActivated();
-            // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            // Access and customize the target View control.
         }
         protected override void OnDeactivated()
         {
-            // Unsubscribe from previously subscribed events and release other references and resources.
             base.OnDeactivated();
         }
 
         private void BtnTestUrl_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
+            IObjectSpace objectSpace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            Name name = new Name();
 
+            DetailView targetView = Application.CreateDetailView(objectSpace, name);
+            targetView.ViewEditMode = ViewEditMode.Edit;
+
+            ShowViewParameters svp = new ShowViewParameters(targetView);
+
+            DialogController dc = Application.CreateController<DialogController>();
+
+            if (e.SelectedObjects.Count > 1)
+            {
+                name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                dc.Accepting += dc_Accepting_MeerdereUrls;
+            }
+            else
+            {
+                Url url = e.CurrentObject as Url;
+                KlantWebservice klantWebservice = url.KlantWebservice;
+                if (klantWebservice != null)
+                {
+                    if (klantWebservice.BasisUrl1)
+                    {
+                        name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    }
+                    else
+                    {
+                        name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    }
+                    dc.Accepting += dc_Accepting;
+                }
+            }
+
+            svp.Controllers.Add(dc);
+            svp.Context = TemplateContext.PopupWindow;
+            svp.TargetWindow = TargetWindow.NewModalWindow;
+
+            Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
+        }
+
+        void dc_Accepting(object sender, DialogControllerAcceptingEventArgs e)
+        {
+            _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objectspace).Session;
+
+            Url url = View.CurrentObject as Url;
+
+            DialogController dc = Application.CreateController<DialogController>();
+            KlantWebservice klantWebservice = url.KlantWebservice;
+
+            string urlName;
+            if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+            {
+                urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                TestUrl(urlName, klantWebservice);
+                urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                TestUrl(urlName, klantWebservice);
+            }
+            else if (klantWebservice.BasisUrl1)
+            {
+                urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                TestUrl(urlName, klantWebservice);
+            }
+            else
+            {
+                urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                TestUrl(urlName, klantWebservice);
+            }
+            _objectspace.CommitChanges();
+            CreateView(_targetView, dc);
+        }
+
+        void dc_Accepting_MeerdereUrls(object sender, DialogControllerAcceptingEventArgs e)
+        {
+            _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objectspace).Session;
+
+            DialogController dc = Application.CreateController<DialogController>();
+
+            foreach (Url url in View.SelectedObjects)
+            {
+                KlantWebservice klantWebservice = url.KlantWebservice;
+                string urlName;
+                if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+                {
+                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice);
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice);
+                }
+                else if (klantWebservice.BasisUrl1)
+                {
+                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice);
+                }
+                else
+                {
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice);
+                }
+            }
+            _objectspace.CommitChanges();
+            CreateView(_targetView, dc);
+        }
+
+        private void TestUrl(string urlName,
+                             KlantWebservice klantWebservice)
+        {
+            if (klantWebservice.Webservice.Soap)
+            {
+                if (urlName.Contains("MessageServiceSoap31.svc"))
+                {
+                    GetSales31Credentials();
+                    _result = JObject.Parse(_webRequest.Get31SalesData(urlName, _gebruikersNaam, _wachtwoord));
+                    ResultTestEenUrlMessageService(urlName);
+                }
+                else if (urlName.Contains("MessageServiceSoap.svc"))
+                {
+                    _result = JObject.Parse(_webRequest.Get24SalesData(urlName));
+                    ResultTestEenUrlMessageService(urlName);
+                }
+                else
+                {
+                    ResultTestEenUrlSoap(urlName);
+                }
+            }
+            else
+            {
+                ResultTestEenUrl(urlName);
+            }
+        }
+
+        private void CreateView(DetailView targetView, DialogController dc)
+        {
+            targetView.ViewEditMode = ViewEditMode.Edit;
+
+            ShowViewParameters svp = new ShowViewParameters(targetView);
+
+            svp.Controllers.Add(dc);
+            svp.Context = TemplateContext.PopupWindow;
+            svp.TargetWindow = TargetWindow.NewModalWindow;
+
+            Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
+        }
+
+        private void ResultTestEenUrlMessageService(string urlName)
+        {
+            string checkUrl = _webRequest.CheckUrl(urlName);
+            ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName);
+            resultTestEenUrlMessageService.WebserviceWerkt = checkUrl;
+            if (_result != null)
+            {
+                _testRoute.TestOneRouteMessageService(_result, 
+                                                      resultTestEenUrlMessageService, 
+                                                      null);
+            }
+            _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlMessageService, false);
+        }
+
+        private void ResultTestEenUrlSoap(string urlName)
+        {
+            string checkUrl = _webRequest.CheckUrl(urlName);
+            ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
+            resultTestEenUrlSoap.Soort = "Url Soap test";
+            resultTestEenUrlSoap.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+            resultTestEenUrlSoap.WebserviceWerkt = checkUrl;
+
+            int plaatsSlech = urlName.LastIndexOf("/");
+            string service = urlName.Substring(plaatsSlech + 1, urlName.Length - plaatsSlech - 1);
+            _result = JObject.Parse(_webRequest.GetWebRequestSoap(urlName, service));
+            if (_result != null)
+            {
+                _testRoute.TestOneRouteSoap(_result,
+                                            resultTestEenUrlSoap,
+                                            null);
+            }
+            _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlSoap, false);
+        }
+
+        private void ResultTestEenUrl(string urlName)
+        {
+            Console.WriteLine(urlName);
+            string checkUrl = _webRequest.CheckUrl(urlName);
+            ResultTestEenUrl resultTestEenUrl = new ResultTestEenUrl(_session);
+            resultTestEenUrl.Soort = "Url Rest test";
+            resultTestEenUrl.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+            resultTestEenUrl.WebserviceWerkt = checkUrl;
+
+            _result = JObject.Parse(_webRequest.GetWebRequestRest(urlName, false));
+            if (_result != null)
+            {
+                _testRoute.TestOneRoute(_result,
+                                        resultTestEenUrl,
+                                        null);
+            }
+            _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrl, false);
+        }
+
+        private ResultTestEenUrlMessageService GetMessageService(string urlName)
+        {
+            ResultTestEenUrlMessageService resultTestEenUrlMessageService = new ResultTestEenUrlMessageService(_session);
+            resultTestEenUrlMessageService.Soort = "Url MessageService test";
+            resultTestEenUrlMessageService.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+
+            return resultTestEenUrlMessageService;
+        }
+
+        private void GetSales31Credentials()
+        {
+            Sales31Credentials sales31Credentials = new Sales31Credentials();
+            DetailView targetViewSales31Credentials = Application.CreateDetailView(_objectspace, sales31Credentials, false);
+            targetViewSales31Credentials.ViewEditMode = ViewEditMode.Edit;
+
+            ShowViewParameters svpSales31Credentials = new ShowViewParameters(targetViewSales31Credentials);
+
+            DialogController dcSales31Credentials = Application.CreateController<DialogController>();
+
+            dcSales31Credentials.Accepting += dc_Login;
+            svpSales31Credentials.Controllers.Add(dcSales31Credentials);
+            svpSales31Credentials.Context = TemplateContext.PopupWindow;
+            svpSales31Credentials.TargetWindow = TargetWindow.NewModalWindow;
+
+            Application.ShowViewStrategy.ShowView(svpSales31Credentials, new ShowViewSource(null, null));
+        }
+
+        private void dc_Login(object sender, DialogControllerAcceptingEventArgs e)
+        {
+            Sales31Credentials sales31Credentials = e.AcceptActionArgs.CurrentObject as Sales31Credentials;
+            _gebruikersNaam = sales31Credentials.GebruikersNaam;
+            _wachtwoord = sales31Credentials.Wachtwoord;
         }
     }
 }
