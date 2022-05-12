@@ -53,9 +53,9 @@
     </ListView>
     <DashboardView Id="MyDashboard" Caption="Tests" IsNewNode="True">
       <Items IsNewNode="True">
-        <DashboardViewItem Id="MessageService" ViewId="ResultTestEenUrlMessageService_ListView" IsNewNode="True" />
-        <DashboardViewItem Id="Rest" ViewId="ResultTestKlant_ResultTestEenUrls_ListView" IsNewNode="True" />
-        <DashboardViewItem Id="Soap" ViewId="ResultTestEenUrlSoap_ListView" IsNewNode="True" />
+        <DashboardViewItem Id="MessageService" ViewId="ResultTestEenUrlMessageService_ListView" Caption="MessageService" IsNewNode="True" />
+        <DashboardViewItem Id="Rest" ViewId="ResultTestKlant_ResultTestEenUrls_ListView" Caption="Rest" IsNewNode="True" />
+        <DashboardViewItem Id="Soap" ViewId="ResultTestEenUrlSoap_ListView" Caption="Soap" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
