@@ -28,21 +28,44 @@ namespace KraanDevExpress.Module.BusinessObjects
             set { SetPropertyValue(nameof(Name), ref _name, value); }
         }
         
-        private string _namethodeName;
+        private string _methodeName;
         [RuleRequiredField]
         public string MethodeName
         {
-            get { return _namethodeName; }
-            set { SetPropertyValue(nameof(MethodeName), ref _namethodeName, value); }
+            get { return _methodeName; }
+            set { SetPropertyValue(nameof(MethodeName), ref _methodeName, value); }
         }
 
         [RuleRequiredField]
+        [ImmediatePostData]
         public KlantWebservice KlantWebservice
         {
             get { return fKlantWebservice; }
-            set { SetPropertyValue(nameof(KlantWebservice), ref fKlantWebservice, value); }
+            set 
+            { 
+                SetPropertyValue(nameof(KlantWebservice), ref fKlantWebservice, value);
+                OnChanged(nameof(HuidigeBasisUrl));
+            }
         }
         KlantWebservice fKlantWebservice;
+
+        
+        [NonPersistent]
+        public string HuidigeBasisUrl
+        {
+            get
+            {
+                if (KlantWebservice != null)
+                {
+                    if (KlantWebservice.BasisUrl1)
+                    {
+                        return KlantWebservice.Klant.BasisUrl1 + KlantWebservice.Webservice.Name;
+                    }
+                    return KlantWebservice.Klant.BasisUrl2 + KlantWebservice.Webservice.Name;
+                }
+                return null;
+            }
+        }
 
         public static IList<Url> GetUrlsByKlantWebservice(Session session, Guid klantWebserviceId)
         {
