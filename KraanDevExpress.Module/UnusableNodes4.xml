@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ResultTestEenUrl_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResultTestEenUrl">
+              <LayoutGroup Id="ResultTestEenUrl_col1">
+                <LayoutItem Id="Name" RelativeSize="20" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ResultTestEenUrlMessageService_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResultTestEenUrlMessageService">
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col1">
+                <LayoutItem Id="Name" RelativeSize="13.793103448275861" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="ResultTestEenUrlSoap_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="ResultTestEenUrlSoap">
+              <LayoutGroup Id="ResultTestEenUrlSoap_col1">
+                <LayoutItem Id="Name" RelativeSize="20" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

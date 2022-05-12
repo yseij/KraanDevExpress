@@ -13,7 +13,7 @@
       <Item Id="Default" Caption="Test results">
         <Items>
           <Item Id="Tests" ViewId="MyDashboard" Index="0" IsNewNode="True" />
-          <Item Id="ResultTestUrls_ListView" Index="1" Visible="False" />
+          <Item Id="ResultTestUrls_ListView" Index="1" Visible="True" />
           <Item Id="ResultTestKlant_ListView" Index="2" />
           <Item Id="Name_ListView" Visible="False" Index="3" />
           <Item Id="ResultTestEenUrl_ListView" Visible="False" Index="4" />
@@ -80,7 +80,6 @@
                 <LayoutItem Id="KaanIni" RelativeSize="21.428571428571427" Index="2" />
                 <LayoutItem Id="KraanDatabase" RelativeSize="28.571428571428573" Index="3" />
                 <LayoutItem Id="WebserviceWerkt" Index="3" RelativeSize="17.647058823529413" Removed="True" />
-                <LayoutItem Id="Name" RelativeSize="20" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="ResultTestEenUrl_col2" RelativeSize="50.167504187604692" Caption="ResultTestEenUrl_col2">
                 <LayoutItem Id="Sll" Index="0" RelativeSize="28.571428571428573" ViewItem="Sll" IsNewNode="True" />
@@ -116,7 +115,6 @@
                 <LayoutItem Id="Sll" RelativeSize="15" Index="3" />
                 <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="15" Index="4" />
                 <LayoutItem Id="MessageVersie" ViewItem="MessageVersie" Index="5" RelativeSize="20" IsNewNode="True" Removed="True" />
-                <LayoutItem Id="Name" RelativeSize="13.793103448275861" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="ResultTestEenUrlMessageService_col2" RelativeSize="50.089445438282645">
                 <LayoutItem Id="InterBaseVersie" Index="0" RelativeSize="20" ViewItem="InterBaseVersie" IsNewNode="True" />
@@ -164,7 +162,6 @@
                 <LayoutItem Id="Sll" RelativeSize="17.647058823529413" Index="3" Removed="True" />
                 <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="28.571428571428573" Index="3" Removed="True" />
                 <LayoutItem Id="WebserviceWerkt" RelativeSize="15" Index="3" Removed="True" />
-                <LayoutItem Id="Name" RelativeSize="20" Removed="True" />
               </LayoutGroup>
               <LayoutGroup Id="Auto41006b41-12d4-4a41-bddf-85887cd2dd48" ShowCaption="False" Caption="" Index="1" RelativeSize="50.089445438282645" IsNewNode="True">
                 <LayoutItem Id="Sll" ViewItem="Sll" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" />

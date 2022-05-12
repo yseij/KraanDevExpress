@@ -92,7 +92,7 @@ namespace KraanDevExpress.Module.Controllers
             _session = ((XPObjectSpace)_objectspace).Session;
 
             Url url = View.CurrentObject as Url;
-
+;
             DialogController dc = Application.CreateController<DialogController>();
             KlantWebservice klantWebservice = url.KlantWebservice;
 
@@ -100,19 +100,19 @@ namespace KraanDevExpress.Module.Controllers
             if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
             {
                 urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
-                TestUrl(urlName, klantWebservice);
+                TestUrl(urlName, klantWebservice, null, false);
                 urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
-                TestUrl(urlName, klantWebservice);
+                TestUrl(urlName, klantWebservice, null, false);
             }
             else if (klantWebservice.BasisUrl1)
             {
                 urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
-                TestUrl(urlName, klantWebservice);
+                TestUrl(urlName, klantWebservice, null, false);
             }
             else
             {
                 urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
-                TestUrl(urlName, klantWebservice);
+                TestUrl(urlName, klantWebservice, null, false);
             }
             _objectspace.CommitChanges();
             CreateView(_targetView, dc);
@@ -124,6 +124,9 @@ namespace KraanDevExpress.Module.Controllers
             _session = ((XPObjectSpace)_objectspace).Session;
 
             DialogController dc = Application.CreateController<DialogController>();
+            Name name = e.AcceptActionArgs.CurrentObject as Name;
+            ResultTestUrls resultTestUrls = new ResultTestUrls(_session);
+            resultTestUrls.Name = name.Naam;
 
             foreach (Url url in View.SelectedObjects)
             {
@@ -131,28 +134,31 @@ namespace KraanDevExpress.Module.Controllers
                 string urlName;
                 if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                 {
-                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice);
-                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice);
+                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                    TestUrl(urlName, klantWebservice, resultTestUrls, true);
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                    TestUrl(urlName, klantWebservice, resultTestUrls, true);
                 }
                 else if (klantWebservice.BasisUrl1)
                 {
-                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice);
+                    urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                    TestUrl(urlName, klantWebservice, resultTestUrls, true);
                 }
                 else
                 {
-                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice);
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName;
+                    TestUrl(urlName, klantWebservice, resultTestUrls, true);
                 }
             }
             _objectspace.CommitChanges();
-            CreateView(_targetView, dc);
+            DetailView targetView = Application.CreateDetailView(_objectspace, resultTestUrls, false);
+            CreateView(targetView, dc);
         }
 
         private void TestUrl(string urlName,
-                             KlantWebservice klantWebservice)
+                             KlantWebservice klantWebservice,
+                             ResultTestUrls resultTestUrls,
+                             bool isMeerdereUrls)
         {
             if (klantWebservice.Webservice.Soap)
             {
@@ -160,21 +166,21 @@ namespace KraanDevExpress.Module.Controllers
                 {
                     GetSales31Credentials();
                     _result = JObject.Parse(_webRequest.Get31SalesData(urlName, _gebruikersNaam, _wachtwoord));
-                    ResultTestEenUrlMessageService(urlName);
+                    ResultTestEenUrlMessageService(urlName, resultTestUrls, isMeerdereUrls);
                 }
                 else if (urlName.Contains("MessageServiceSoap.svc"))
                 {
                     _result = JObject.Parse(_webRequest.Get24SalesData(urlName));
-                    ResultTestEenUrlMessageService(urlName);
+                    ResultTestEenUrlMessageService(urlName, resultTestUrls, isMeerdereUrls);
                 }
                 else
                 {
-                    ResultTestEenUrlSoap(urlName);
+                    ResultTestEenUrlSoap(urlName, resultTestUrls, isMeerdereUrls);
                 }
             }
             else
             {
-                ResultTestEenUrl(urlName);
+                ResultTestEenUrl(urlName, resultTestUrls, isMeerdereUrls);
             }
         }
 
@@ -191,7 +197,7 @@ namespace KraanDevExpress.Module.Controllers
             Application.ShowViewStrategy.ShowView(svp, new ShowViewSource(null, null));
         }
 
-        private void ResultTestEenUrlMessageService(string urlName)
+        private void ResultTestEenUrlMessageService(string urlName, ResultTestUrls resultTestUrls, bool isMeerdereUrls)
         {
             string checkUrl = _webRequest.CheckUrl(urlName);
             ResultTestEenUrlMessageService resultTestEenUrlMessageService = GetMessageService(urlName);
@@ -202,10 +208,17 @@ namespace KraanDevExpress.Module.Controllers
                                                       resultTestEenUrlMessageService, 
                                                       null);
             }
-            _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlMessageService, false);
+            if (!isMeerdereUrls)
+            {
+                _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlMessageService, false);
+            }
+            else
+            {
+                resultTestUrls.ResultTestEenUrlMessageServices.Add(resultTestEenUrlMessageService);
+            }
         }
 
-        private void ResultTestEenUrlSoap(string urlName)
+        private void ResultTestEenUrlSoap(string urlName, ResultTestUrls resultTestUrls, bool isMeerdereUrls)
         {
             string checkUrl = _webRequest.CheckUrl(urlName);
             ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
@@ -222,10 +235,17 @@ namespace KraanDevExpress.Module.Controllers
                                             resultTestEenUrlSoap,
                                             null);
             }
-            _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlSoap, false);
+            if (!isMeerdereUrls)
+            {
+                _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlSoap, false);
+            }
+            else
+            {
+                resultTestUrls.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
+            }
         }
 
-        private void ResultTestEenUrl(string urlName)
+        private void ResultTestEenUrl(string urlName, ResultTestUrls resultTestUrls, bool isMeerdereUrls)
         {
             Console.WriteLine(urlName);
             string checkUrl = _webRequest.CheckUrl(urlName);
@@ -241,7 +261,15 @@ namespace KraanDevExpress.Module.Controllers
                                         resultTestEenUrl,
                                         null);
             }
-            _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrl, false);
+            if (!isMeerdereUrls)
+            {
+                _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrl, false);
+            }
+            else
+            {
+                resultTestUrls.ResultTestEenUrls.Add(resultTestEenUrl);
+            }
+            
         }
 
         private ResultTestEenUrlMessageService GetMessageService(string urlName)
