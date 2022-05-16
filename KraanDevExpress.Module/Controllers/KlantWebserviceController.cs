@@ -133,8 +133,6 @@ namespace KraanDevExpress.Module.Controllers
             else if (klantWebservice.BasisUrl1)
             {
                 urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                TestUrl(urlName, klantWebservice, dc, resultTestUrls, false);
-                CreateView(_targetView, dc);
             }
             else
             {
@@ -160,6 +158,7 @@ namespace KraanDevExpress.Module.Controllers
                     targetView = _targetView;
                 }
             }
+            _objectspace.CommitChanges();
             CreateView(targetView, dc);
         }
 
@@ -173,8 +172,6 @@ namespace KraanDevExpress.Module.Controllers
             {
                 string urlName2 = urlName + "/" + kraanWebservices[i];
                 TestUrl(urlName2, klantWebservice, dc, resultTestUrls, isMeerdereUrls);
-                TestUrl(urlName, klantWebservice, dc, resultTestUrls, false);
-                CreateView(_targetView, dc);
             }
         }
 
@@ -241,26 +238,6 @@ namespace KraanDevExpress.Module.Controllers
                 }
                 else
                 {
-                    ResultTestEenUrlSoap resultTestEenUrlSoap = new ResultTestEenUrlSoap(_session);
-                    resultTestEenUrlSoap.Soort = "Url test";
-                    resultTestEenUrlSoap.Name = urlName + "_" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-
-                    int plaatsSlech = urlName.LastIndexOf("/");
-                    string service = urlName.Substring(plaatsSlech + 1, urlName.Length - plaatsSlech - 1);
-                    _result = JObject.Parse(_webRequest.GetWebRequestSoap(urlName, service));
-
-                    _testRoute.TestOneRouteSoap(_result,
-                                                resultTestEenUrlSoap,
-                                                null);
-                    if (!isMeerdereUrls)
-                    {
-                        dc.Accepting += CommitChanges;
-                        _targetView = Application.CreateDetailView(_objectspace, resultTestEenUrlSoap, false);
-                    }
-                    else
-                    {
-                        resultTestUrls.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
-                    }
                     ResultTestEenUrlSoap(urlName, resultTestUrls, dc, isMeerdereUrls);
                 }
             }

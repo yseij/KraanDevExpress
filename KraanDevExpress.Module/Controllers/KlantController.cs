@@ -17,9 +17,16 @@ namespace KraanDevExpress.Module.Controllers
         private string _gebruikersNaam;
         private string _wachtwoord;
         private Session _session;
-        private IObjectSpace _objecspace;
+        private IObjectSpace _objectspace;
 
         private dynamic _result = null;
+
+        string[] kraanWebservices = { "AuthService.svc",
+                                      "CrmService.svc",
+                                      "WorkflowService.svc",
+                                      "MaterieelService.svc",
+                                      "MaterieelbeheerService.svc",
+                                      "UrenService.svc" };
 
         DetailView _targetView = null;
 
@@ -66,8 +73,8 @@ namespace KraanDevExpress.Module.Controllers
 
         private void dc_deleting(object sender, DeletingEventArgs e)
         {
-            _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
-            _session = ((XPObjectSpace)_objecspace).Session;
+            _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objectspace).Session;
 
             foreach (Klant klant in e.Objects)
             {
@@ -86,8 +93,8 @@ namespace KraanDevExpress.Module.Controllers
                         }
                         foreach (KlantWebservice klantWebservice in klant.klantWebservices)
                         {
-                            _session.Delete(_objecspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
-                        }                        
+                            _session.Delete(_objectspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
+                        }
                     }
                     else
                     {
@@ -100,7 +107,7 @@ namespace KraanDevExpress.Module.Controllers
                     klant.Delete();
                 }
             }
-            _objecspace.CommitChanges();
+            _objectspace.CommitChanges();
         }
 
         private void TestKlantBtn_Execute(object sender, SimpleActionExecuteEventArgs e)
@@ -126,7 +133,7 @@ namespace KraanDevExpress.Module.Controllers
                 if (klant != null)
                 {
                     name.Naam = klant.Name + " test ---" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    dc.Accepting += dc_Accepting; 
+                    dc.Accepting += dc_Accepting;
                 }
             }
             svp.Controllers.Add(dc);
@@ -138,14 +145,15 @@ namespace KraanDevExpress.Module.Controllers
 
         void dc_Accepting(object sender, DialogControllerAcceptingEventArgs e)
         {
-            _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
-            _session = ((XPObjectSpace)_objecspace).Session;
+            _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objectspace).Session;
 
             Name name = e.AcceptActionArgs.CurrentObject as Name;
             Klant klant = View.CurrentObject as Klant;
             ResultTestKlant resultTestKlant = new ResultTestKlant(_session);
             resultTestKlant.Name = name.Naam;
             DialogController dc = Application.CreateController<DialogController>();
+            DetailView targetView = null;
 
             foreach (KlantWebservice klantWebservice in klant.klantWebservices)
             {
@@ -154,35 +162,61 @@ namespace KraanDevExpress.Module.Controllers
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
                     TestUrl(urlName, klantWebservice, resultTestKlant);
+                    if (klantWebservice.Webservice.Name == "Kraan2Webservice")
+                    {
+                        CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
+                    }
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                     TestUrl(urlName, klantWebservice, resultTestKlant);
+                    if (klantWebservice.Webservice.Name == "Kraan2Webservice")
+                    {
+                        CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
+                    }
                 }
                 else if (klantWebservice.BasisUrl1)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
                 else
                 {
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
                 foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                 {
                     urlName = urlName + "/" + url.MethodeName;
                     TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
-            }
-            _objecspace.CommitChanges();
 
-            DetailView targetView = Application.CreateDetailView(_objecspace, resultTestKlant, false);
+                if (klantWebservice.Webservice.Name == "Kraan2Webservice")
+                {
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
+                    CheckWebserviceName(urlName, klantWebservice, resultTestKlant); 
+                }
+                else
+                {
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
+                }
+            }
+            _objectspace.CommitChanges();
+            targetView = Application.CreateDetailView(_objectspace, resultTestKlant, false);
             CreateView(targetView, dc);
+        }
+
+        private void CheckWebserviceName(string urlName,
+                                         KlantWebservice klantWebservice,
+                                         ResultTestKlant resultTestKlant)
+        {
+            for (int i = 0; i < kraanWebservices.Length; i++)
+            {
+                string urlName2 = urlName + "/" + kraanWebservices[i];
+                TestUrl(urlName2, klantWebservice, resultTestKlant);
+            }
         }
 
         void dc_Accepting_MeerdereKlanten(object sender, DialogControllerAcceptingEventArgs e)
         {
-            _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
-            _session = ((XPObjectSpace)_objecspace).Session;
+            _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+            _session = ((XPObjectSpace)_objectspace).Session;
 
             Name name = e.AcceptActionArgs.CurrentObject as Name;
 
@@ -218,9 +252,9 @@ namespace KraanDevExpress.Module.Controllers
                     }
                 }
             }
-            _objecspace.CommitChanges();
+            _objectspace.CommitChanges();
 
-            DetailView targetView = Application.CreateDetailView(_objecspace, resultTestKlant, false);
+            DetailView targetView = Application.CreateDetailView(_objectspace, resultTestKlant, false);
             CreateView(targetView, dc);
         }
 
@@ -300,8 +334,8 @@ namespace KraanDevExpress.Module.Controllers
             resultTestKlant.ResultTestEenUrlSoaps.Add(resultTestEenUrlSoap);
         }
 
-        private void ResultTestEenUrl(string urlName, 
-                                      KlantWebservice klantWebservice, 
+        private void ResultTestEenUrl(string urlName,
+                                      KlantWebservice klantWebservice,
                                       ResultTestKlant resultTestKlant)
         {
             string checkUrl = _webRequest.CheckUrl(urlName);
@@ -333,7 +367,7 @@ namespace KraanDevExpress.Module.Controllers
         private void GetSales31Credentials()
         {
             Sales31Credentials sales31Credentials = new Sales31Credentials();
-            DetailView targetViewSales31Credentials = Application.CreateDetailView(_objecspace, sales31Credentials, false);
+            DetailView targetViewSales31Credentials = Application.CreateDetailView(_objectspace, sales31Credentials, false);
             targetViewSales31Credentials.ViewEditMode = ViewEditMode.Edit;
 
             ShowViewParameters svpSales31Credentials = new ShowViewParameters(targetViewSales31Credentials);
