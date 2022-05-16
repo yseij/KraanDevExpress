@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,8 +6,6 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace KraanDevExpress.Module.BusinessObjects
@@ -47,30 +44,7 @@ namespace KraanDevExpress.Module.BusinessObjects
 
                         HttpResponseMessage response1 = client.GetAsync(uri).Result;
                         string data = response1.Content.ReadAsStringAsync().Result;
-                        if (response1.IsSuccessStatusCode)
-                        {
-                            if (isWebserviceVersion)
-                            {
-                                if (_certIsGoed)
-                                {
-                                    return GetDataOfWebRequest(data, cert.GetExpirationDateString().ToString());
-                                }
-                                else
-                                {
-                                    return GetDataOfWebRequest(data, "");
-                                }
-                            }
-                            else
-                            {
-                                int Pos1 = data.IndexOf('{');
-                                int Pos2 = data.IndexOf('}');
-                                data = data.Substring(Pos1 + 1, Pos2 - Pos1 - 1);
-                                if (_certIsGoed)
-                                {
-                                    return "{" + data + "', certVerValDatum: '" + cert.GetExpirationDateString().ToString() + "'}";
-                                }
-                            }
-                        }
+                        return GetData(response1, isWebserviceVersion, data, cert);
                     }
                     return @"{ ex: '" + "krijg geen data terug" + "'}";
                 }
@@ -81,7 +55,40 @@ namespace KraanDevExpress.Module.BusinessObjects
             }
         }
 
-        private string GetDataOfWebRequest(string data, string verValDatum = "")
+        private string GetData(HttpResponseMessage response1,
+                               bool isWebserviceVersion,
+                               string data,
+                               X509Certificate cert)
+        {
+            if (response1.IsSuccessStatusCode)
+            {
+                if (_certIsGoed)
+                {
+                    if (isWebserviceVersion)
+                    {
+                        return GetWebserviceVersionDataOfWebRequest(data, cert.GetExpirationDateString().ToString());
+                    }
+                    else
+                    {
+                        return GetDataOfWebRequest(data, cert.GetExpirationDateString().ToString());
+                    }
+                }
+                else
+                {
+                    if (isWebserviceVersion)
+                    {
+                        return GetWebserviceVersionDataOfWebRequest(data, "");
+                    }
+                    else
+                    {
+                        return GetDataOfWebRequest(data, "");
+                    }
+                }
+            }
+            return @"{ ex: '" + "krijg geen data terug" + "'}";
+        }
+
+        private string GetWebserviceVersionDataOfWebRequest(string data, string verValDatum = "")
         {
             _positionKraanDll = data.IndexOf("KraanDLL");
             _positionKraanIni = data.IndexOf("Kraan.ini");
@@ -94,6 +101,18 @@ namespace KraanDevExpress.Module.BusinessObjects
             _kraanDatabase = data.Substring(_positionDatabaseConnect, _positionDatabaseMelding - _positionDatabaseConnect);
 
             return @"{ WebserviceVersie: '" + _webserviceVersie + "', KraanDll: '" + _kraanDll + "', KraanIni: '" + _kraanIni + "', KraanDatabase: '" + _kraanDatabase + "', certVerValDatum: '" + verValDatum + "'}";
+        }
+
+        private string GetDataOfWebRequest(string data, string verValDatum = "")
+        {
+            int Pos1 = data.IndexOf('{');
+            int Pos2 = data.IndexOf('}');
+            data = data.Substring(Pos1 + 1, Pos2 - Pos1 - 1);
+            if (_certIsGoed)
+            {
+                return "{" + data + ", \"certVerValDatum\": " + "\"" + verValDatum + "\"" + "}";
+            }
+            return data;
         }
 
         public string CheckUrl(string host)

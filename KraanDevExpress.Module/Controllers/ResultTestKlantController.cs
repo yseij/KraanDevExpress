@@ -7,28 +7,20 @@ using System.Windows.Forms;
 
 namespace KraanDevExpress.Module.Controllers
 {
-    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class ResultTestKlantController : ViewController
     {
         private Session _session;
         private IObjectSpace _objecspace;
 
-        DbConnectie _dbConnectie;
-        ResultTestEenUrlController _resultTestEenUrlController;
         DeleteObjectsViewController _deleteObjectsViewController;
-        // Use CodeRush to create Controllers and Actions with a few keystrokes.
-        // https://docs.devexpress.com/CodeRushForRoslyn/403133/
         public ResultTestKlantController()
         {
             InitializeComponent();
-            _dbConnectie = new DbConnectie();
-            _resultTestEenUrlController = new ResultTestEenUrlController();
             _deleteObjectsViewController = new DeleteObjectsViewController();
         }
         protected override void OnActivated()
         {
             base.OnActivated();
-            // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()
         {

@@ -27,9 +27,10 @@ namespace KraanDevExpress.Module.BusinessObjects
         public override void AfterConstruction()
         {
             base.AfterConstruction();
-            // Place your initialization code here (https://documentation.devexpress.com/eXpressAppFramework/CustomDocument112834.aspx).
         }
+
         private string _name;
+        [Size(SizeAttribute.Unlimited)]
         public string Name
         {
             get { return _name; }

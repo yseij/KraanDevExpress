@@ -39,7 +39,7 @@ namespace KraanDevExpress.Module.BusinessObjects
                         resultTestEenUrl.Response = resultTestEenUrl.Response + item.Value;
                         if (resultTestKlant != null)
                         {
-                            SetAantalFouten(resultTestKlant);
+                            resultTestKlant.AantalFout++;
                         }
                         break;
                     default:
@@ -70,7 +70,7 @@ namespace KraanDevExpress.Module.BusinessObjects
                         resultTestEenUrlSoap.Response = resultTestEenUrlSoap.Response + item.Name + " = " + item.Value + Environment.NewLine;
                         if (resultTestKlant != null)
                         {
-                            SetAantalFouten(resultTestKlant);
+                            resultTestKlant.AantalFout++;
                         }
                         break;
                     case "certVerValDatum":
@@ -135,7 +135,7 @@ namespace KraanDevExpress.Module.BusinessObjects
                         resultTestEenUrlMessageService.Response = resultTestEenUrlMessageService.Response + item.Name + " = " + item.Value + Environment.NewLine;
                         if (resultTestKlant != null)
                         {
-                            SetAantalFouten(resultTestKlant);
+                            resultTestKlant.AantalFout++;
                         }
                         break;
                     default:
@@ -143,11 +143,6 @@ namespace KraanDevExpress.Module.BusinessObjects
                         break;
                 }
             }
-        }
-
-        private void SetAantalFouten(ResultTestKlant resultTestKlant)
-        {
-            resultTestKlant.AantalFout++;
         }
     }
 }
