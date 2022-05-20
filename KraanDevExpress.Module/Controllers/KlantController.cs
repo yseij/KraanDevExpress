@@ -186,10 +186,12 @@ namespace KraanDevExpress.Module.Controllers
                 else if (klantWebservice.BasisUrl1)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
                 else
                 {
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
                 foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                 {
@@ -199,12 +201,7 @@ namespace KraanDevExpress.Module.Controllers
 
                 if (klantWebservice.Webservice.Name == "Kraan2Webservice")
                 {
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
                     CheckWebserviceName(urlName, klantWebservice, resultTestKlant); 
-                }
-                else
-                {
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
                 }
             }
             _objectspace.CommitChanges();
