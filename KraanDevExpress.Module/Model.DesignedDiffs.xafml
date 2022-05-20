@@ -54,7 +54,7 @@
     <DashboardView Id="MyDashboard" Caption="Tests" IsNewNode="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="MessageService" ViewId="ResultTestEenUrlMessageService_ListView" Caption="MessageService" IsNewNode="True" />
-        <DashboardViewItem Id="Rest" ViewId="ResultTestKlant_ResultTestEenUrls_ListView" Caption="Rest" IsNewNode="True" />
+        <DashboardViewItem Id="Rest" Caption="Rest" ViewId="ResultTestEenUrl_ListView" IsNewNode="True" />
         <DashboardViewItem Id="Soap" ViewId="ResultTestEenUrlSoap_ListView" Caption="Soap" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
@@ -72,27 +72,28 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="14.844533600802407">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="13.883677298311445">
             <LayoutGroup Id="ResultTestEenUrl" RelativeSize="100">
-              <LayoutGroup Id="ResultTestEenUrl_col1" RelativeSize="49.832495812395308">
+              <LayoutGroup Id="ResultTestEenUrl_col1" RelativeSize="49.790209790209794">
                 <LayoutItem Id="WebserviceVersie" ViewItem="WebserviceVersie" Index="0" RelativeSize="28.571428571428573" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="KraanDll" RelativeSize="21.428571428571427" Index="1" />
                 <LayoutItem Id="KaanIni" RelativeSize="21.428571428571427" Index="2" />
                 <LayoutItem Id="KraanDatabase" RelativeSize="28.571428571428573" Index="3" />
                 <LayoutItem Id="WebserviceWerkt" Index="3" RelativeSize="17.647058823529413" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="ResultTestEenUrl_col2" RelativeSize="50.167504187604692" Caption="ResultTestEenUrl_col2">
+              <LayoutGroup Id="ResultTestEenUrl_col2" RelativeSize="50.209790209790206" Caption="ResultTestEenUrl_col2">
                 <LayoutItem Id="Sll" Index="0" RelativeSize="28.571428571428573" ViewItem="Sll" IsNewNode="True" />
                 <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="21.428571428571427" Index="1" />
-                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="2" RelativeSize="21.428571428571427" IsNewNode="True" />
+                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="2" RelativeSize="50" IsNewNode="True" />
                 <LayoutItem Id="ResultTestKlant" RelativeSize="65" Removed="True" />
                 <LayoutItem Id="ResultTestUrls" RelativeSize="50" Removed="True" />
                 <LayoutItem Id="Soort" RelativeSize="80" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="85.155466399197593">
-            <LayoutItem Id="Response" RelativeSize="100" ShowCaption="True" CaptionLocation="Top" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="86.11632270168856" Caption="SizeableEditors">
+            <LayoutItem Id="Response" RelativeSize="100" ShowCaption="True" CaptionLocation="Top" Index="0" />
+            <LayoutItem Id="Name" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -105,32 +106,34 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="22.197055492638732">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="20.637898686679176">
             <LayoutGroup Id="ResultTestEenUrlMessageService" RelativeSize="100">
-              <LayoutGroup Id="ResultTestEenUrlMessageService_col1" RelativeSize="49.910554561717355">
-                <LayoutItem Id="KraanDll" RelativeSize="20" Index="0" />
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col1" RelativeSize="49.930069930069934">
+                <LayoutItem Id="KraanDll" RelativeSize="17.391304347826086" Index="0" />
                 <LayoutItem Id="WebserviceWerkt" RelativeSize="15.384615384615385" Index="0" Removed="True" />
-                <LayoutItem Id="KraanIni" RelativeSize="15" Index="1" />
-                <LayoutItem Id="DatabaseConnectie" RelativeSize="15" Index="2" />
-                <LayoutItem Id="Sll" RelativeSize="15" Index="3" />
-                <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="15" Index="4" />
-                <LayoutItem Id="MessageVersie" ViewItem="MessageVersie" Index="5" RelativeSize="20" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="KraanIni" RelativeSize="13.043478260869565" Index="1" />
+                <LayoutItem Id="DatabaseConnectie" RelativeSize="13.043478260869565" Index="2" />
+                <LayoutItem Id="Sll" RelativeSize="13.043478260869565" Index="3" />
+                <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="13.043478260869565" Index="4" />
+                <LayoutItem Id="MessageVersie" ViewItem="MessageVersie" Index="5" RelativeSize="13.043478260869565" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="InterBaseVersie" Index="6" RelativeSize="17.391304347826086" />
               </LayoutGroup>
-              <LayoutGroup Id="ResultTestEenUrlMessageService_col2" RelativeSize="50.089445438282645">
-                <LayoutItem Id="InterBaseVersie" Index="0" RelativeSize="20" ViewItem="InterBaseVersie" IsNewNode="True" />
-                <LayoutItem Id="MssqlServer" RelativeSize="15" Index="1" />
-                <LayoutItem Id="MssqlCatalog" RelativeSize="15" Index="2" />
-                <LayoutItem Id="Kraan1DatabaseVersie" RelativeSize="15" Index="3" />
-                <LayoutItem Id="Kraan2DatabaseVersie" RelativeSize="15" Index="4" />
-                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="5" RelativeSize="20" IsNewNode="True" />
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col2" RelativeSize="50.069930069930066">
+                <LayoutItem Id="InterBaseVersie" Index="0" RelativeSize="30.434782608695652" ViewItem="InterBaseVersie" IsNewNode="True" />
+                <LayoutItem Id="MssqlServer" RelativeSize="13.043478260869565" Index="1" />
+                <LayoutItem Id="MssqlCatalog" RelativeSize="13.043478260869565" Index="2" />
+                <LayoutItem Id="Kraan1DatabaseVersie" RelativeSize="13.043478260869565" Index="3" />
+                <LayoutItem Id="Kraan2DatabaseVersie" RelativeSize="13.043478260869565" Index="4" />
+                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="5" RelativeSize="17.391304347826086" IsNewNode="True" />
                 <LayoutItem Id="ResultTestKlant" RelativeSize="44.827586206896555" Removed="True" />
                 <LayoutItem Id="ResultTestUrls" RelativeSize="34.482758620689658" Removed="True" />
                 <LayoutItem Id="Soort" RelativeSize="55.172413793103445" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="77.802944507361275">
-            <LayoutItem Id="Response" CaptionLocation="Top" RelativeSize="100" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="79.362101313320821" Caption="SizeableEditors">
+            <LayoutItem Id="Response" CaptionLocation="Top" RelativeSize="100" Index="0" />
+            <LayoutItem Id="Name" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -153,9 +156,9 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="14.04303510758777">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="11.632270168855534">
             <LayoutGroup Id="ResultTestEenUrlSoap" RelativeSize="100">
-              <LayoutGroup Id="ResultTestEenUrlSoap_col1" RelativeSize="49.910554561717355">
+              <LayoutGroup Id="ResultTestEenUrlSoap_col1" RelativeSize="49.930069930069934">
                 <LayoutItem Id="WebserviceVersie" ViewItem="WebserviceVersie" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" Removed="True" />
                 <LayoutItem Id="DatabaseVersie" ViewItem="DatabaseVersie" Index="1" RelativeSize="27.272727272727273" IsNewNode="True" />
                 <LayoutItem Id="DevExpressVersie" ViewItem="DevExpressVersie" Index="2" RelativeSize="36.363636363636367" IsNewNode="True" Removed="True" />
@@ -163,7 +166,7 @@
                 <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="28.571428571428573" Index="3" Removed="True" />
                 <LayoutItem Id="WebserviceWerkt" RelativeSize="15" Index="3" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Auto41006b41-12d4-4a41-bddf-85887cd2dd48" ShowCaption="False" Caption="" Index="1" RelativeSize="50.089445438282645" IsNewNode="True">
+              <LayoutGroup Id="Auto41006b41-12d4-4a41-bddf-85887cd2dd48" ShowCaption="False" Caption="Auto41006b41-12d4-4a41-bddf-85887cd2dd48(8)" Index="1" RelativeSize="50.069930069930066" IsNewNode="True">
                 <LayoutItem Id="Sll" ViewItem="Sll" Index="0" RelativeSize="36.363636363636367" IsNewNode="True" />
                 <LayoutItem Id="SllCertificaatVervalDatum" ViewItem="SllCertificaatVervalDatum" Index="1" RelativeSize="27.272727272727273" IsNewNode="True" />
                 <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="2" RelativeSize="36.363636363636367" IsNewNode="True" />
@@ -177,8 +180,9 @@
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="85.95696489241223">
-            <LayoutItem Id="Response" CaptionLocation="Top" RelativeSize="100" />
+          <LayoutGroup Id="SizeableEditors" RelativeSize="88.367729831144459" Caption="SizeableEditors">
+            <LayoutItem Id="Response" CaptionLocation="Top" RelativeSize="100" Index="0" />
+            <LayoutItem Id="Name" Removed="True" />
           </LayoutGroup>
         </LayoutGroup>
       </Layout>
@@ -204,7 +208,7 @@
         <ColumnInfo Id="Response" AllowEdit="False" />
       </Columns>
     </ListView>
-    <DetailView Id="ResultTestKlant_DetailView">
+    <DetailView Id="ResultTestKlant_DetailView" AllowNew="False">
       <Items>
         <PropertyEditor Id="AantalFout" AllowEdit="False" />
         <PropertyEditor Id="Name" AllowEdit="False" />
@@ -232,6 +236,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="ResultTestKlant_ListView" AllowNew="False" />
     <ListView Id="ResultTestKlant_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
     <ListView Id="ResultTestKlant_ResultTestEenUrls_ListView" AllowLink="False" AllowNew="False" AllowUnlink="False">
       <Columns>
@@ -261,6 +266,8 @@
         <ColumnInfo Id="ResultTestUrls" AllowEdit="False" />
       </Columns>
     </ListView>
+    <DetailView Id="ResultTestUrls_DetailView" AllowNew="False" />
+    <ListView Id="ResultTestUrls_ListView" AllowNew="False" />
     <ListView Id="ResultTestUrls_ResultTestEenUrlMessageServices_ListView" AllowNew="False" AllowUnlink="False" />
     <ListView Id="ResultTestUrls_ResultTestEenUrls_ListView" AllowNew="False" AllowUnlink="False" />
     <ListView Id="ResultTestUrls_ResultTestEenUrlSoaps_ListView" AllowUnlink="False" AllowNew="False">

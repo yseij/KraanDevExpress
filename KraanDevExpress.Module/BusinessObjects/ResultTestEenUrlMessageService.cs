@@ -157,15 +157,11 @@ namespace KraanDevExpress.Module.BusinessObjects
 
         [NonPersistent]
         [Browsable(false)]
-        private bool IsException
+        public bool IsException
         {
             get
             {
-                if (_response == null)
-                {
-                    return false;
-                }
-                return _response.Contains("ex = ");
+                return !_webserviceWerkt.Contains("true");
             }
         }
 
