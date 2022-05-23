@@ -34,14 +34,12 @@ namespace KraanDevExpress.Module.Controllers
         TestRoute _testRoute;
         DbConnectie _dbConnectie;
 
-        //DeleteObjectsViewController _deleteObjectsViewController;
         public KlantController()
         {
             InitializeComponent();
             _webRequest = new WebRequest();
             _testRoute = new TestRoute();
             _dbConnectie = new DbConnectie();
-            //_deleteObjectsViewController = new DeleteObjectsViewController();
         }
         protected override void OnActivated()
         {
@@ -51,64 +49,13 @@ namespace KraanDevExpress.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            //_deleteObjectsViewController = Frame.GetController<DeleteObjectsViewController>();
-            //if (_deleteObjectsViewController != null)
-            //{
-            //    _deleteObjectsViewController.Deleting += dc_deleting;
-            //}
         }
 
         protected override void OnDeactivated()
         {
             base.OnDeactivated();
-            //if (_deleteObjectsViewController != null)
-            //{
-            //    _deleteObjectsViewController.Deleting -= dc_deleting;
-            //}
         }
 
-        //private void dc_deleting(object sender, DeletingEventArgs e)
-        //{
-        //    _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
-        //    _session = ((XPObjectSpace)_objectspace).Session;
-
-
-
-        //    foreach (Klant klant in e.Objects)
-        //    {
-        //        if (klant.klantWebservices.Count != 0)
-        //        {
-        //            DialogResult dialogResultUrlsByKlant = 
-        //                MessageBox.Show("Wilt u de urls van de klant " + klant.Name 
-        //                + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
-        //            if (dialogResultUrlsByKlant == DialogResult.Yes)
-        //            {
-        //                foreach (KlantWebservice klantWebservice in klant.klantWebservices)
-        //                {
-        //                    IList<Url> urls = Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid);
-        //                    if (urls.Count != 0)
-        //                    {
-        //                        _session.Delete(urls);
-        //                    }
-        //                }
-        //                foreach (KlantWebservice klantWebservice in klant.klantWebservices)
-        //                {
-        //                    _session.Delete(_objectspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
-        //                }
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Er wordt niks verwijdert");
-        //                e.Cancel = true;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            klant.Delete();
-        //        }
-        //    }
-        //    _objectspace.CommitChanges();
-        //}
 
         private void TestKlantBtn_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
@@ -121,25 +68,32 @@ namespace KraanDevExpress.Module.Controllers
             ShowViewParameters svp = new ShowViewParameters(targetView);
 
             DialogController dc = Application.CreateController<DialogController>();
-
-            if (e.SelectedObjects.Count > 1)
+            if (e.SelectedObjects.Count == 0)
             {
-                name.Naam = "Meerdere klanten testen --- " + DateTime.Today.Day +
-                    "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
-                    "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                dc.Accepting += dc_Accepting_MeerdereKlanten;
+                MessageBox.Show("Je hebt geen klant geselecteerd");
             }
             else
             {
-                Klant klant = e.CurrentObject as Klant;
-                if (klant != null)
+                if (e.SelectedObjects.Count > 1)
                 {
-                    name.Naam = klant.Name + " test --- " + DateTime.Today.Day + 
-                        "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
+                    name.Naam = "Meerdere klanten testen --- " + DateTime.Today.Day +
+                        "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
                         "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    dc.Accepting += dc_Accepting;
+                    dc.Accepting += dc_Accepting_MeerdereKlanten;
+                }
+                else
+                {
+                    Klant klant = e.CurrentObject as Klant;
+                    if (klant != null)
+                    {
+                        name.Naam = klant.Name + " test --- " + DateTime.Today.Day +
+                            "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                            "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        dc.Accepting += dc_Accepting;
+                    }
                 }
             }
+            
             svp.Controllers.Add(dc);
             svp.Context = TemplateContext.PopupWindow;
             svp.TargetWindow = TargetWindow.NewModalWindow;

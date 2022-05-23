@@ -7,6 +7,7 @@ using DevExpress.Xpo;
 using KraanDevExpress.Module.BusinessObjects;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Windows.Forms;
 
 namespace KraanDevExpress.Module.Controllers
 {
@@ -55,33 +56,39 @@ namespace KraanDevExpress.Module.Controllers
             ShowViewParameters svp = new ShowViewParameters(targetView);
 
             DialogController dc = Application.CreateController<DialogController>();
-
-            if (e.SelectedObjects.Count > 1)
+            if (e.SelectedObjects.Count == 0)
             {
-                name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + 
-                    "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
-                    "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                dc.Accepting += dc_Accepting_MeerdereUrls;
+                MessageBox.Show("Je hebt geen url geselecteerd");
             }
             else
             {
-                Url url = e.CurrentObject as Url;
-                KlantWebservice klantWebservice = url.KlantWebservice;
-                if (klantWebservice != null)
+                if (e.SelectedObjects.Count > 1)
                 {
-                    if (klantWebservice.BasisUrl1)
+                    name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month +
+                        "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                        "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    dc.Accepting += dc_Accepting_MeerdereUrls;
+                }
+                else
+                {
+                    Url url = e.CurrentObject as Url;
+                    KlantWebservice klantWebservice = url.KlantWebservice;
+                    if (klantWebservice != null)
                     {
-                        name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- "
-                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
-                            "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        if (klantWebservice.BasisUrl1)
+                        {
+                            name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- "
+                                + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                                "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        }
+                        else
+                        {
+                            name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- "
+                                + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                                "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        }
+                        dc.Accepting += dc_Accepting;
                     }
-                    else
-                    {
-                        name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- "
-                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
-                            "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    }
-                    dc.Accepting += dc_Accepting;
                 }
             }
 

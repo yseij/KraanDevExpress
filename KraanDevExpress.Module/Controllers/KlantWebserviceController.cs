@@ -7,6 +7,7 @@ using DevExpress.Xpo;
 using KraanDevExpress.Module.BusinessObjects;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Windows.Forms;
 
 namespace KraanDevExpress.Module.Controllers
 {
@@ -65,40 +66,47 @@ namespace KraanDevExpress.Module.Controllers
             ShowViewParameters svp = new ShowViewParameters(targetView);
 
             DialogController dc = Application.CreateController<DialogController>();
-
-            if (e.SelectedObjects.Count > 1)
+            if (e.SelectedObjects.Count == 0)
             {
-                name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" +
-                    DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
-                    "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                dc.Accepting += dc_Accepting_MeerdereUrls;
+                MessageBox.Show("Je hebt geen klant webservice geselecteerd");
             }
             else
             {
-                KlantWebservice klantWebservice = e.CurrentObject as KlantWebservice;
-                if (klantWebservice != null)
+                if (e.SelectedObjects.Count > 1)
                 {
-                    if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+                    name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" +
+                        DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                        "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    dc.Accepting += dc_Accepting_MeerdereUrls;
+                }
+                else
+                {
+                    KlantWebservice klantWebservice = e.CurrentObject as KlantWebservice;
+                    if (klantWebservice != null)
                     {
-                        name.Naam = "de 2 basisurls testen - " + klantWebservice.Webservice.Name + " --- "
-                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year +
-                            "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
+                        {
+                            name.Naam = "de 2 basisurls testen - " + klantWebservice.Webservice.Name + " --- "
+                                + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year +
+                                "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        }
+                        else if (klantWebservice.BasisUrl1)
+                        {
+                            name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + " --- "
+                                + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year +
+                                "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        }
+                        else
+                        {
+                            name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + " --- "
+                                + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year +
+                                "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        }
+                        dc.Accepting += dc_Accepting;
                     }
-                    else if (klantWebservice.BasisUrl1)
-                    {
-                        name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + " --- "
-                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year +
-                            "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    }
-                    else
-                    {
-                        name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + " --- "
-                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year +
-                            "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
-                    }
-                    dc.Accepting += dc_Accepting;
                 }
             }
+            
             svp.Controllers.Add(dc);
             svp.Context = TemplateContext.PopupWindow;
             svp.TargetWindow = TargetWindow.NewModalWindow;
