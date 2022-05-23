@@ -380,13 +380,26 @@ namespace KraanDevExpress.Module.BusinessObjects
 
                     bool succes = client.PostMessage(null, null, ref message);
 
-                    string data = "{\"" + message.Text[0]
+                    if (cert != null)
+                    {
+                        string data = "{\"" + message.Text[0]
                         .Replace("\r\n", "\",\"")
                         .Replace(": ", "\": \"")
                         .Replace(@"\", " ")
                         .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
-                    client.Close();
-                    return data;
+                        client.Close();
+                        return data;
+                    }
+                    else
+                    {
+                        string data = "{\"" + message.Text[0]
+                        .Replace("\r\n", "\",\"")
+                        .Replace(": ", "\": \"")
+                        .Replace(@"\", " ")
+                        .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + "null" + "\"" + "}";
+                        client.Close();
+                        return data;
+                    }
                 }
                 catch (Exception ex)
                 {
