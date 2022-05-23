@@ -34,16 +34,14 @@ namespace KraanDevExpress.Module.Controllers
         TestRoute _testRoute;
         DbConnectie _dbConnectie;
 
-        ResultTestKlantController _resultTestKlantController;
-        DeleteObjectsViewController _deleteObjectsViewController;
+        //DeleteObjectsViewController _deleteObjectsViewController;
         public KlantController()
         {
             InitializeComponent();
             _webRequest = new WebRequest();
             _testRoute = new TestRoute();
             _dbConnectie = new DbConnectie();
-            _resultTestKlantController = new ResultTestKlantController();
-            _deleteObjectsViewController = new DeleteObjectsViewController();
+            //_deleteObjectsViewController = new DeleteObjectsViewController();
         }
         protected override void OnActivated()
         {
@@ -53,62 +51,64 @@ namespace KraanDevExpress.Module.Controllers
         protected override void OnViewControlsCreated()
         {
             base.OnViewControlsCreated();
-            _deleteObjectsViewController = Frame.GetController<DeleteObjectsViewController>();
-            if (_deleteObjectsViewController != null)
-            {
-                _deleteObjectsViewController.Deleting += dc_deleting;
-            }
+            //_deleteObjectsViewController = Frame.GetController<DeleteObjectsViewController>();
+            //if (_deleteObjectsViewController != null)
+            //{
+            //    _deleteObjectsViewController.Deleting += dc_deleting;
+            //}
         }
 
         protected override void OnDeactivated()
         {
-            if (_deleteObjectsViewController != null)
-            {
-                _deleteObjectsViewController.Deleting -= dc_deleting;
-            }
             base.OnDeactivated();
+            //if (_deleteObjectsViewController != null)
+            //{
+            //    _deleteObjectsViewController.Deleting -= dc_deleting;
+            //}
         }
 
-        private void dc_deleting(object sender, DeletingEventArgs e)
-        {
-            _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
-            _session = ((XPObjectSpace)_objectspace).Session;
+        //private void dc_deleting(object sender, DeletingEventArgs e)
+        //{
+        //    _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
+        //    _session = ((XPObjectSpace)_objectspace).Session;
 
-            foreach (Klant klant in e.Objects)
-            {
-                if (klant.klantWebservices.Count != 0)
-                {
-                    DialogResult dialogResultUrlsByKlant = 
-                        MessageBox.Show("Wilt u de urls van de klant " + klant.Name 
-                        + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
-                    if (dialogResultUrlsByKlant == DialogResult.Yes)
-                    {
-                        foreach (KlantWebservice klantWebservice in klant.klantWebservices)
-                        {
-                            IList<Url> urls = Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid);
-                            if (urls.Count != 0)
-                            {
-                                _session.Delete(urls);
-                            }
-                        }
-                        foreach (KlantWebservice klantWebservice in klant.klantWebservices)
-                        {
-                            _session.Delete(_objectspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Er wordt niks verwijdert");
-                        e.Cancel = true;
-                    }
-                }
-                else
-                {
-                    klant.Delete();
-                }
-            }
-            _objectspace.CommitChanges();
-        }
+
+
+        //    foreach (Klant klant in e.Objects)
+        //    {
+        //        if (klant.klantWebservices.Count != 0)
+        //        {
+        //            DialogResult dialogResultUrlsByKlant = 
+        //                MessageBox.Show("Wilt u de urls van de klant " + klant.Name 
+        //                + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
+        //            if (dialogResultUrlsByKlant == DialogResult.Yes)
+        //            {
+        //                foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+        //                {
+        //                    IList<Url> urls = Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid);
+        //                    if (urls.Count != 0)
+        //                    {
+        //                        _session.Delete(urls);
+        //                    }
+        //                }
+        //                foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+        //                {
+        //                    _session.Delete(_objectspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Er wordt niks verwijdert");
+        //                e.Cancel = true;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            klant.Delete();
+        //        }
+        //    }
+        //    _objectspace.CommitChanges();
+        //}
 
         private void TestKlantBtn_Execute(object sender, SimpleActionExecuteEventArgs e)
         {
@@ -134,7 +134,7 @@ namespace KraanDevExpress.Module.Controllers
                 Klant klant = e.CurrentObject as Klant;
                 if (klant != null)
                 {
-                    name.Naam = klant.Name + " test ---" + DateTime.Today.Day + 
+                    name.Naam = klant.Name + " test --- " + DateTime.Today.Day + 
                         "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
                         "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                     dc.Accepting += dc_Accepting;

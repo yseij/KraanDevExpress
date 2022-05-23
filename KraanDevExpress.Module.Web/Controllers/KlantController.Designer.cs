@@ -1,7 +1,7 @@
 ﻿
-namespace KraanDevExpress.Module.Controllers
+namespace KraanDevExpress.Module.Web.Controllers
 {
-    partial class ResultTestKlantController
+    partial class KlantController
     {
         /// <summary>
         /// Required designer variable.
@@ -30,9 +30,9 @@ namespace KraanDevExpress.Module.Controllers
         private void InitializeComponent()
         {
             // 
-            // ResultTestKlantController
+            // KlantController
             // 
-            this.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.ResultTestKlant);
+            this.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.Klant);
 
         }
 

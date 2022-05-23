@@ -45,6 +45,7 @@ namespace KraanDevExpress.Module.Controllers
             // KlantWebserviceController
             // 
             this.Actions.Add(this.TestUrlBtn);
+            this.TargetObjectType = typeof(KraanDevExpress.Module.BusinessObjects.KlantWebservice);
 
         }
 

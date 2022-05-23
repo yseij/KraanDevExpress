@@ -154,12 +154,6 @@
     <Compile Include="Controllers\KlantWebserviceController.Designer.cs">
       <DependentUpon>KlantWebserviceController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\ResultTestKlantController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\ResultTestKlantController.Designer.cs">
-      <DependentUpon>ResultTestKlantController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\UrlController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -181,9 +175,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\KlantWebserviceController.resx">
       <DependentUpon>KlantWebserviceController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\ResultTestKlantController.resx">
-      <DependentUpon>ResultTestKlantController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\UrlController.resx">
       <DependentUpon>UrlController.cs</DependentUpon>

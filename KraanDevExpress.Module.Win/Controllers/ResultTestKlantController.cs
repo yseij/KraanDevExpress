@@ -1,12 +1,26 @@
-﻿using DevExpress.ExpressApp;
+﻿using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Layout;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using KraanDevExpress.Module.BusinessObjects;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
-namespace KraanDevExpress.Module.Controllers
+namespace KraanDevExpress.Module.Win.Controllers
 {
+    // For more typical usage scenarios, be sure to check out https://documentation.devexpress.com/eXpressAppFramework/clsDevExpressExpressAppViewControllertopic.aspx.
     public partial class ResultTestKlantController : ViewController
     {
         private Session _session;
@@ -16,11 +30,12 @@ namespace KraanDevExpress.Module.Controllers
         public ResultTestKlantController()
         {
             InitializeComponent();
-            _deleteObjectsViewController = new DeleteObjectsViewController();
+            // Target required Views (via the TargetXXX properties) and create their Actions.
         }
         protected override void OnActivated()
         {
             base.OnActivated();
+            // Perform various tasks depending on the target View.
         }
         protected override void OnViewControlsCreated()
         {
@@ -33,11 +48,12 @@ namespace KraanDevExpress.Module.Controllers
         }
         protected override void OnDeactivated()
         {
+            // Unsubscribe from previously subscribed events and release other references and resources.
+            base.OnDeactivated();
             if (_deleteObjectsViewController != null)
             {
                 _deleteObjectsViewController.Deleting -= dc_deleting;
             }
-            base.OnDeactivated();
         }
 
         private void dc_deleting(object sender, DeletingEventArgs e)
@@ -83,7 +99,7 @@ namespace KraanDevExpress.Module.Controllers
                         MessageBox.Show("Er wordt niks verwijdert");
                         e.Cancel = true;
                     }
-                }  
+                }
             }
             _objecspace.CommitChanges();
         }
