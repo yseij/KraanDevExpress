@@ -49,7 +49,7 @@ namespace KraanDevExpress.Module.Controllers
             {
                 if (resultTestKlant.ResultTestEenUrlMessageServices.Count == 0 && resultTestKlant.ResultTestEenUrls.Count == 0 && resultTestKlant.ResultTestEenUrlSoaps.Count == 0)
                 {
-                    _session.Delete(resultTestKlant);
+                    _session.Delete(_objecspace.GetObjectByKey<ResultTestKlant>(resultTestKlant.Oid));
                 }
                 else
                 {
