@@ -13,7 +13,7 @@ namespace KraanDevExpress.Module.BusinessObjects
 {
     [DefaultClassOptions]
     [Appearance("ActionVisibility",
-    TargetItems = "Soort; ResultTestWebservice; ResultTestKlant; ResultTestUrls; Url",
+    TargetItems = "Soort; ResultTestKlant; ResultTestUrls",
     Context = "DetailView",
     Visibility = ViewItemVisibility.Hide)]
 

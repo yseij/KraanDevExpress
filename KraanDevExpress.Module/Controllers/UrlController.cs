@@ -58,7 +58,9 @@ namespace KraanDevExpress.Module.Controllers
 
             if (e.SelectedObjects.Count > 1)
             {
-                name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                name.Naam = "Meerdere urls testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + 
+                    "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
+                    "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                 dc.Accepting += dc_Accepting_MeerdereUrls;
             }
             else
@@ -69,11 +71,15 @@ namespace KraanDevExpress.Module.Controllers
                 {
                     if (klantWebservice.BasisUrl1)
                     {
-                        name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        name.Naam = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- "
+                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                            "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                     }
                     else
                     {
-                        name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                        name.Naam = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name + "/" + url.MethodeName + " --- "
+                            + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
+                            "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                     }
                     dc.Accepting += dc_Accepting;
                 }

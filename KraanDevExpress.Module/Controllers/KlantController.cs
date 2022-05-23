@@ -34,7 +34,6 @@ namespace KraanDevExpress.Module.Controllers
         TestRoute _testRoute;
         DbConnectie _dbConnectie;
 
-        ResultTestEenUrlController _resultTestEenUrlController;
         ResultTestKlantController _resultTestKlantController;
         DeleteObjectsViewController _deleteObjectsViewController;
         public KlantController()
@@ -43,7 +42,6 @@ namespace KraanDevExpress.Module.Controllers
             _webRequest = new WebRequest();
             _testRoute = new TestRoute();
             _dbConnectie = new DbConnectie();
-            _resultTestEenUrlController = new ResultTestEenUrlController();
             _resultTestKlantController = new ResultTestKlantController();
             _deleteObjectsViewController = new DeleteObjectsViewController();
         }
@@ -80,7 +78,9 @@ namespace KraanDevExpress.Module.Controllers
             {
                 if (klant.klantWebservices.Count != 0)
                 {
-                    DialogResult dialogResultUrlsByKlant = MessageBox.Show("Wilt u de urls van de klant " + klant.Name + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
+                    DialogResult dialogResultUrlsByKlant = 
+                        MessageBox.Show("Wilt u de urls van de klant " + klant.Name 
+                        + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
                     if (dialogResultUrlsByKlant == DialogResult.Yes)
                     {
                         foreach (KlantWebservice klantWebservice in klant.klantWebservices)
@@ -124,7 +124,9 @@ namespace KraanDevExpress.Module.Controllers
 
             if (e.SelectedObjects.Count > 1)
             {
-                name.Naam = "Meerdere klanten testen --- " + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                name.Naam = "Meerdere klanten testen --- " + DateTime.Today.Day +
+                    "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour +
+                    "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                 dc.Accepting += dc_Accepting_MeerdereKlanten;
             }
             else
@@ -132,7 +134,9 @@ namespace KraanDevExpress.Module.Controllers
                 Klant klant = e.CurrentObject as Klant;
                 if (klant != null)
                 {
-                    name.Naam = klant.Name + " test ---" + DateTime.Today.Day + "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
+                    name.Naam = klant.Name + " test ---" + DateTime.Today.Day + 
+                        "_" + DateTime.Today.Month + "_" + DateTime.Today.Year + "_" + DateTime.Now.Hour + 
+                        "_" + DateTime.Now.Minute + "_" + DateTime.Now.Second;
                     dc.Accepting += dc_Accepting;
                 }
             }
@@ -161,16 +165,22 @@ namespace KraanDevExpress.Module.Controllers
                 if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
                     if (klantWebservice.Webservice.Name == "Kraan2Webservice")
                     {
                         CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
                     }
-                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
+                    else
+                    {
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
+                    }
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name; 
                     if (klantWebservice.Webservice.Name == "Kraan2Webservice")
                     {
                         CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
+                    }
+                    else
+                    {
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
                 }
                 else if (klantWebservice.BasisUrl1)
@@ -226,29 +236,45 @@ namespace KraanDevExpress.Module.Controllers
 
             foreach (Klant klant in View.SelectedObjects)
             {
-                string urlName = string.Empty;
                 foreach (KlantWebservice klantWebservice in klant.klantWebservices)
                 {
+                    string urlName = string.Empty;
                     if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                     {
                         urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
                         TestUrl(urlName, klantWebservice, resultTestKlant);
+                        if (klantWebservice.Webservice.Name == "Kraan2Webservice")
+                        {
+                            CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
+                        }
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
                         TestUrl(urlName, klantWebservice, resultTestKlant);
+                        if (klantWebservice.Webservice.Name == "Kraan2Webservice")
+                        {
+                            CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
+                        }
                     }
                     else if (klantWebservice.BasisUrl1)
                     {
                         urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
                     else
                     {
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
                     foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                     {
-                        TestUrl(url.Name, klantWebservice, resultTestKlant);
+                        urlName = urlName + "/" + url.MethodeName;
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
+                    }
+                    if (klantWebservice.Webservice.Name == "Kraan2Webservice")
+                    {
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
+                        CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
+                    }
+                    else
+                    {
+                        TestUrl(urlName, klantWebservice, resultTestKlant);
                     }
                 }
             }
