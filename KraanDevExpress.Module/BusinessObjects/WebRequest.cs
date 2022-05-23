@@ -379,26 +379,14 @@ namespace KraanDevExpress.Module.BusinessObjects
                     X509Certificate cert = GetCertificate(request);
 
                     bool succes = client.PostMessage(null, null, ref message);
-                    if (cert != null)
-                    {
-                        string data = "{\"" + message.Text[0]
+
+                    string data = "{\"" + message.Text[0]
                         .Replace("\r\n", "\",\"")
                         .Replace(": ", "\": \"")
                         .Replace(@"\", " ")
                         .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
-                        client.Close();
-                        return data;
-                    }
-                    else
-                    {
-                        string data = "{\"" + message.Text[0]
-                        .Replace("\r\n", "\",\"")
-                        .Replace(": ", "\": \"")
-                        .Replace(@"\", " ")
-                        .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + "null" + "\"" + "}";
-                        client.Close();
-                        return data;
-                    }
+                    client.Close();
+                    return data;
                 }
                 catch (Exception ex)
                 {
@@ -433,30 +421,15 @@ namespace KraanDevExpress.Module.BusinessObjects
                         Sales31.MessageResponseType antwoord = client.PostMessage(null, message);
                         if (antwoord.Message.MsgContent != null)
                         {
-                            if (cert != null)
-                            {
-                                string data = "{\""
-                                        + antwoord.Message.MsgContent.Trim()
-                                        .Replace("\r\n", "\", \"")
-                                        .Replace(": ", "\": \"")
-                                        .Replace(@"\", " ")
-                                        .Replace("application\": \"", "application: ")
-                                        .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
-                                client.Close();
-                                return data;
-                            }
-                            else
-                            {
-                                string data = "{\""
-                                        + antwoord.Message.MsgContent.Trim()
-                                        .Replace("\r\n", "\", \"")
-                                        .Replace(": ", "\": \"")
-                                        .Replace(@"\", " ")
-                                        .Replace("application\": \"", "application: ")
-                                        .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + "null" + "\"" + "}";
-                                client.Close();
-                                return data;
-                            }
+                            string data = "{\""
+                                + antwoord.Message.MsgContent.Trim()
+                                .Replace("\r\n", "\", \"")
+                                .Replace(": ", "\": \"")
+                                .Replace(@"\", " ")
+                                .Replace("application\": \"", "application: ")
+                                .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
+                            client.Close();
+                            return data;
                         }
                         client.Close();
                     }
