@@ -216,7 +216,7 @@ namespace KraanDevExpress.Module.BusinessObjects
             try
             {
                 result = clientCrm.GetVersion();
-                result = GetDataOfWebRequestSoap(result);
+                result = GetDataOfWebRequestSoap(result, host);
             }
             catch (Exception ex)
             {
@@ -236,7 +236,7 @@ namespace KraanDevExpress.Module.BusinessObjects
             try
             {
                 result = clientWorkflow.GetVersion();
-                result = GetDataOfWebRequestSoap(result);
+                result = GetDataOfWebRequestSoap(result, host);
             }
             catch (Exception ex)
             {
@@ -256,7 +256,7 @@ namespace KraanDevExpress.Module.BusinessObjects
             try
             {
                 result = clientUren.GetVersion();
-                result = GetDataOfWebRequestSoap(result);
+                result = GetDataOfWebRequestSoap(result, host);
             }
             catch (Exception ex)
             {
@@ -277,7 +277,7 @@ namespace KraanDevExpress.Module.BusinessObjects
             try
             {
                 result = clientMaterieel.GetVersion();
-                result = GetDataOfWebRequestSoap(result);
+                result = GetDataOfWebRequestSoap(result, host);
             }
             catch (Exception ex)
             {
@@ -297,7 +297,7 @@ namespace KraanDevExpress.Module.BusinessObjects
             try
             {
                 result = clientMaterieelbeheer.GetVersion();
-                result = GetDataOfWebRequestSoap(result);
+                result = GetDataOfWebRequestSoap(result, host);
             }
             catch (Exception ex)
             {
@@ -505,8 +505,11 @@ namespace KraanDevExpress.Module.BusinessObjects
             }
         }
 
-        private string GetDataOfWebRequestSoap(string result)
+        private string GetDataOfWebRequestSoap(string result, string host)
         {
+            HttpWebRequest request = HttpWebRequest.Create(host) as HttpWebRequest;
+            X509Certificate cert = GetCertificate(request);
+
             string data = result.Replace("----", "");
             int positionWebserviceVersie = data.IndexOf("Webservice versie");
             int positionDevExpressVersie = data.IndexOf("DevExpress versie");
@@ -514,8 +517,22 @@ namespace KraanDevExpress.Module.BusinessObjects
 
             string webserviceVersie = data.Substring(positionWebserviceVersie, positionDevExpressVersie - positionWebserviceVersie);
             string devExpressVersie = data.Substring(positionDevExpressVersie, positionDatabaseVersie - positionDevExpressVersie);
-            string databaseVersie = data.Substring(positionDatabaseVersie, data.Length - positionDatabaseVersie);
-            return "{ \"Webservice Versie\": " + "\"" + webserviceVersie.Split(':')[1] + "\"" + ", \"DevExpress versie\": " + "\"" + devExpressVersie.Split(':')[1] + "\"" + ", \"DatabaseVersie\": " + "\"" + databaseVersie.Split(':')[1] + "\"" + "}";
+            string dataBaseVersie = data.Substring(positionDatabaseVersie, data.Length - positionDatabaseVersie);
+
+            if (!_certIsGoed)
+            {
+                return "{ \"Webservice Versie\": " + "\"" + webserviceVersie.Split(':')[1]
+                + "\"" + ", \"DevExpress versie\": " + "\"" + devExpressVersie.Split(':')[1]
+                + "\"" + ", \"DatabaseVersie\": " + "\"" + dataBaseVersie.Split(':')[1]
+                + " \"" + ", \"certVerValDatum\": " + "\"" + "Niet goed" + "\"" + "}";
+            }
+            else
+            {
+                return "{ \"Webservice Versie\": " + "\"" + webserviceVersie.Split(':')[1]
+                + "\"" + ", \"DevExpress versie\": " + "\"" + devExpressVersie.Split(':')[1]
+                + "\"" + ", \"DatabaseVersie\": " + "\"" + dataBaseVersie.Split(':')[1]
+                + " \"" + ", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
+            }
         }
     }
 }

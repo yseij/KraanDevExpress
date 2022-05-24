@@ -208,7 +208,7 @@
         <ColumnInfo Id="Response" AllowEdit="False" />
       </Columns>
     </ListView>
-    <DetailView Id="ResultTestKlant_DetailView">
+    <DetailView Id="ResultTestKlant_DetailView" AllowNew="False">
       <Items>
         <PropertyEditor Id="AantalFout" AllowEdit="False" />
         <PropertyEditor Id="Name" AllowEdit="False" />
