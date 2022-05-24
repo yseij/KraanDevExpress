@@ -7,7 +7,6 @@ using DevExpress.Xpo;
 using KraanDevExpress.Module.BusinessObjects;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace KraanDevExpress.Module.Controllers
@@ -27,6 +26,9 @@ namespace KraanDevExpress.Module.Controllers
                                       "MaterieelService.svc",
                                       "MaterieelbeheerService.svc",
                                       "UrenService.svc" };
+
+        string[] kraanSalesService = { "MessageServiceSoap.svc",
+                                       "MessageServiceSoap31.svc"};
 
         DetailView _targetView = null;
 
@@ -93,7 +95,7 @@ namespace KraanDevExpress.Module.Controllers
                     }
                 }
             }
-            
+
             svp.Controllers.Add(dc);
             svp.Context = TemplateContext.PopupWindow;
             svp.TargetWindow = TargetWindow.NewModalWindow;
@@ -119,58 +121,29 @@ namespace KraanDevExpress.Module.Controllers
                 if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    if (klantWebservice.Webservice.Name == "Kraan2Webservice")
-                    {
-                        CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
-                    }
-                    else
-                    {
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
-                    }
-                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name; 
-                    if (klantWebservice.Webservice.Name == "Kraan2Webservice")
-                    {
-                        CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
-                    }
-                    else
-                    {
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
-                    }
+                    WebserviceCheck(urlName, klantWebservice, resultTestKlant);
+                    urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                    WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                 }
                 else if (klantWebservice.BasisUrl1)
                 {
                     urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
+                    WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                 }
                 else
                 {
                     urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
+                    WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                 }
                 foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                 {
                     urlName = urlName + "/" + url.MethodeName;
-                    TestUrl(urlName, klantWebservice, resultTestKlant);
-                }
-                if (klantWebservice.Webservice.Name == "Kraan2Webservice")
-                {
-                    CheckWebserviceName(urlName, klantWebservice, resultTestKlant); 
+                    TestUrl(urlName, klantWebservice, resultTestKlant, false);
                 }
             }
             _objectspace.CommitChanges();
             targetView = Application.CreateDetailView(_objectspace, resultTestKlant, false);
             CreateView(targetView, dc);
-        }
-
-        private void CheckWebserviceName(string urlName,
-                                         KlantWebservice klantWebservice,
-                                         ResultTestKlant resultTestKlant)
-        {
-            for (int i = 0; i < kraanWebservices.Length; i++)
-            {
-                string urlName2 = urlName + "/" + kraanWebservices[i];
-                TestUrl(urlName2, klantWebservice, resultTestKlant);
-            }
         }
 
         void dc_Accepting_MeerdereKlanten(object sender, DialogControllerAcceptingEventArgs e)
@@ -192,46 +165,87 @@ namespace KraanDevExpress.Module.Controllers
                     if (klantWebservice.BasisUrl1 && klantWebservice.BasisUrl2)
                     {
                         urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
-                        if (klantWebservice.Webservice.Name == "Kraan2Webservice")
-                        {
-                            CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
-                        }
+                        WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
-                        if (klantWebservice.Webservice.Name == "Kraan2Webservice")
-                        {
-                            CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
-                        }
+                        WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                     }
                     else if (klantWebservice.BasisUrl1)
                     {
                         urlName = klantWebservice.Klant.BasisUrl1 + klantWebservice.Webservice.Name;
+                        WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                     }
                     else
                     {
                         urlName = klantWebservice.Klant.BasisUrl2 + klantWebservice.Webservice.Name;
+                        WebserviceCheck(urlName, klantWebservice, resultTestKlant);
                     }
                     foreach (Url url in Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid))
                     {
                         urlName = urlName + "/" + url.MethodeName;
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
-                    }
-                    if (klantWebservice.Webservice.Name == "Kraan2Webservice")
-                    {
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
-                        CheckWebserviceName(urlName, klantWebservice, resultTestKlant);
-                    }
-                    else
-                    {
-                        TestUrl(urlName, klantWebservice, resultTestKlant);
+                        TestUrl(urlName, klantWebservice, resultTestKlant, false);
                     }
                 }
             }
             _objectspace.CommitChanges();
-
             DetailView targetView = Application.CreateDetailView(_objectspace, resultTestKlant, false);
             CreateView(targetView, dc);
+        }
+
+        private void WebserviceCheck(string urlName, KlantWebservice klantWebservice, ResultTestKlant resultTestKlant)
+        {
+            if (klantWebservice.Webservice.Name == "KraanHomeDNA")
+            {
+                urlName += "/HomeDna.svc/GetWebserviceVersion";
+                TestUrl(urlName, klantWebservice, resultTestKlant, false);
+            }
+            else if (klantWebservice.Webservice.Name == "Kraan2Webservices")
+            {
+                UrlsTestKraan2Webservice(urlName, klantWebservice, resultTestKlant);
+            }
+            else if (klantWebservice.Webservice.Name == "KraanSalesService")
+            {
+                UrlsTestKraanSalesService(urlName, klantWebservice, resultTestKlant);
+            }
+            else if (klantWebservice.Webservice.Name == "KraanWerkbonWebservice")
+            {
+                urlName += "/Webservice.svc";
+                TestUrl(urlName, klantWebservice, resultTestKlant, false);
+            }
+            else if (klantWebservice.Webservice.Name == "KraanHandheld")
+            {
+                urlName += "/HandheldService.svc/rest/GetVersion";
+                TestUrl(urlName, klantWebservice, resultTestKlant, false);
+            }
+            else if (klantWebservice.Webservice.Soap)
+            {
+                TestUrl(urlName, klantWebservice, resultTestKlant, true);
+            }
+            else
+            {
+                TestUrl(urlName, klantWebservice, resultTestKlant, false);
+            }
+        }
+
+        private void UrlsTestKraanSalesService(string urlName, 
+                                               KlantWebservice klantWebservice, 
+                                               ResultTestKlant resultTestKlant)
+        {
+            for (int i = 0; i < kraanSalesService.Length; i++)
+            {
+                string urlName2 = urlName + "/" + kraanSalesService[i];
+                TestUrl(urlName2, klantWebservice, resultTestKlant, false);
+            }
+        }
+
+        private void UrlsTestKraan2Webservice(string urlName,
+                                         KlantWebservice klantWebservice,
+                                         ResultTestKlant resultTestKlant)
+        {
+            for (int i = 0; i < kraanWebservices.Length; i++)
+            {
+                string urlName2 = urlName + "/" + kraanWebservices[i];
+                TestUrl(urlName2, klantWebservice, resultTestKlant, false);
+            }
         }
 
         private void CreateView(DetailView targetView, DialogController dc)
@@ -249,7 +263,8 @@ namespace KraanDevExpress.Module.Controllers
 
         private void TestUrl(string urlName,
                              KlantWebservice klantWebservice,
-                             ResultTestKlant resultTestKlant)
+                             ResultTestKlant resultTestKlant, 
+                             bool isTestWebserviceVersion)
         {
             if (klantWebservice.Webservice.Soap)
             {
@@ -271,7 +286,7 @@ namespace KraanDevExpress.Module.Controllers
             }
             else
             {
-                ResultTestEenUrl(urlName, klantWebservice, resultTestKlant);
+                ResultTestEenUrl(urlName, klantWebservice, resultTestKlant, isTestWebserviceVersion);
             }
         }
 
@@ -312,7 +327,8 @@ namespace KraanDevExpress.Module.Controllers
 
         private void ResultTestEenUrl(string urlName,
                                       KlantWebservice klantWebservice,
-                                      ResultTestKlant resultTestKlant)
+                                      ResultTestKlant resultTestKlant,
+                                      bool isTestWebserviceVersion)
         {
             string checkUrl = _webRequest.CheckUrl(urlName);
             ResultTestEenUrl resultTestEenUrl = new ResultTestEenUrl(_session);
@@ -321,7 +337,7 @@ namespace KraanDevExpress.Module.Controllers
             resultTestEenUrl.WebserviceWerkt = checkUrl;
             resultTestEenUrl.ResultTestKlant = resultTestKlant;
 
-            _result = JObject.Parse(_webRequest.GetWebRequestRest(urlName, true));
+            _result = JObject.Parse(_webRequest.GetWebRequestRest(urlName, isTestWebserviceVersion));
 
             _testRoute.TestOneRoute(_result,
                                     resultTestEenUrl,

@@ -151,17 +151,10 @@ namespace KraanDevExpress.Module.BusinessObjects
         {
             string result = string.Empty;
 
-            //YouriWebserviceAuth.AuthServiceClient clientAuth;
-            //YouriWebserviceWeb.WebServiceClient clientWeb;
-
             switch (service)
             {
-                //case "AuthService.svc":
-                //    clientAuth = NewAuthService(host);
-                //    clientAuth.Open();
-                //    result = clientAuth.GetVersion().ToString();
-                //    clientAuth.Close();
-                //    break;
+                case "AuthService.svc":
+                    return CheckUrlAuthService(host);
                 case "CrmService.svc":
                     result = GetVersionCrmService(host);
                     break;
@@ -174,12 +167,9 @@ namespace KraanDevExpress.Module.BusinessObjects
                 case "MaterieelService.svc":
                     result = GetVersionMaterieelService(host);
                     break;
-                //case "Webservice.svc":
-                //    clientMaterieel = NewWebSerivce(host);
-                //    clientMaterieel.Open();
-                //    result = clientMaterieel.GetVersion().ToString();
-                //    clientMaterieel.Close();
-                //    break;
+                case "MaterieelbeheerService.svc":
+                    result = GetVersionMaterieelbeheerService(host);
+                    break;
                 default:
                     return @"{ ex: '" + " deze service bestaat niet " + "'}"; ;
 
@@ -187,11 +177,40 @@ namespace KraanDevExpress.Module.BusinessObjects
             return result;
         }
 
+        public string CheckUrlAuthService(string host)
+        {
+            Uri uri = new Uri(host);
+            HttpClient client = new HttpClient();
+            HttpWebRequest request = HttpWebRequest.Create(host) as HttpWebRequest;
+            X509Certificate cert = GetCertificate(request);
+            try
+            {
+                HttpResponseMessage response1 = client.GetAsync(uri).Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    if (_certIsGoed)
+                    {
+                        return @"{ status: '" + "Werkt" + "', certVerValDatum: '" + cert.GetExpirationDateString().ToString() + "'}";
+                    }
+                    else
+                    {
+                        return @"{ status: '" + "Werkt" + "', certVerValDatum: '" + "Niet goed" + "'}";
+                    }
+                }
+                return "Werkt niet met statuscode: " + (int)response1.StatusCode + " = " + response1.StatusCode;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+
         private string GetVersionCrmService(string host)
         {
             string result;
 
-            YouriWebserviceCrm.CrmServiceClient clientCrm;
+            CrmWebservice.CrmServiceClient clientCrm;
             clientCrm = NewCrmService(host);
             clientCrm.Open();
             try
@@ -211,7 +230,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         {
             string result;
 
-            YouriWebserviceWorkFlow.WorkflowServiceClient clientWorkflow;
+            WorkflowWebservice.WorkflowServiceClient clientWorkflow;
             clientWorkflow = NewWorkFlowService(host);
             clientWorkflow.Open();
             try
@@ -231,7 +250,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         {
             string result;
 
-            YouriWebserviceUren.UrenServiceClient clientUren;
+            UrenWebservice.UrenServiceClient clientUren;
             clientUren = NewUrenService(host);
             clientUren.Open();
             try
@@ -252,7 +271,7 @@ namespace KraanDevExpress.Module.BusinessObjects
         {
             string result;
 
-            YouriWebserviceMaterieel.MaterieelServiceClient clientMaterieel;
+            MaterieelWebservice.MaterieelServiceClient clientMaterieel;
             clientMaterieel = NewMateriaalService(host);
             clientMaterieel.Open();
             try
@@ -268,54 +287,65 @@ namespace KraanDevExpress.Module.BusinessObjects
             return result;
         }
 
+        private string GetVersionMaterieelbeheerService(string host)
+        {
+            string result;
 
-        //private YouriWebserviceAuth.AuthServiceClient NewAuthService(string host)
-        //{
-        //    BasicHttpBinding binding = CreateBinding("AuthService");
-        //    EndpointAddress epa = CreateEndpointAddress(host, "AuthService.svc");
+            MaterieelBeheerWebservice.MaterieelBeheerServiceClient clientMaterieelbeheer;
+            clientMaterieelbeheer = NewMaterieelBeheerService(host);
+            clientMaterieelbeheer.Open();
+            try
+            {
+                result = clientMaterieelbeheer.GetVersion();
+                result = GetDataOfWebRequestSoap(result);
+            }
+            catch (Exception ex)
+            {
+                result = @"{ ex: '" + ex.Message.ToString() + "'}"; ;
+            }
+            clientMaterieelbeheer.Close();
+            return result;
+        }
 
-        //    return new YouriWebserviceAuth.AuthServiceClient(binding, epa);
-        //}
-
-        private YouriWebserviceCrm.CrmServiceClient NewCrmService(string host)
+        private CrmWebservice.CrmServiceClient NewCrmService(string host)
         {
             BasicHttpBinding binding = CreateBinding("CrmService");
             EndpointAddress epa = CreateEndpointAddress(host, "");
 
-            return new YouriWebserviceCrm.CrmServiceClient(binding, epa);
+            return new CrmWebservice.CrmServiceClient(binding, epa);
         }
 
-        private YouriWebserviceMaterieel.MaterieelServiceClient NewMateriaalService(string host)
+        private MaterieelWebservice.MaterieelServiceClient NewMateriaalService(string host)
         {
             BasicHttpBinding binding = CreateBinding("MaterieelService");
             EndpointAddress epa = CreateEndpointAddress(host, "");
 
-            return new YouriWebserviceMaterieel.MaterieelServiceClient(binding, epa);
+            return new MaterieelWebservice.MaterieelServiceClient(binding, epa);
         }
 
-        private YouriWebserviceUren.UrenServiceClient NewUrenService(string host)
+        private UrenWebservice.UrenServiceClient NewUrenService(string host)
         {
             BasicHttpBinding binding = CreateBinding("UrenService");
             EndpointAddress epa = CreateEndpointAddress(host, "");
 
-            return new YouriWebserviceUren.UrenServiceClient(binding, epa);
+            return new UrenWebservice.UrenServiceClient(binding, epa);
         }
 
-        private YouriWebserviceWorkFlow.WorkflowServiceClient NewWorkFlowService(string host)
+        private WorkflowWebservice.WorkflowServiceClient NewWorkFlowService(string host)
         {
             BasicHttpBinding binding = CreateBinding("WorkflowService");
             EndpointAddress epa = CreateEndpointAddress(host, "");
 
-            return new YouriWebserviceWorkFlow.WorkflowServiceClient(binding, epa);
+            return new WorkflowWebservice.WorkflowServiceClient(binding, epa);
         }
 
-        //private YouriWebserviceWorkFlow.WorkflowServiceClient NewWebSerivce(string host)
-        //{
-        //    BasicHttpBinding binding = CreateBinding("Webservice");
-        //    EndpointAddress epa = CreateEndpointAddress(host, "Webservice.svc");
+        private MaterieelBeheerWebservice.MaterieelBeheerServiceClient NewMaterieelBeheerService(string host)
+        {
+            BasicHttpBinding binding = CreateBinding("Materieelbeheer");
+            EndpointAddress epa = CreateEndpointAddress(host, "");
 
-        //    return new YouriWebserviceWorkFlow.WorkflowServiceClient(binding, epa);
-        //}
+            return new MaterieelBeheerWebservice.MaterieelBeheerServiceClient(binding, epa);
+        }
 
         private Sales24.MessageServiceSoapClient NewSales24Client(string host)
         {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="79f0b837-1e9e-4fea-9711-cc9d72c83eb9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\School\Stage\TestApp\WindowsFormsAppTest\WindowsFormsAppTest\Connected Services\CrmWebservice\CrmService.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CrmService.xsd" MetadataType="Schema" ID="5619b0f3-4696-4757-bf30-758939dee20a" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/CrmService.svc?xsd=xsd0" />
+    <MetadataFile FileName="CrmService1.xsd" MetadataType="Schema" ID="d65cad49-46e6-4799-b592-52c4f0e2909e" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/CrmService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CrmService2.xsd" MetadataType="Schema" ID="e711e2c1-14f5-41a4-8a1f-9b99a173d534" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/CrmService.svc?xsd=xsd2" />
+    <MetadataFile FileName="CrmService3.xsd" MetadataType="Schema" ID="3676acb7-4e02-45fe-af26-18b86cad257b" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/CrmService.svc?xsd=xsd3" />
+    <MetadataFile FileName="CrmService.wsdl" MetadataType="Wsdl" ID="33db21d6-1038-45e3-b642-dfdec44f7a5d" SourceId="1" SourceUrl="file:///D:/School/Stage/TestApp/WindowsFormsAppTest/WindowsFormsAppTest/Connected Services/CrmWebservice/CrmService.wsdl" />
+    <MetadataFile FileName="CrmService4.xsd" MetadataType="Schema" ID="6556cedb-4f51-4b55-9290-c6bc2f991ea9" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/CrmService.svc?xsd=xsd5" />
+    <MetadataFile FileName="CrmService5.xsd" MetadataType="Schema" ID="90a83d1f-f6a8-4ba9-b899-32ff9e963980" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/CrmService.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

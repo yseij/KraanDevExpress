@@ -112,6 +112,21 @@
     <Compile Include="BusinessObjects\Url.cs" />
     <Compile Include="BusinessObjects\WebRequest.cs" />
     <Compile Include="BusinessObjects\Webservice.cs" />
+    <Compile Include="Connected Services\CrmWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\MaterieelBeheerWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\MaterieelWebservice\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\Sales24\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -122,22 +137,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\YouriWebserviceCrm\Reference.cs">
+    <Compile Include="Connected Services\UrenWebservice\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\YouriWebserviceMaterieel\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\YouriWebserviceUren\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\YouriWebserviceWorkFlow\Reference.cs">
+    <Compile Include="Connected Services\WorkflowWebservice\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -188,6 +193,135 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="BusinessObjects\ReadMe.txt" />
+    <None Include="Connected Services\CrmWebservice\CrmService.wsdl" />
+    <None Include="Connected Services\CrmWebservice\CrmService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CrmWebservice\CrmService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CrmWebservice\CrmService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CrmWebservice\CrmService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CrmWebservice\CrmService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CrmWebservice\CrmService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CrmWebservice\KraanDevExpress.Module.CrmWebservice.LoginRegistratie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CrmWebservice\KraanDevExpress.Module.CrmWebservice.RelatieLijstModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\CrmWebservice\KraanDevExpress.Module.CrmWebservice.RelatieSingleModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.LoginRegistratie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.ResponseArtikelDetail.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.ResponseArtikelLijstInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.ResponseGetDataVanLocatie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.ResponseLocaties.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.ResponseSaveVerplaatsing.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.ResponseStamTabel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\KraanDevExpress.Module.MaterieelBeheerWebservice.StamTabel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService.wsdl" />
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelBeheerWebservice\MaterieelBeheerService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ArtikelVoorraadResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.LoginRegistratie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseArtikelMaterieel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseArtikelMaterieelList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseBasicMaterieel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseGetDataVanLocatie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseLocaties.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseSaveRFIDTag.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\KraanDevExpress.Module.MaterieelWebservice.ResponseStamTabel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService.wsdl" />
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MaterieelWebservice\MaterieelService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\Sales24\KraanDevExpress.Module.Sales24.DeleteMessageResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -229,191 +363,111 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Sales31\Messageservice_messageservice31.wsdl" />
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService.wsdl" />
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService.xsd">
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.BewakingsCodeLijst.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.KostenSoortLijst.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.LoginRegistratie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ProductieMiddelLijst.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ProjectenLijst.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseDefaultKmCodes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseDefaultUrenCodes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseMeegeredenKilometers.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseRemoveDocuments.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseSaveKilometers.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseSaveUren.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseSaveUrenDefaults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseSaveUrenProject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.ResponseUploadDocument.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.UrenBasisGegevens.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.UrenSoortLijst.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.VerwerkProcesStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\KraanDevExpress.Module.UrenWebservice.WerkbonLijst.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\UrenWebservice\UrenService.wsdl" />
+    <None Include="Connected Services\UrenWebservice\UrenService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService1.xsd">
+    <None Include="Connected Services\UrenWebservice\UrenService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService2.xsd">
+    <None Include="Connected Services\UrenWebservice\UrenService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService3.xsd">
+    <None Include="Connected Services\UrenWebservice\UrenService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService4.xsd">
+    <None Include="Connected Services\UrenWebservice\UrenService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\CrmService5.xsd">
+    <None Include="Connected Services\UrenWebservice\UrenService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\KraanDevExpress.Module.YouriWebserviceCrm.LoginRegistratie.datasource">
+    <None Include="Connected Services\WorkflowWebservice\KraanDevExpress.Module.WorkflowWebservice.GevondenMedewerkers.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\KraanDevExpress.Module.YouriWebserviceCrm.RelatieLijstModel.datasource">
+    <None Include="Connected Services\WorkflowWebservice\KraanDevExpress.Module.WorkflowWebservice.LoginRegistratie.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\YouriWebserviceCrm\KraanDevExpress.Module.YouriWebserviceCrm.RelatieSingleModel.datasource">
+    <None Include="Connected Services\WorkflowWebservice\KraanDevExpress.Module.WorkflowWebservice.VerwerkProcesStatus.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ArtikelVoorraadResponse1.datasource">
+    <None Include="Connected Services\WorkflowWebservice\KraanDevExpress.Module.WorkflowWebservice.WorkflowModel.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.LoginRegistratie1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseArtikelMaterieel1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseArtikelMaterieelList1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseBasicMaterieel1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseGetDataVanLocatie1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseLocaties1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseSaveRFIDTag1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\KraanDevExpress.Module.YouriWebserviceMaterieel.ResponseStamTabel1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService.wsdl" />
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService.wsdl" />
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService1.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService2.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService3.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService4.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService5.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceMaterieel\MaterieelService7.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.BewakingsCodeLijst.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.KostenSoortLijst.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.LoginRegistratie.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ProductieMiddelLijst.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ProjectenLijst.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseDefaultKmCodes.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseDefaultUrenCodes.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseMeegeredenKilometers.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseRemoveDocuments.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseSaveKilometers.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseSaveUren.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseSaveUrenDefaults.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseSaveUrenProject.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.ResponseUploadDocument.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.UrenBasisGegevens.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.UrenSoortLijst.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.VerwerkProcesStatus.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\KraanDevExpress.Module.YouriWebserviceUren.WerkbonLijst.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\UrenService.wsdl" />
-    <None Include="Connected Services\YouriWebserviceUren\UrenService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\UrenService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\UrenService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\UrenService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\UrenService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceUren\UrenService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\KraanDevExpress.Module.YouriWebserviceWorkFlow.GevondenMedewerkers.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\KraanDevExpress.Module.YouriWebserviceWorkFlow.LoginRegistratie.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\KraanDevExpress.Module.YouriWebserviceWorkFlow.VerwerkProcesStatus.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\KraanDevExpress.Module.YouriWebserviceWorkFlow.WorkflowModel.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService.wsdl" />
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\WorkflowService6.xsd">
+    <None Include="Connected Services\WorkflowWebservice\WorkflowService6.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Controllers\ReadMe.txt" />
@@ -434,12 +488,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CrmWebservice\" />
+    <WCFMetadataStorage Include="Connected Services\MaterieelBeheerWebservice\" />
+    <WCFMetadataStorage Include="Connected Services\MaterieelWebservice\" />
     <WCFMetadataStorage Include="Connected Services\Sales24\" />
     <WCFMetadataStorage Include="Connected Services\Sales31\" />
-    <WCFMetadataStorage Include="Connected Services\YouriWebserviceCrm\" />
-    <WCFMetadataStorage Include="Connected Services\YouriWebserviceMaterieel\" />
-    <WCFMetadataStorage Include="Connected Services\YouriWebserviceUren\" />
-    <WCFMetadataStorage Include="Connected Services\YouriWebserviceWorkFlow\" />
+    <WCFMetadataStorage Include="Connected Services\UrenWebservice\" />
+    <WCFMetadataStorage Include="Connected Services\WorkflowWebservice\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\Sales24\configuration91.svcinfo" />
@@ -461,54 +516,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\Sales31\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceCrm\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceCrm\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceCrm\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceMaterieel\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceMaterieel\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceMaterieel\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceUren\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceUren\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceUren\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\YouriWebserviceWorkFlow\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -541,6 +548,66 @@
     <None Include="UnusableNodes4.xml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CrmWebservice\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CrmWebservice\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\CrmWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterieelBeheerWebservice\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterieelBeheerWebservice\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterieelBeheerWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterieelWebservice\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterieelWebservice\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MaterieelWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UrenWebservice\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UrenWebservice\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UrenWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WorkflowWebservice\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WorkflowWebservice\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\WorkflowWebservice\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

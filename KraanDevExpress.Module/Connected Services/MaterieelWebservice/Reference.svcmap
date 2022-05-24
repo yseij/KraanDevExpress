@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="87fa594d-663f-4644-bb3c-81bc33a1abae" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="D:\School\Stage\TestApp\WindowsFormsAppTest\WindowsFormsAppTest\Connected Services\MaterieelWebservice\MaterieelService.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MaterieelService.xsd" MetadataType="Schema" ID="e7fa496b-ea1c-4359-aa4a-f7eb724818ee" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd7" />
+    <MetadataFile FileName="MaterieelService1.xsd" MetadataType="Schema" ID="987dff4d-f8d1-4773-952e-785b04095484" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MaterieelService2.xsd" MetadataType="Schema" ID="1386d2d5-f54c-4fd4-870d-8028570c8969" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd4" />
+    <MetadataFile FileName="MaterieelService3.xsd" MetadataType="Schema" ID="06cbfde3-ad8a-43cf-8223-f084fa29674e" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MaterieelService4.xsd" MetadataType="Schema" ID="ab290045-0685-4d97-b890-30d7aa93199d" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd6" />
+    <MetadataFile FileName="MaterieelService5.xsd" MetadataType="Schema" ID="a52c2632-730f-47ff-b93b-a3b549df3d97" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd5" />
+    <MetadataFile FileName="MaterieelService6.xsd" MetadataType="Schema" ID="229d958f-eefe-4430-80da-be205157a500" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MaterieelService7.xsd" MetadataType="Schema" ID="81971a1b-9b12-4cd3-874a-c46111a8e4b0" SourceId="1" SourceUrl="https://wsdev.kraan.com/kraan2vorm/MaterieelService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MaterieelService.wsdl" MetadataType="Wsdl" ID="653f9dbf-9e57-47f5-9fff-4fe78f553d61" SourceId="1" SourceUrl="file:///D:/School/Stage/TestApp/WindowsFormsAppTest/WindowsFormsAppTest/Connected Services/MaterieelWebservice/MaterieelService.wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
