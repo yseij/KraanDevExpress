@@ -24,13 +24,11 @@ namespace KraanDevExpress.Module.Controllers
 
         WebRequest _webRequest;
         TestRoute _testRoute;
-        DbConnectie _dbConnectie;
         public UrlController()
         {
             InitializeComponent();
             _webRequest = new WebRequest();
             _testRoute = new TestRoute();
-            _dbConnectie = new DbConnectie();
         }
         protected override void OnActivated()
         {

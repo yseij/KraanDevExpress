@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace KraanDevExpress.Module.BusinessObjects
@@ -442,12 +443,13 @@ namespace KraanDevExpress.Module.BusinessObjects
         {
             using (Sales31.MessageServiceSoapClient client = NewSales31Client(host))
             {
-                client.ClientCredentials.UserName.UserName = TxtBxUsername.Trim();
-                client.ClientCredentials.UserName.Password = TxtBxPassword.Trim();
-                if (client.ClientCredentials.UserName.UserName == string.Empty || client.ClientCredentials.UserName.Password == string.Empty)
+                if (TxtBxUsername.Trim() == string.Empty || TxtBxPassword.Trim() == string.Empty)
                 {
+                    MessageBox.Show("Geen gebruikersnaam of wachtwoord ingevuld");
                     return @"{ ex: '" + "gebruikersnaam of wachtwoord is niet ingevuld" + "'}";
                 }
+                client.ClientCredentials.UserName.UserName = TxtBxUsername.Trim();
+                client.ClientCredentials.UserName.Password = TxtBxPassword.Trim();
                 try
                 {
                     client.Open();
@@ -464,20 +466,36 @@ namespace KraanDevExpress.Module.BusinessObjects
                         Sales31.MessageResponseType antwoord = client.PostMessage(null, message);
                         if (antwoord.Message.MsgContent != null)
                         {
-                            string data = "{\""
-                                + antwoord.Message.MsgContent.Trim()
-                                .Replace("\r\n", "\", \"")
-                                .Replace(": ", "\": \"")
-                                .Replace(@"\", " ")
-                                .Replace("application\": \"", "application: ")
-                                .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
-                            client.Close();
-                            return data;
+                            if (_certIsGoed)
+                            {
+                                string data = "{\""
+                                        + antwoord.Message.MsgContent.Trim()
+                                        .Replace("\r\n", "\", \"")
+                                        .Replace(": ", "\": \"")
+                                        .Replace(@"\", " ")
+                                        .Replace("application\": \"", "application: ")
+                                        .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + cert.GetExpirationDateString().ToString() + "\"" + "}";
+                                client.Close();
+                                return data;
+                            }
+                            else
+                            {
+                                string data = "{\""
+                                        + antwoord.Message.MsgContent.Trim()
+                                        .Replace("\r\n", "\", \"")
+                                        .Replace(": ", "\": \"")
+                                        .Replace(@"\", " ")
+                                        .Replace("application\": \"", "application: ")
+                                        .Replace("Versie\": \"", "Versie: ") + "\", \"certVerValDatum\": " + "\"" + "Niet goed" + "\"" + "}";
+                                client.Close();
+                                return data;
+                            }
                         }
                         client.Close();
                     }
                     catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message.ToString());
                         return @"{ ex: '" + ex.Message.ToString() + "'}"; ;
                     }
                 }

@@ -98,7 +98,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\DbConnectie.cs" />
     <Compile Include="BusinessObjects\KlantWebservice.cs" />
     <Compile Include="BusinessObjects\Klant.cs" />
     <Compile Include="BusinessObjects\Name.cs" />
