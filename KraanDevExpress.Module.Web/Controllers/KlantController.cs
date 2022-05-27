@@ -44,42 +44,44 @@ namespace KraanDevExpress.Module.Web.Controllers
         {
             _objectspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
             _session = ((XPObjectSpace)_objectspace).Session;
-
-
-
-            foreach (Klant klant in e.Objects)
+            Klant klant1 = new Klant(_session);
+            if (e.Objects[0].GetType() == klant1.GetType())
             {
-                if (klant.klantWebservices.Count != 0)
+                foreach (Klant klant in e.Objects)
                 {
-                    DialogResult dialogResultUrlsByKlant =
-                        MessageBox.Show("Wilt u de urls van de klant " + klant.Name
-                        + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
-                    if (dialogResultUrlsByKlant == DialogResult.Yes)
+                    if (klant.klantWebservices.Count != 0)
                     {
-                        foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+                        DialogResult dialogResultUrlsByKlant =
+                            MessageBox.Show("Wilt u de urls van de klant " + klant.Name
+                            + " ook verwijderen", "Urls bij klant", MessageBoxButtons.YesNo);
+                        if (dialogResultUrlsByKlant == DialogResult.Yes)
                         {
-                            IList<Url> urls = Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid);
-                            if (urls.Count != 0)
+                            foreach (KlantWebservice klantWebservice in klant.klantWebservices)
                             {
-                                _session.Delete(urls);
+                                IList<Url> urls = Url.GetUrlsByKlantWebservice(_session, klantWebservice.Oid);
+                                if (urls.Count != 0)
+                                {
+                                    _session.Delete(urls);
+                                }
+                            }
+                            foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+                            {
+                                _session.Delete(_objectspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
                             }
                         }
-                        foreach (KlantWebservice klantWebservice in klant.klantWebservices)
+                        else
                         {
-                            _session.Delete(_objectspace.GetObjectByKey<KlantWebservice>(klantWebservice.Oid));
+                            MessageBox.Show("Er wordt niks verwijdert");
+                            e.Cancel = true;
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Er wordt niks verwijdert");
-                        e.Cancel = true;
+                        klant.Delete();
                     }
                 }
-                else
-                {
-                    klant.Delete();
-                }
             }
+            klant1.Delete();
             _objectspace.CommitChanges();
         }
     }

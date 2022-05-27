@@ -43,47 +43,51 @@ namespace KraanDevExpress.Module.Web.Controllers
         {
             _objecspace = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
             _session = ((XPObjectSpace)_objecspace).Session;
-
-            foreach (ResultTestKlant resultTestKlant in e.Objects)
+            ResultTestKlant resultTestKlant1 = new ResultTestKlant(_session);
+            if (e.Objects[0].GetType() == resultTestKlant1.GetType())
             {
-                if (resultTestKlant.ResultTestEenUrlMessageServices.Count == 0 && resultTestKlant.ResultTestEenUrls.Count == 0 && resultTestKlant.ResultTestEenUrlSoaps.Count == 0)
+                foreach (ResultTestKlant resultTestKlant in e.Objects)
                 {
-                    _session.Delete(_objecspace.GetObjectByKey<ResultTestKlant>(resultTestKlant.Oid));
-                }
-                else
-                {
-                    DialogResult dialogResultUrlsByKlant = MessageBox.Show("Wilt u de tests van de klant test ook verwijderen", "Tests bij klant", MessageBoxButtons.YesNo);
-                    if (dialogResultUrlsByKlant == DialogResult.Yes)
+                    if (resultTestKlant.ResultTestEenUrlMessageServices.Count == 0 && resultTestKlant.ResultTestEenUrls.Count == 0 && resultTestKlant.ResultTestEenUrlSoaps.Count == 0)
                     {
-                        if (resultTestKlant.ResultTestEenUrlMessageServices.Count != 0)
-                        {
-                            foreach (ResultTestEenUrlMessageService resultTestEenUrlMessageService in resultTestKlant.ResultTestEenUrlMessageServices)
-                            {
-                                _session.Delete(_objecspace.GetObjectByKey<ResultTestEenUrlMessageService>(resultTestEenUrlMessageService.Oid));
-                            }
-                        }
-                        if (resultTestKlant.ResultTestEenUrls.Count != 0)
-                        {
-                            foreach (ResultTestEenUrl resultTestEenUrl in resultTestKlant.ResultTestEenUrls)
-                            {
-                                _session.Delete(_objecspace.GetObjectByKey<ResultTestEenUrl>(resultTestEenUrl.Oid));
-                            }
-                        }
-                        if (resultTestKlant.ResultTestEenUrlSoaps.Count != 0)
-                        {
-                            foreach (ResultTestEenUrlSoap resultTestEenUrlSoap in resultTestKlant.ResultTestEenUrlSoaps)
-                            {
-                                _session.Delete(_objecspace.GetObjectByKey<ResultTestEenUrlSoap>(resultTestEenUrlSoap.Oid));
-                            }
-                        }
+                        _session.Delete(_objecspace.GetObjectByKey<ResultTestKlant>(resultTestKlant.Oid));
                     }
                     else
                     {
-                        MessageBox.Show("Er wordt niks verwijdert");
-                        e.Cancel = true;
+                        DialogResult dialogResultUrlsByKlant = MessageBox.Show("Wilt u de tests van de klant test ook verwijderen", "Tests bij klant", MessageBoxButtons.YesNo);
+                        if (dialogResultUrlsByKlant == DialogResult.Yes)
+                        {
+                            if (resultTestKlant.ResultTestEenUrlMessageServices.Count != 0)
+                            {
+                                foreach (ResultTestEenUrlMessageService resultTestEenUrlMessageService in resultTestKlant.ResultTestEenUrlMessageServices)
+                                {
+                                    _session.Delete(_objecspace.GetObjectByKey<ResultTestEenUrlMessageService>(resultTestEenUrlMessageService.Oid));
+                                }
+                            }
+                            if (resultTestKlant.ResultTestEenUrls.Count != 0)
+                            {
+                                foreach (ResultTestEenUrl resultTestEenUrl in resultTestKlant.ResultTestEenUrls)
+                                {
+                                    _session.Delete(_objecspace.GetObjectByKey<ResultTestEenUrl>(resultTestEenUrl.Oid));
+                                }
+                            }
+                            if (resultTestKlant.ResultTestEenUrlSoaps.Count != 0)
+                            {
+                                foreach (ResultTestEenUrlSoap resultTestEenUrlSoap in resultTestKlant.ResultTestEenUrlSoaps)
+                                {
+                                    _session.Delete(_objecspace.GetObjectByKey<ResultTestEenUrlSoap>(resultTestEenUrlSoap.Oid));
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Er wordt niks verwijdert");
+                            e.Cancel = true;
+                        }
                     }
                 }
             }
+            resultTestKlant1.Delete();
             _objecspace.CommitChanges();
         }
     }
