@@ -106,32 +106,32 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="32.352941176470587">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="28.823529411764707">
             <LayoutGroup Id="ResultTestEenUrlMessageService" RelativeSize="100">
-              <LayoutGroup Id="ResultTestEenUrlMessageService_col1" RelativeSize="49.866666666666667">
-                <LayoutItem Id="KraanDll" RelativeSize="17.391304347826086" Index="0" />
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col1" RelativeSize="49.825479930191975">
+                <LayoutItem Id="KraanDll" RelativeSize="20" Index="0" />
                 <LayoutItem Id="WebserviceWerkt" RelativeSize="15.384615384615385" Index="0" Removed="True" />
-                <LayoutItem Id="KraanIni" RelativeSize="13.043478260869565" Index="1" />
-                <LayoutItem Id="DatabaseConnectie" RelativeSize="13.043478260869565" Index="2" />
-                <LayoutItem Id="Sll" RelativeSize="13.043478260869565" Index="3" />
-                <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="13.043478260869565" Index="4" />
-                <LayoutItem Id="MessageVersie" ViewItem="MessageVersie" Index="5" RelativeSize="13.043478260869565" IsNewNode="True" Removed="True" />
-                <LayoutItem Id="InterBaseVersie" Index="6" RelativeSize="17.391304347826086" />
+                <LayoutItem Id="KraanIni" RelativeSize="15" Index="1" />
+                <LayoutItem Id="DatabaseConnectie" RelativeSize="15" Index="2" />
+                <LayoutItem Id="Sll" RelativeSize="15" Index="3" />
+                <LayoutItem Id="SllCertificaatVervalDatum" RelativeSize="15" Index="4" />
+                <LayoutItem Id="MessageVersie" ViewItem="MessageVersie" Index="5" RelativeSize="20" IsNewNode="True" Removed="True" />
+                <LayoutItem Id="InterBaseVersie" Index="6" RelativeSize="17.391304347826086" Removed="True" />
               </LayoutGroup>
-              <LayoutGroup Id="ResultTestEenUrlMessageService_col2" RelativeSize="50.133333333333333">
-                <LayoutItem Id="InterBaseVersie" Index="0" RelativeSize="30.434782608695652" ViewItem="InterBaseVersie" IsNewNode="True" />
-                <LayoutItem Id="MssqlServer" RelativeSize="13.043478260869565" Index="1" />
-                <LayoutItem Id="MssqlCatalog" RelativeSize="13.043478260869565" Index="2" />
-                <LayoutItem Id="Kraan1DatabaseVersie" RelativeSize="13.043478260869565" Index="3" />
-                <LayoutItem Id="Kraan2DatabaseVersie" RelativeSize="13.043478260869565" Index="4" />
-                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="5" RelativeSize="17.391304347826086" IsNewNode="True" />
+              <LayoutGroup Id="ResultTestEenUrlMessageService_col2" RelativeSize="50.174520069808025">
+                <LayoutItem Id="InterBaseVersie" ViewItem="InterBaseVersie" Index="0" RelativeSize="20" IsNewNode="True" />
+                <LayoutItem Id="MssqlServer" RelativeSize="15" Index="1" />
+                <LayoutItem Id="MssqlCatalog" RelativeSize="15" Index="2" />
+                <LayoutItem Id="Kraan1DatabaseVersie" RelativeSize="15" Index="3" />
+                <LayoutItem Id="Kraan2DatabaseVersie" RelativeSize="15" Index="4" />
+                <LayoutItem Id="WebserviceWerkt" ViewItem="WebserviceWerkt" Index="5" RelativeSize="20" IsNewNode="True" />
                 <LayoutItem Id="ResultTestKlant" RelativeSize="44.827586206896555" Removed="True" />
                 <LayoutItem Id="ResultTestUrls" RelativeSize="34.482758620689658" Removed="True" />
                 <LayoutItem Id="Soort" RelativeSize="55.172413793103445" Removed="True" />
               </LayoutGroup>
             </LayoutGroup>
           </LayoutGroup>
-          <LayoutGroup Id="SizeableEditors" RelativeSize="67.6470588235294" Caption="SizeableEditors">
+          <LayoutGroup Id="SizeableEditors" RelativeSize="71.17647058823529" Caption="SizeableEditors">
             <LayoutItem Id="Response" CaptionLocation="Top" RelativeSize="100" Index="0" />
             <LayoutItem Id="Name" Removed="True" />
           </LayoutGroup>
