@@ -191,7 +191,7 @@ namespace KraanDevExpress.Module.Controllers
 
         private void WebserviceCheck(string urlName, KlantWebservice klantWebservice, ResultTestKlant resultTestKlant)
         {
-            if (klantWebservice.Webservice.Name == "KraanHomeDNA")
+            if (klantWebservice.Webservice.Name == "KraanHomeDna")
             {
                 urlName += "/HomeDna.svc/GetWebserviceVersion";
                 TestUrl(urlName, klantWebservice, resultTestKlant, true);
